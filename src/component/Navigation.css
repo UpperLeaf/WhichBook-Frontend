@@ -1,0 +1,40 @@
+li {
+    list-style-type: none;
+    display: inline;
+    padding: 10px;
+    font-size: 20px;
+}
+
+li > a {
+    text-decoration: none;
+    color: black;
+    margin-left: 15px;
+}
+
+li > a:visited {
+    color: black;
+}
+
+
+ul {
+    display: inline;
+    float: right;
+    margin: 20px;
+}
+
+.nav-title {
+    margin-top: 20px;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.nav-title > a {
+    text-decoration: none;
+}
+
+.nav-title > a:visited {
+    color: black;
+    text-decoration: none;
+}
