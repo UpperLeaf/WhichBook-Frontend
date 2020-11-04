@@ -12,8 +12,15 @@ const AuthContext = createContext({
 });
 
 const AuthProvider = ({children}) => {
-    const [user, setUser] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    let localUser = localStorage.getItem('user');
+    let localIsAuthenticated = localStorage.getItem('isAuthenticated');
+
+    if(localIsAuthenticated === null){
+        localIsAuthenticated = false;
+    }
+    
+    const [user, setUser] = useState(localUser);
+    const [isAuthenticated, setIsAuthenticated] = useState(localIsAuthenticated);
 
     const value = {
         state: { user, isAuthenticated },
