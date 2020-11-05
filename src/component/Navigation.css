@@ -16,10 +16,11 @@ li > a:visited {
 }
 
 
-ul {
+nav ul {
     display: inline;
     float: right;
     margin: 20px;
+    margin-top: 30px;
 }
 
 .nav-title {
@@ -37,4 +38,47 @@ ul {
 .nav-title > a:visited {
     color: black;
     text-decoration: none;
+}
+
+.dropdown {
+    float: right;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;
+    border:none;
+    outline:none;
+    color:black;
+    background-color: inherit;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-right: 20px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ababab;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content button{
+    background:white;
+    color:#1AAB8A;
+    border:none;
+    height: 35px;
+    font-size:1em;
+    padding:0 2em;
+    cursor:pointer;
+    display: block;
+    outline:none;
+}
+
+.dropdown-content button:hover {
+    color: #4B89DC;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
 }

@@ -18,7 +18,7 @@ input {
     border: 0
 }
 
-button {
+.signup-button {
     background:#1AAB8A;
     color:#fff;
     border:none;
@@ -32,12 +32,12 @@ button {
     outline:none;
 }
 
-button:hover {
+.signup-button:hover {
     background:#fff;
     color:#1AAB8A;
 }
 
-button:before,button:after{
+.signup-button:before,.signup-button:after{
     position:absolute;
     top:0;
     right:0;
@@ -47,14 +47,14 @@ button:before,button:after{
     transition:400ms ease all;
 }
 
-button:after{
+.signup-button:after{
     right:inherit;
     top:inherit;
     left:0;
     bottom:0;
 }
 
-button:hover:before,button:hover:after{
+.signup-button:hover:before,.signup-button:hover:after{
     width:100%;
     transition:800ms ease all;
 }

@@ -28,7 +28,7 @@ input:focus {
     border: 0
 }
 
-button {
+.login-button {
     background:#1AAB8A;
     color:#fff;
     border:none;
@@ -42,12 +42,12 @@ button {
     outline:none;
 }
 
-button:hover {
+.login-button:hover {
     background:#fff;
     color:#1AAB8A;
 }
 
-button:before,button:after{
+.login-button:before,.login-button:after{
     position:absolute;
     top:0;
     right:0;
@@ -57,14 +57,14 @@ button:before,button:after{
     transition:400ms ease all;
 }
 
-button:after{
+.login-button:after{
     right:inherit;
     top:inherit;
     left:0;
     bottom:0;
 }
 
- button:hover:before,button:hover:after{
+.login-button:hover:before,.login-button:hover:after{
     width:100%;
     transition:800ms ease all;
 }

@@ -59,7 +59,7 @@ const LoginForm = () => {
                 <input type="email" id="email" placeholder="이메일" required value={email} onChange={onEmailChanged}></input>
                 <label htmlFor="password"><small>비밀번호</small></label>
                 <input type="password" id="password" placeholder="비밀번호" required value={password} onChange={onPasswordChanged}></input>
-                <button type="button" onClick={handleClick}>로그인 하기</button>
+                <button type="button" className="login-button" onClick={handleClick}>로그인 하기</button>
             </form>
         </div>
     )

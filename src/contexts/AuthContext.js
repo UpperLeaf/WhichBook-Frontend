@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import { createContext, useState } from 'react';
 
 const AuthContext = createContext({
@@ -14,7 +15,7 @@ const AuthContext = createContext({
 const AuthProvider = ({children}) => {
     let localUser = localStorage.getItem('user');
     let localIsAuthenticated = localStorage.getItem('isAuthenticated');
-
+    
     if(localIsAuthenticated === null){
         localIsAuthenticated = false;
     }

@@ -71,7 +71,7 @@ const SignupForm = () => {
                 <input type="password" id="password-confirm" placeholder="비밀번호" required onChange={onChangePasswordConfirm} value={passwordConfirm}></input>
                 <label htmlFor="nickname"><small>닉네임</small></label>
                 <input type="nickname" id="nickname" placeholder="닉네임" required onChange={onChangeNickname} value={nickname}></input>
-                <button type="button" onClick={handleClick}>회원가입 하기</button>
+                <button type="button" className="signup-button" onClick={handleClick}>회원가입 하기</button>
             </form>
         </div>
     )
