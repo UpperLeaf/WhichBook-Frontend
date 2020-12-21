@@ -1,7 +1,7 @@
 import Navigation from '../component/Navigation';
 import SignupForm from '../component/SignupForm';
 
-const Login = () => {
+const Signup = () => {
     return (
         <div>
             <Navigation />
@@ -10,4 +10,4 @@ const Login = () => {
     )
 }
 
-export default Login;
+export default Signup;

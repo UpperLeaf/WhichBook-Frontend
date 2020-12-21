@@ -64,9 +64,11 @@ nav ul {
 }
 
 .dropdown-content button{
-    background:white;
+    background-color: white;
     color:#1AAB8A;
     border:none;
+    margin: 0px;
+    width: 170px;
     height: 35px;
     font-size:1em;
     padding:0 2em;
