@@ -3,24 +3,20 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import { getUserInfo } from "../utils/AxiosUtil";
 import Axios from "axios";
 
 const AuthNav = () => {
-    const [nickname, setNickName] = useState("");
+    const [nickname, setNickname] = useState("");
 
     useEffect(() => {
-        const url = "http://localhost:8080/user/info";
-        const config = {
-            headers: {
-                Authorization: localStorage.getItem("accessToken"),
-            },
+        const fetchUserInfo = async () => {
+            let resposne = await getUserInfo();
+            setNickname(resposne.data.nickname);
+            localStorage.setItem("userId", resposne.data.userId);
         };
-        let response;
-        async function fetchData() {
-            response = await Axios.get(url, config);
-            setNickName(response.data.nickname);
-        }
-        fetchData();
+
+        fetchUserInfo();
     }, []);
 
     return (
@@ -50,6 +46,7 @@ const DropdownBar = () => {
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
             localStorage.removeItem("isAuthenticated");
+            localStorage.removeItem("userId");
             actions.setIsAuthenticated(false);
             history.push("/");
         }

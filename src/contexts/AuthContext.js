@@ -1,38 +1,40 @@
-import { createContext, useState } from 'react';
+import { createContext, useState } from "react";
 
 const AuthContext = createContext({
     state: {
         user: null,
-        isAuthenticated: false
+        isAuthenticated: false,
     },
     actions: {
         setUser: () => {},
-        setIsAuthenticated: () => {}
-    }
+        setIsAuthenticated: () => {},
+    },
 });
 
-const AuthProvider = ({children}) => {
-    let localUser = localStorage.getItem('user');
-    let localIsAuthenticated = localStorage.getItem('isAuthenticated');
-    
-    if(localIsAuthenticated === null){
+const AuthProvider = ({ children }) => {
+    let localUser = localStorage.getItem("user");
+    let localIsAuthenticated = localStorage.getItem("isAuthenticated");
+
+    if (localIsAuthenticated === null) {
         localIsAuthenticated = false;
     }
 
     const [user, setUser] = useState(localUser);
-    const [isAuthenticated, setIsAuthenticated] = useState(localIsAuthenticated);
+    const [isAuthenticated, setIsAuthenticated] = useState(
+        localIsAuthenticated
+    );
 
     const value = {
         state: { user, isAuthenticated },
-        actions: {setUser, setIsAuthenticated}
+        actions: { setUser, setIsAuthenticated },
     };
 
     return (
         <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-    )
-}
+    );
+};
 
-const { Consumer: AuthConsumer } = AuthContext; 
+const { Consumer: AuthConsumer } = AuthContext;
 
 export { AuthProvider, AuthConsumer };
 

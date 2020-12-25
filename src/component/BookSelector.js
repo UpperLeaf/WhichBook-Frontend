@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import CloseIcon from "@material-ui/icons/Close";
+import BookInfo from "./BookInfo";
 import { getBookList } from "../utils/AxiosUtil";
 import {
     Input,
     Dialog,
     List,
     ListItem,
+    Grid,
     Slide,
     makeStyles,
     AppBar,
@@ -21,7 +23,7 @@ const BookSelector = (props) => {
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState("");
 
-    const { setBook, setIsSelected } = props;
+    const { book, setBook, isSelected, setIsSelected } = props;
 
     const classes = useStyles();
 
@@ -29,7 +31,6 @@ const BookSelector = (props) => {
         marginBottom: "20px",
         marginTop: "20px",
         border: "0px",
-        width: "1000px",
     };
 
     const handleSearch = async (e) => {
@@ -63,12 +64,20 @@ const BookSelector = (props) => {
 
     return (
         <div>
-            <Input
-                type="search"
-                onKeyPress={handleSearch}
-                style={inputStyle}
-                placeholder="책 이름을 입력해주세요."
-            ></Input>
+            <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                    <Input
+                        type="search"
+                        onKeyPress={handleSearch}
+                        style={inputStyle}
+                        fullWidth={true}
+                        placeholder="책 이름을 입력해주세요."
+                    ></Input>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <BookInfo isSelected={isSelected} bookId={book}></BookInfo>
+                </Grid>
+            </Grid>
             <Dialog
                 fullScreen
                 open={open}

@@ -32,7 +32,7 @@ const signUpRequest = async (params) => {
         );
         return response;
     } catch (err) {
-        alert("network error");
+        console.log("Error in signUpRequest Method : " + err);
         return err;
     }
 };
@@ -54,7 +54,25 @@ const loginRequest = async (params) => {
         );
         return response;
     } catch (err) {
-        alert("network error");
+        console.log("Error in loginRequest Method : " + err);
+        return err;
+    }
+};
+
+const getUserInfo = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+    const config = {
+        headers: {
+            Authorization: accessToken,
+        },
+    };
+
+    try {
+        let response = await Axios.get(url + "/user/info", config);
+        return response;
+    } catch (err) {
+        console.log("Error in getUserInfo Method : " + err);
+        return err;
     }
 };
 
@@ -63,9 +81,65 @@ const getBookList = async (title) => {
         let response = await Axios.get(url + "/book/search?title=" + title);
         return response;
     } catch (err) {
-        console.log("Error" + err);
+        console.log("Error in getBookInfo Method : " + err);
         return err;
     }
 };
 
-export { loginRequest, signUpRequest, checkTokenValid, getBookList };
+const getBookInfo = async (bookId) => {
+    try {
+        let response = await Axios.get(url + "/book/" + bookId);
+        return response;
+    } catch (err) {
+        console.log("Error in getBookInfo Method : " + err);
+    }
+};
+
+const composeRequest = async (title, description, bookId) => {
+    const isAuthenticated = localStorage.getItem("isAuthenticated");
+    if (!isAuthenticated) {
+        alert("재로그인이 필요합니다. 다시 로그인 해주세요.");
+        return;
+    }
+    const accessToken = localStorage.getItem("accessToken");
+    const userId = localStorage.getItem("userId");
+
+    const config = {
+        headers: {
+            Authorization: accessToken,
+            "Content-Type": "application/json",
+        },
+    };
+
+    const data = {
+        bookId: bookId,
+        title: title,
+        description: description,
+        userId: userId,
+    };
+
+    console.log(data);
+
+    try {
+        let response = await Axios.post(
+            url + "/review",
+            JSON.stringify(data),
+            config
+        );
+
+        return response;
+    } catch (err) {
+        console.log("Error in composeRequest Method : " + err);
+        return err;
+    }
+};
+
+export {
+    loginRequest,
+    signUpRequest,
+    checkTokenValid,
+    getBookList,
+    getBookInfo,
+    getUserInfo,
+    composeRequest,
+};

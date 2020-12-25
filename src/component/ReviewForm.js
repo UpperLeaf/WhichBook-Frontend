@@ -1,22 +1,45 @@
 import BookSelector from "./BookSelector";
 import Compose from "./Compose";
-import BookInfo from "./BookInfo";
 import { useState } from "react";
+import { Button } from "@material-ui/core";
+import { composeRequest } from "../utils/AxiosUtil";
 
 const ReviewForm = () => {
-    const [book, setBook] = useState({});
+    const [book, setBook] = useState();
     const [isSelected, setIsSelected] = useState(false);
     const [review, setReview] = useState("");
+    const [title, setTitle] = useState("");
+
+    const buttonStyle = {
+        marginTop: "20px",
+    };
+
+    const handleButtonClick = async () => {
+        let response = await composeRequest(title, review, book);
+        console.log(response);
+    };
 
     return (
         <div>
             <BookSelector
                 book={book}
                 setBook={setBook}
+                isSelected={isSelected}
                 setIsSelected={setIsSelected}
             ></BookSelector>
-            <BookInfo isSelected={isSelected}></BookInfo>
-            <Compose review={review} setReview={setReview}></Compose>
+            <Compose
+                review={review}
+                setReview={setReview}
+                title={title}
+                setTitle={setTitle}
+            ></Compose>
+            <Button
+                style={buttonStyle}
+                variant="contained"
+                onClick={handleButtonClick}
+            >
+                작성하기
+            </Button>
         </div>
     );
 };
