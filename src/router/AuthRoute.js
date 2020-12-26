@@ -1,6 +1,6 @@
-import { BrowserRouter } from 'react-router-dom';
-import { Home, Login, Signup, ComposeReview} from '../pages';
-import { Route } from 'react-router-dom'
+import { BrowserRouter } from "react-router-dom";
+import { Home, Login, Signup, ComposeReview, Review } from "../pages";
+import { Route } from "react-router-dom";
 
 const Router = () => {
     return (
@@ -9,8 +9,9 @@ const Router = () => {
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/signup" component={Signup}></Route>
             <Route exact path="/compose" component={ComposeReview}></Route>
-        </BrowserRouter>        
-    )
-}
+            <Route exact path="/review/:reviewId" component={Review}></Route>
+        </BrowserRouter>
+    );
+};
 
 export default Router;

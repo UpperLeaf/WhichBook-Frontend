@@ -3,19 +3,22 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
-import { getUserInfo } from "../utils/AxiosUtil";
-import Axios from "axios";
+import { getUserInfo, logoutRequest } from "../utils/AxiosUtil";
 
 const AuthNav = () => {
     const [nickname, setNickname] = useState("");
+    const history = useHistory();
 
     useEffect(() => {
         const fetchUserInfo = async () => {
-            let resposne = await getUserInfo();
-            setNickname(resposne.data.nickname);
-            localStorage.setItem("userId", resposne.data.userId);
+            try {
+                let resposne = await getUserInfo();
+                setNickname(resposne.data.nickname);
+                localStorage.setItem("userId", resposne.data.userId);
+            } catch (err) {
+                await logoutRequest(history);
+            }
         };
-
         fetchUserInfo();
     }, []);
 
@@ -36,20 +39,10 @@ const DropdownBar = () => {
     const history = useHistory();
 
     const handleLogout = async () => {
-        const url = "http://localhost:8080/user/logout";
-
-        const config = {
-            headers: { Authorization: localStorage.getItem("refreshToken") },
-        };
-        let response = await Axios.get(url, config);
-        if (response.status === 200) {
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
-            localStorage.removeItem("isAuthenticated");
-            localStorage.removeItem("userId");
-            actions.setIsAuthenticated(false);
-            history.push("/");
-        }
+        let response = await logoutRequest();
+        actions.setIsAuthenticated(false);
+        actions.setUser(undefined);
+        history.push("/");
     };
 
     return (

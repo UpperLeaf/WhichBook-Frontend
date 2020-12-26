@@ -76,6 +76,16 @@ const getUserInfo = async () => {
     }
 };
 
+const getReviewInfo = async (reviewId) => {
+    try {
+        let response = await Axios.get(url + "/review/" + reviewId);
+        return response;
+    } catch (err) {
+        console.log("Error in getReviewInfo Method : " + err);
+        return err;
+    }
+};
+
 const getBookList = async (title) => {
     try {
         let response = await Axios.get(url + "/book/search?title=" + title);
@@ -83,6 +93,19 @@ const getBookList = async (title) => {
     } catch (err) {
         console.log("Error in getBookInfo Method : " + err);
         return err;
+    }
+};
+
+const logoutRequest = async () => {
+    const config = {
+        headers: { Authorization: localStorage.getItem("refreshToken") },
+    };
+    let response = await Axios.get(url + "/user/logout", config);
+    if (response.status === 200) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("isAuthenticated");
+        localStorage.removeItem("userId");
     }
 };
 
@@ -136,10 +159,12 @@ const composeRequest = async (title, description, bookId) => {
 
 export {
     loginRequest,
+    logoutRequest,
     signUpRequest,
     checkTokenValid,
     getBookList,
     getBookInfo,
     getUserInfo,
+    getReviewInfo,
     composeRequest,
 };
