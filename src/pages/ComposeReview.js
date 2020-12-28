@@ -1,5 +1,5 @@
-import Navigation from "../component/Navigation";
-import ReviewForm from "../component/ReviewForm";
+import Navigation from "../component/navigation/Navigation";
+import ReviewForm from "../component/review/ReviewForm";
 
 const ComposeReview = () => {
     return (

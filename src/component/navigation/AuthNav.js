@@ -2,8 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { useState, useContext, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
-import AuthContext from "../contexts/AuthContext";
-import { getUserInfo, logoutRequest } from "../utils/AxiosUtil";
+import AuthContext from "../../contexts/AuthContext";
+import { getUserInfo, logoutRequest } from "../../utils/AxiosUtil";
 
 const AuthNav = () => {
     const [nickname, setNickname] = useState("");

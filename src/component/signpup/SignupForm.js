@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { signUpRequest } from "../utils/AxiosUtil";
+import { signUpRequest } from "../../utils/AxiosUtil";
 
 import "./SignupForm.css";
 

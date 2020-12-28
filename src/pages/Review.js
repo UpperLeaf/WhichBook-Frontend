@@ -1,5 +1,5 @@
-import Navigation from "../component/Navigation";
-import Viewer from "../component/Viewer";
+import Navigation from "../component/navigation/Navigation";
+import Viewer from "../component/review/Viewer";
 import { useEffect, useState } from "react";
 import { getReviewInfo } from "../utils/AxiosUtil";
 

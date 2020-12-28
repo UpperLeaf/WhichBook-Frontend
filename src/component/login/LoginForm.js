@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import AuthContext from "../contexts/AuthContext";
-import { loginRequest } from "../utils/AxiosUtil";
+import AuthContext from "../../contexts/AuthContext";
+import { loginRequest } from "../../utils/AxiosUtil";
 
 import "./LoginForm.css";
 
