@@ -8,12 +8,11 @@ input {
     border-radius: 7px;
     text-align: start;
     text-indent: 0px;
-    
 }
 
 
 .SignupForm {
-    max-width: 30rem;   
+    width:30%;
     margin: 0 auto;
     border: 0
 }

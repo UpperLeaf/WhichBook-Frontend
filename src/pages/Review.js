@@ -1,6 +1,7 @@
 import Navigation from "../component/navigation/Navigation";
 import Viewer from "../component/review/Viewer";
 import { useEffect, useState } from "react";
+import Main from '../component/main/Main'
 import { getReviewInfo } from "../utils/AxiosUtil";
 
 const Review = ({ match }) => {
@@ -21,7 +22,7 @@ const Review = ({ match }) => {
     }, [reviewId]);
 
     return (
-        <div>
+        <Main>
             <Navigation></Navigation>
             <Viewer
                 bookTitle={bookTitle}
@@ -29,7 +30,7 @@ const Review = ({ match }) => {
                 description={description}
                 reviewTitle={reviewTitle}
             ></Viewer>
-        </div>
+        </Main>
     );
 };
 

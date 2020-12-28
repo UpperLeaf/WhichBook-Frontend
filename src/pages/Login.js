@@ -1,12 +1,12 @@
 import Navigation from "../component/navigation/Navigation";
 import LoginForm from "../component/login/LoginForm";
-
+import Main from '../component/main/Main'
 const Login = () => {
     return (
-        <div>
+        <Main>
             <Navigation />
             <LoginForm />
-        </div>
+        </Main>
     );
 };
 
