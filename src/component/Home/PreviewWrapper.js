@@ -18,7 +18,7 @@ class PreviewWrapper extends React.Component {
         ))
         
         return (
-            <div>
+            <div className="preview_wrapper">
                 {Pages}
             </div>
         )

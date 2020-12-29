@@ -1,7 +1,7 @@
 .search_container{
     display:flex;
     height:52px;
-    width:60%;
+    width:50%;
     border:2px solid black; 
     margin-top:50px;
     align-self: center;

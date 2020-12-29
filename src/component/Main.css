@@ -25,9 +25,3 @@
         width:500px;
     }
 }
-
-@media(max-width:600px){
-    .main{
-        width:250px;
-    }
-}

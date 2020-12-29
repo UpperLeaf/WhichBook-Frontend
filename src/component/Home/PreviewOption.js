@@ -10,7 +10,12 @@ class PreviewOption extends React.Component{
     render(){
         const {optionTitle, checked, onClick} = this.props;
         return (
-            <li className={`preview_option ${checked && 'active'}`} onClick={() => onClick(optionTitle)}>
+            <li className={`preview_option ${optionTitle} ${checked && 'active'}`} onClick={() => onClick(optionTitle)}>
+                <div className ="remove_container">
+                <div className="remove">
+                    ×
+                </div>
+                </div>
                 {optionTitle}
             </li>
         );

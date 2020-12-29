@@ -10,15 +10,13 @@ class PreviewPage extends React.Component {
         const Page = previews.map((
             {imgURL, title, description, createdAt, author, id}
         ) => (
-            <div key={id}>
-                <Preview
-                imgURL = {imgURL}
-                title = {title}
-                description = {description}
-                createdAt = {createdAt}
-                author = {author}
-                />
-            </div>
+            <Preview key={id}
+                imgURL={imgURL}
+                title={title}
+                description={description}
+                createdAt={createdAt}
+                author={author}
+            />
         ))
 
         return (
