@@ -1,6 +1,6 @@
 import Navigation from '../component/navigation/Navigation';
 import SignupForm from '../component/signpup/SignupForm';
-import Main from '../component/main/Main'
+import Main from '../component/Main'
 
 const Signup = () => {
     return (

@@ -1,6 +1,6 @@
 import Navigation from "../component/navigation/Navigation";
 import LoginForm from "../component/login/LoginForm";
-import Main from '../component/main/Main'
+import Main from '../component/Main'
 const Login = () => {
     return (
         <Main>

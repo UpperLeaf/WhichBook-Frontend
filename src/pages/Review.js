@@ -1,7 +1,7 @@
 import Navigation from "../component/navigation/Navigation";
 import Viewer from "../component/review/Viewer";
 import { useEffect, useState } from "react";
-import Main from '../component/main/Main'
+import Main from '../component/Main'
 import { getReviewInfo } from "../utils/AxiosUtil";
 
 const Review = ({ match }) => {

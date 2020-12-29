@@ -1,6 +1,6 @@
 import Navigation from '../component/navigation/Navigation';
-import Main from '../component/main/Main'
-import Search from '../component/Home/search/Search'
+import Main from '../component/Main'
+import Search from '../component/Home/Search'
 
 const Home = () => {
     return (
