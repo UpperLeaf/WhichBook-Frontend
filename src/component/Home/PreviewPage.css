@@ -1,0 +1,7 @@
+.preview_page{
+    display:none;
+}
+
+.preview_page.active{
+    display:flex;
+}
