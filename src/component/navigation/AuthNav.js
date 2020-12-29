@@ -36,6 +36,7 @@ const AuthNav = () => {
 
 const DropdownBar = () => {
     const { actions } = useContext(AuthContext);
+    const [clickedDropdownBtn, setClickedDropdownbtn] = useState(false);
     const history = useHistory();
 
     const handleLogout = async () => {
@@ -45,12 +46,16 @@ const DropdownBar = () => {
         history.push("/");
     };
 
+    const handleOnClick= () => {
+        setClickedDropdownbtn(!clickedDropdownBtn);
+    }
+
     return (
         <div className="dropdown">
-            <button className="dropbtn">
+            <button onClick={handleOnClick}className="dropbtn">
                 <FontAwesomeIcon icon={faCaretDown} size="lg" />
             </button>
-            <div className="dropdown-content">
+            <div className={`dropdown-content ${clickedDropdownBtn && 'active'}`}>
                 <Link to="/compose" style={{ textDecoration: "none" }}>
                     <button>리뷰 작성하기</button>
                 </Link>

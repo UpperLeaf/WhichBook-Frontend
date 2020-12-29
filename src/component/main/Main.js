@@ -4,7 +4,7 @@ import "./Main.css"
 class Main extends React.Component {
     render() {
         return (
-            <div class="main">
+            <div className="main">
                 {this.props.children}
             </div>
         );

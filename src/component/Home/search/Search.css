@@ -1,9 +1,9 @@
 .search_container{
     display:flex;
     height:52px;
-    width:582px;
+    width:60%;
     border:2px solid black; 
-    margin-top:40px;
+    margin-top:50px;
     align-self: center;
     background-color: #ffffff;
     align-items: center;
