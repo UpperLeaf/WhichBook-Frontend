@@ -8,11 +8,13 @@ class PreviewOption extends React.Component{
     }
 
     render(){
-        const {optionTitle, checked, onClick} = this.props;
+        const {optionTitle, checked, onClick, onRemove} = this.props;
         return (
             <li className={`preview_option ${optionTitle} ${checked && 'active'}`} onClick={() => onClick(optionTitle)}>
                 <div className ="remove_container">
-                <div className="remove">
+                <div className="remove" onClick={(e) => {
+                    e.stopPropagation();
+                    onRemove(optionTitle)}}>
                     ×
                 </div>
                 </div>

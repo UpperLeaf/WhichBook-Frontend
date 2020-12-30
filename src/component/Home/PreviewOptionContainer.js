@@ -10,13 +10,14 @@ class PreviewOptionContainer extends React.Component {
 
     render() {
 
-        const { options, onClick } = this.props;
+        const { options, onClick, onRemove } = this.props;
         const optionList = options.map(
             ({ optionTitle, checked}) => (
                 <PreviewOption key={optionTitle}
                     optionTitle={optionTitle}
                     checked={checked}
                     onClick={onClick}
+                    onRemove={onRemove}
                 />
         )
         )
