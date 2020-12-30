@@ -1,17 +1,9 @@
-class OptionDo{
+import PreviewOptionDo from './PreviewOptionDo.js';
+
+class PreviewOptionDoBuilder{
 
     constructor(){
-        this.optionTitle="";
-        this.checked=false;
-        this.previews=[];
-    }
-    
-}
-
-class OptionDoBuilder{
-
-    constructor(){
-        this.option = new OptionDo();
+        this.option = new PreviewOptionDo();
     };
 
     setOptionTitle(optionTitle){
@@ -29,10 +21,11 @@ class OptionDoBuilder{
         return this;
     }
 
-    build(){
+    build() {
         return this.option;
     }
 
+
 }
 
-export default OptionDoBuilder;
+export default PreviewOptionDoBuilder;
