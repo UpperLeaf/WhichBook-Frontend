@@ -1,12 +1,13 @@
-import Navigation from "../component/Navigation";
-import ReviewForm from "../component/ReviewForm";
+import Navigation from "../component/navigation/Navigation";
+import ReviewForm from "../component/review/ReviewForm";
+import Main from '../component/Main'
 
 const ComposeReview = () => {
     return (
-        <div>
+        <Main>
             <Navigation />
             <ReviewForm></ReviewForm>
-        </div>
+        </Main>
     );
 };
 

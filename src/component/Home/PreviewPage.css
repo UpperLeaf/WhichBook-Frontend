@@ -1,0 +1,11 @@
+.preview_page{
+    display:none;
+    width:100%;
+    display:none;
+    flex-wrap: wrap;
+    flex:1 1 0;
+}
+
+.preview_page.active{
+    display:flex;
+}

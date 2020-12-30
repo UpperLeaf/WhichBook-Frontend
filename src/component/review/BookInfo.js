@@ -1,6 +1,6 @@
 import { Card } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { getBookInfo } from "../utils/AxiosUtil";
+import { getBookInfo } from "../../utils/AxiosUtil";
 
 const BookInfo = (props) => {
     const { isSelected, bookId } = props;

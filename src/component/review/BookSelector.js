@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import BookInfo from "./BookInfo";
-import { getBookList } from "../utils/AxiosUtil";
+import { getBookList } from "../../utils/AxiosUtil";
 import {
     Input,
     Dialog,

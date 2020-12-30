@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import AuthContext from "../contexts/AuthContext";
+import AuthContext from "../../contexts/AuthContext";
 import "./Navigation.css";
 import NormalNav from "./NormalNav";
 import AuthNav from "./AuthNav";
