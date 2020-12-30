@@ -4,6 +4,9 @@ import Main from '../component/Main'
 import Search from '../component/Home/Search'
 import PreviewOptionContainer from '../component/Home/PreviewOptionContainer';
 import PreviewWrapper from '../component/Home/PreviewWrapper';
+import OptionDoBuilder from '../component/Home/Do/OptionDo';
+import PreviewDoBuilder from '../component/Home/Do/PreviewDo';
+
 class Home extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState){
@@ -11,47 +14,70 @@ class Home extends React.Component {
     }
 
     state = {
+        query:'',
         options: [
-            {
-                optionTitle: "trend", checked: false, previews: [{
-                    imgURL: "https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222",
-                    title: "달러구트 꿈백화점 달러구트 꿈백화점",
-                    description: "만들어진 꿈을 살 수 있는 상점이 있다면? 꾸고 싶은 꿈은 살 수 있다면 사람들은 어떤 꿈을 고를까? 《달러구트 꿈 백화점》은 ‘무의식에서만 존재하는 꿈을 정말 사고 팔 수",
-                    createdAt: "2020년 12월 13일",
-                    author: "jinseongho",
-                    id:"1"
-                }, {
-                    imgURL: "https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222",
-                    title: "달러구트 꿈백화점 달러구트 꿈백화점",
-                    description: "만들어진 꿈을 살 수 있는 상점이 있다면? 꾸고 싶은 꿈은 살 수 있다면 사람들은 어떤 꿈을 고를까? 《달러구트 꿈 백화점》은 ‘무의식에서만 존재하는 꿈을 정말 사고 팔 수",
-                    createdAt: "2020년 12월 13일",
-                    author: "jinseongho",
-                    id:"2"
-                }, {
-                    imgURL: "https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222",
-                    title: "달러구트 꿈백화점 달러구트 꿈백화점",
-                    description: "만들어진 꿈을 살 수 있는 상점이 있다면? 꾸고 싶은 꿈은 살 수 있다면 사람들은 어떤 꿈을 고를까? 《달러구트 꿈 백화점》은 ‘무의식에서만 존재하는 꿈을 정말 사고 팔 수",
-                    createdAt: "2020년 12월 13일",
-                    author: "jinseongho",
-                    id:"3"
-                },
-                ]
-            },
-            {
-                optionTitle: "최신", checked: false, previews: [{
-                    imgURL: "https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222",
-                    title: "달러구트 꿈백화점 달러구트 꿈백화점",
-                    description: "만들어진 꿈을 살 수 있는 상점이 있다면? 꾸고 싶은 꿈은 살 수 있다면 사람들은 어떤 꿈을 고를까? 《달러구트 꿈 백화점》은 ‘무의식에서만 존재하는 꿈을 정말 사고 팔 수",
-                    createdAt: "2020년 12월 13일",
-                    author: "jinseongho",
-                    id:"1"
-                },
-                ]
-            },
-            { optionTitle: "asdsaaaaaadasdas", checked: true, previews: [] },
-            { optionTitle: "최asd신", checked: false, previews: [] },
-            { optionTitle: "최aasd신", checked: false, previews: [] },
-        ]
+            new OptionDoBuilder()
+                .setOptionTitle("trend")
+                .setChecked(false)
+                .setPreviews([
+                    new PreviewDoBuilder()
+                    .setTitle("달러구트 꿈백화점 달러구트 꿈백화점")
+                    .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
+                    .setDescription("만들어진 꿈을 살 수있는")
+                    .setCreatedAt("2020년 12월 13일")
+                    .setAuthor("jinseongho")
+                    .setId("1")
+                    .build(),
+                    new PreviewDoBuilder()
+                    .setTitle("달러구트 꿈백화점 달러구트 꿈백화점")
+                    .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
+                    .setDescription("만들어진 꿈을 살 수있는")
+                    .setCreatedAt("2020년 12월 13일")
+                    .setAuthor("jinseongho")
+                    .setId("2")
+                    .build(),
+                    new PreviewDoBuilder()
+                    .setTitle("달러구트 꿈백화점 달러구트 꿈백화점")
+                    .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
+                    .setDescription("만들어진 꿈을 살 수있는")
+                    .setCreatedAt("2020년 12월 13일")
+                    .setAuthor("jinseongho")
+                    .setId("3")
+                    .build()]
+                    )
+                .build(),
+            new OptionDoBuilder()
+                .setOptionTitle("최신")
+                .setChecked(true)
+                .setPreviews(
+                    new PreviewDoBuilder()
+                    .setTitle("달러구트 꿈백화점 달러구트 꿈백화점")
+                    .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
+                    .setDescription("만들어진 꿈을 살 수있는")
+                    .setCreatedAt("2020년 12월 13일")
+                    .setAuthor("jinseongho")
+                    .setId("1")
+                    .build()
+                    )
+                .build(),
+            new OptionDoBuilder().setOptionTitle("asd").build(),
+            new OptionDoBuilder().setOptionTitle("최asd신").build(),
+            new OptionDoBuilder().setOptionTitle("Hi").build()
+        ]   
+    }
+
+    handleChangeQuery = (e) => {
+        console.log(this.state.test);
+        this.setState({
+            query : e.target.value
+        })
+    }
+
+    handleCreateOption = () => {
+        const {query, options} = this.state;
+        this.setState({
+            options : options.concat()
+        })
     }
 
     handleClickedOption = async (optionTitle) => {
@@ -114,13 +140,16 @@ class Home extends React.Component {
     render() {
         const { options } = this.state;
         const {
+            handleChangeQuery,
             handleClickedOption,
             handleRemoveOption
         } = this;
         return (
             <Main>
                 <Navigation />
-                <Search />
+                <Search 
+                    onChangeQuery={handleChangeQuery}
+                />
                 <PreviewOptionContainer
                     options={options}
                     onClick={handleClickedOption}
