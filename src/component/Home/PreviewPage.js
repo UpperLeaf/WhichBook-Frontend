@@ -7,7 +7,7 @@ class PreviewPage extends React.Component {
 
     render() {
 
-        let option = new PreviewOptionDo(this.props.option);
+        const option = new PreviewOptionDo(this.props.option);
         const previews = option.previews;
         
         const Page = previews.map((
@@ -15,11 +15,6 @@ class PreviewPage extends React.Component {
         ) => (
             <Preview key={preview.id}
                 preview={preview}
-                imgURL={preview.imgURL}
-                title={preview.title}
-                description={preview.description}
-                createdAt={preview.createdAt}
-                author={preview.author}
             />
         ))
 

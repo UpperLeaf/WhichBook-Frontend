@@ -6,8 +6,8 @@ class Preview extends React.Component {
 
     render() {
 
-        let preview = new PreviewDo(this.props.preview);
-        
+        const preview = new PreviewDo(this.props.preview);
+
         return (
             <div className="preview">
                 <div className="preview_img">
