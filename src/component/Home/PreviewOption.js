@@ -3,14 +3,10 @@ import './PreviewOption.css';
 import './Do/PreviewOptionDo'
 import PreviewOptionDo from './Do/PreviewOptionDo';
 class PreviewOption extends React.Component{
-    
-    shouldComponentUpdate(nextProps, nextState){
-        return this.props.checked !== nextProps.checked;
-    }
 
     render(){
         const {onClick, onRemove} = this.props;
-        let option = new PreviewOptionDo(this.props.option);
+        const option = new PreviewOptionDo(this.props.option);
 
         return (
             <li className={`preview_option ${option.optionTitle} ${option.checked && 'active'}`} onClick={() => onClick(option.optionTitle)}>
