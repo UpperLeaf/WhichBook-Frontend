@@ -1,18 +1,20 @@
 import React from 'react';
 import "./PreviewWrapper.css"
 import PreviewPage from "./PreviewPage"
+import PreviewOptionDo from "./Do/PreviewOptionDo"
 
 class PreviewWrapper extends React.Component {
 
     render() {
-        const {options} = this.props;
+        let options = [] || [new PreviewOptionDo];
+        options = this.props.options;
+        
         const Pages = options.map((
-            { optionTitle, previews, checked }
+            option
         ) => (
-            <div key={optionTitle}>
+            <div key={option.optionTitle}>
                 <PreviewPage
-                    checked={checked}
-                    previews={previews}
+                    option={option}
                 />
             </div>
         ))

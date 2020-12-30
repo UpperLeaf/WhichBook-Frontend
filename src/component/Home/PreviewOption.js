@@ -1,22 +1,23 @@
 import React from 'react';
 import './PreviewOption.css';
-
+import './Do/PreviewOptionDo'
+import PreviewOptionDo from './Do/PreviewOptionDo';
 class PreviewOption extends React.Component{
-    
-    shouldComponentUpdate(nextProps, nextState){
-        return this.props.checked !== nextProps.checked;
-    }
 
     render(){
-        const {optionTitle, checked, onClick} = this.props;
+        const {onClick, onRemove} = this.props;
+        const option = new PreviewOptionDo(this.props.option);
+
         return (
-            <li className={`preview_option ${optionTitle} ${checked && 'active'}`} onClick={() => onClick(optionTitle)}>
+            <li className={`preview_option ${option.optionTitle} ${option.checked && 'active'}`} onClick={() => onClick(option.optionTitle)}>
                 <div className ="remove_container">
-                <div className="remove">
+                <div className="remove" onClick={(e) => {
+                    e.stopPropagation();
+                    onRemove(option.optionTitle)}}>
                     ×
                 </div>
                 </div>
-                {optionTitle}
+                {option.optionTitle}
             </li>
         );
     }

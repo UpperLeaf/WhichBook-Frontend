@@ -30,7 +30,7 @@
     opacity: 0;
 }
 
-.preview_option:hover:not(.최신):not(.trend)  .remove{
+.preview_option:hover:not(.최신):not(.trend) .remove{
     opacity: 1;
 }
 

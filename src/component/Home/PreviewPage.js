@@ -1,26 +1,25 @@
 import React from 'react';
 import "./PreviewPage.css"
 import Preview from './Preview'
+import PreviewOptionDo from './Do/PreviewOptionDo'
 
 class PreviewPage extends React.Component {
 
     render() {
 
-        const {previews, checked} = this.props;
+        const option = new PreviewOptionDo(this.props.option);
+        const previews = option.previews;
+        
         const Page = previews.map((
-            {imgURL, title, description, createdAt, author, id}
+            preview
         ) => (
-            <Preview key={id}
-                imgURL={imgURL}
-                title={title}
-                description={description}
-                createdAt={createdAt}
-                author={author}
+            <Preview key={preview.id}
+                preview={preview}
             />
         ))
 
         return (
-            <div className={`preview_page ${checked && 'active'}`}>
+            <div className={`preview_page ${option.checked && 'active'}`}>
                 {Page}
             </div>
         )
