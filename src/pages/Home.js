@@ -10,57 +10,20 @@ import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 
 class Home extends React.Component {
 
+    componentDidMount(){
+        this.handleClickedPage("최신");
+    }
+
     state = new HomeStateDoBuilder()
         .setQuery("")
         .setPages(
-            [
+            [   
                 new PreviewPageDoBuilder()
                     .setpageTitle("trend")
-                    .setChecked(false)
-                    .setPreviews([
-                        new PreviewDoBuilder()
-                            .setTitle("달러구트 꿈백화점 달러구트 꿈백화점")
-                            .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
-                            .setDescription("만들어진 꿈을 살 수있는")
-                            .setCreatedAt("2020년 12월 13일")
-                            .setAuthor("jinseongho")
-                            .setId("1")
-                            .build(),
-                        new PreviewDoBuilder()
-                            .setTitle("달러구트 꿈백화점 달러구트 꿈백화점")
-                            .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
-                            .setDescription("만들어진 꿈을 살 수있는")
-                            .setCreatedAt("2020년 12월 13일")
-                            .setAuthor("jinseongho")
-                            .setId("2")
-                            .build(),
-                        new PreviewDoBuilder()
-                            .setTitle("달러구트 꿈백화점 달러구트 꿈백화점")
-                            .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
-                            .setDescription("만들어진 꿈을 살 수있는")
-                            .setCreatedAt("2020년 12월 13일")
-                            .setAuthor("jinseongho")
-                            .setId("3")
-                            .build()]
-                    )
                     .build(),
                 new PreviewPageDoBuilder()
                     .setpageTitle("최신")
-                    .setChecked(true)
-                    .setPreviews(
-                        new PreviewDoBuilder()
-                            .setTitle("달러구트 꿈백화점 달러구트 꿈백화점")
-                            .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
-                            .setDescription("만들어진 꿈을 살 수있는")
-                            .setCreatedAt("2020년 12월 13일")
-                            .setAuthor("jinseongho")
-                            .setId("1")
-                            .build()
-                    )
                     .build(),
-                new PreviewPageDoBuilder().setpageTitle("asd").build(),
-                new PreviewPageDoBuilder().setpageTitle("최asd신").build(),
-                new PreviewPageDoBuilder().setpageTitle("Hi").build()
             ]
         )
         .build();
@@ -73,46 +36,30 @@ class Home extends React.Component {
 
     handleCreatePage = async () => {
         const { query, pages } = this.state;
-        if(query.trim() === "")return;
+        if (query.trim() === "") return;
         await this.clearQuery();
 
-        if(pages.find(page => page.pageTitle === query)){
+        if (pages.find(page => page.pageTitle === query)) {
             this.handleClickedPage(query);
             return;
         }
 
         await this.setSyncState(
             new HomeStateDoBuilder()
-            .setPages(
-                pages.concat(new PreviewPageDoBuilder()
-                    .setpageTitle(query)
-                    .build()
+                .setPages(
+                    pages.concat(new PreviewPageDoBuilder()
+                        .setpageTitle(query)
+                        .build()
+                    )
                 )
-            )
-            .build()
+                .build()
         )
 
         this.handleClickedPage(query);
     }
 
-    clearQuery = async() => {
-        const {pages} = this.state;
-        await this.setSyncState(
-            new HomeStateDoBuilder()
-            .setPages(pages)
-            .setQuery("")
-        )
-    }
-
-    setSyncState(state){
-        return new Promise((resolve,reject) => {
-            this.setState(state,() => {
-                resolve()})
-        })
-    }
-
     handleKeyPress = (e) => {
-        if(e.key === 'Enter'){
+        if (e.key === 'Enter') {
             this.handleCreatePage();
         }
     }
@@ -126,25 +73,33 @@ class Home extends React.Component {
 
         await this.togglePageByIndex(CurrentPageIndex);
         await this.togglePageByIndex(ClickedPageIndex);
+
+        await this.handleActivedPage(pageTitle);
     }
 
-    togglePageByIndex = async (pageIndex) => {
-        const { pages } = this.state;
-        const page = pages[pageIndex];
-        const nextPages = [...pages];
-        nextPages[pageIndex] = {
-            ...page,
-            checked: !page.checked
-        }
-        await this.setSyncState(
-            {pages:nextPages}
-        )
-    }
-
-    togglePageByPageTitle = (pageTitle) => {
+    handleActivedPage = async (pageTitle) => {
         const {pages} = this.state;
-        const pageIndex = pages.findIndex(page => page.pageTitle === pageTitle);
-        this.togglePageByIndex(pageIndex);
+        const pageIndex = pages.findIndex((page) => page.pageTitle === pageTitle);
+        const page = pages[pageIndex]
+
+        if (page.previews.length == 0) {
+                page.previews = page.previews.concat(
+                new PreviewDoBuilder()
+                    .setTitle(page.pageTitle)
+                    .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
+                    .setDescription("만들어진 꿈을 살 수있는")
+                    .setCreatedAt("2020년 12월 13일")
+                    .setAuthor("jinseongho")
+                    .setId("1")
+                    .build()
+            )
+            
+            const newPages = pages;
+            newPages[pageIndex] = page;
+            await this.setSyncState({
+                pages : newPages
+            })
+        }
     }
 
     handleRemovePage = async (pageTitle) => {
@@ -159,6 +114,44 @@ class Home extends React.Component {
         this.setState(
             { pages: pages.filter(page => page.pageTitle !== pageTitle) }
         )
+    }
+
+    setSyncState(state) {
+        return new Promise((resolve, reject) => {
+            this.setState(state, () => {
+                resolve()
+            })
+        })
+    }
+
+    clearQuery = async () => {
+        const { pages } = this.state;
+        await this.setSyncState(
+            new HomeStateDoBuilder()
+                .setPages(pages)
+                .setQuery("")
+                .build()
+        )
+    }
+
+    togglePageByIndex = async (pageIndex) => {
+        if(pageIndex < 0)return;
+        const { pages } = this.state;
+        const page = pages[pageIndex];
+        const nextPages = [...pages];
+        nextPages[pageIndex] = {
+            ...page,
+            checked: !page.checked
+        }
+        await this.setSyncState(
+            { pages: nextPages }
+        )
+    }
+
+    togglePageByPageTitle = (pageTitle) => {
+        const { pages } = this.state;
+        const pageIndex = pages.findIndex(page => page.pageTitle === pageTitle);
+        this.togglePageByIndex(pageIndex);
     }
 
     getActivedPageIndex = () => {
@@ -178,7 +171,7 @@ class Home extends React.Component {
 
     render() {
         const { pages, query } = this.state;
-        
+
         const {
             handleKeyPress,
             handleChangeQuery,
