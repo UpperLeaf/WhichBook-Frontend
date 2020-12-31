@@ -25,7 +25,7 @@ class PreviewOptionContainer extends React.Component {
         )
 
         return (
-            <ul className="preview_option_container">
+            <ul className="preview_page_title_container">
                 {optionList}
             </ul>
         );
