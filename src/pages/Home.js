@@ -71,11 +71,50 @@ class Home extends React.Component {
         })
     }
 
-    handleCreatePage = () => {
-        const { query, pages }= this.state;
-        this.setState({
-            pages: pages.concat()
+    handleCreatePage = async () => {
+        const { query, pages } = this.state;
+        if(query.trim() === "")return;
+        await this.clearQuery();
+
+        if(pages.find(page => page.pageTitle === query)){
+            this.handleClickedPage(query);
+            return;
+        }
+
+        await this.setSyncState(
+            new HomeStateDoBuilder()
+            .setPages(
+                pages.concat(new PreviewPageDoBuilder()
+                    .setpageTitle(query)
+                    .build()
+                )
+            )
+            .build()
+        )
+
+        this.handleClickedPage(query);
+    }
+
+    clearQuery = async() => {
+        const {pages} = this.state;
+        await this.setSyncState(
+            new HomeStateDoBuilder()
+            .setPages(pages)
+            .setQuery("")
+        )
+    }
+
+    setSyncState(state){
+        return new Promise((resolve,reject) => {
+            this.setState(state,() => {
+                resolve()})
         })
+    }
+
+    handleKeyPress = (e) => {
+        if(e.key === 'Enter'){
+            this.handleCreatePage();
+        }
     }
 
     handleClickedPage = async (pageTitle) => {
@@ -85,25 +124,27 @@ class Home extends React.Component {
 
         if (ClickedPageIndex === CurrentPageIndex) return;
 
-        await this.togglePage(CurrentPageIndex);
-        await this.togglePage(ClickedPageIndex);
+        await this.togglePageByIndex(CurrentPageIndex);
+        await this.togglePageByIndex(ClickedPageIndex);
     }
 
-    togglePage = (pageIndex) => {
-        return new Promise((resolve, reject) => {
-            const { pages } = this.state;
-            const page = pages[pageIndex];
-            const nextPages = [...pages];
-            nextPages[pageIndex] = {
-                ...page,
-                checked: !page.checked
-            }
-            this.setState({
-                pages: nextPages
-            }, () => {
-                resolve();
-            });
-        })
+    togglePageByIndex = async (pageIndex) => {
+        const { pages } = this.state;
+        const page = pages[pageIndex];
+        const nextPages = [...pages];
+        nextPages[pageIndex] = {
+            ...page,
+            checked: !page.checked
+        }
+        await this.setSyncState(
+            {pages:nextPages}
+        )
+    }
+
+    togglePageByPageTitle = (pageTitle) => {
+        const {pages} = this.state;
+        const pageIndex = pages.findIndex(page => page.pageTitle === pageTitle);
+        this.togglePageByIndex(pageIndex);
     }
 
     handleRemovePage = async (pageTitle) => {
@@ -111,7 +152,7 @@ class Home extends React.Component {
         if (pageTitle === "trend") return;
 
         if (this.isActivePage(pageTitle)) {
-            await this.togglePage(this.getActivedPageIndex() - 1);
+            await this.togglePageByIndex(this.getActivedPageIndex() - 1);
         }
 
         const { pages } = this.state;
@@ -136,9 +177,10 @@ class Home extends React.Component {
     }
 
     render() {
-        const { pages } = this.state;
+        const { pages, query } = this.state;
         
         const {
+            handleKeyPress,
             handleChangeQuery,
             handleClickedPage,
             handleRemovePage
@@ -147,7 +189,9 @@ class Home extends React.Component {
             <Main>
                 <Navigation />
                 <Search
+                    query={query}
                     onChangeQuery={handleChangeQuery}
+                    onKeyPress={handleKeyPress}
                 />
                 <PreviewPageTitleContainer
                     pages={pages}
