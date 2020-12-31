@@ -6,18 +6,18 @@ class PreviewPage extends React.Component{
 
     render(){
         const {onClick, onRemove} = this.props;
-        const option = new PreviewPageDo(this.props.option);
+        const page = new PreviewPageDo(this.props.page);
 
         return (
-            <li className={`preview_page_title ${option.pageTitle} ${option.checked && 'active'}`} onClick={() => onClick(option.pageTitle)}>
+            <li className={`preview_page_title ${page.pageTitle} ${page.checked && 'active'}`} onClick={() => onClick(page.pageTitle)}>
                 <div className ="remove_container">
                 <div className="remove" onClick={(e) => {
                     e.stopPropagation();
-                    onRemove(option.pageTitle)}}>
+                    onRemove(page.pageTitle)}}>
                     ×
                 </div>
                 </div>
-                {option.pageTitle}
+                {page.pageTitle}
             </li>
         );
     }

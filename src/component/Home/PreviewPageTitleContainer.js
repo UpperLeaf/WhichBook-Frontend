@@ -5,19 +5,15 @@ import PreviewPageDo from './Do/PreviewPageDo'
 
 class PreviewPageTitleContainer extends React.Component {
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return this.props.options !== nextProps.options;
-    }
-
     render() {
         const { onClick, onRemove } = this.props;
-        let options = [] || [new PreviewPageDo];
-        options = this.props.options;
+        let pages = [] || [new PreviewPageDo];
+        pages = this.props.pages;
 
-        const optionList = options.map(
-            (option) => (
-                <PreviewPageTitle key={option.pageTitle}
-                    option={option}
+        const pageList = pages.map(
+            (page) => (
+                <PreviewPageTitle key={page.pageTitle}
+                    page={page}
                     onClick={onClick}
                     onRemove={onRemove}
                 />
@@ -26,7 +22,7 @@ class PreviewPageTitleContainer extends React.Component {
 
         return (
             <ul className="preview_page_title_container">
-                {optionList}
+                {pageList}
             </ul>
         );
     }

@@ -4,7 +4,7 @@ class HomeStateDo{
 
     constructor(){
         this.query = "";
-        this.options = [] || [new PreviewPageDo];
+        this.pages = [] || [new PreviewPageDo];
     }
 }
 

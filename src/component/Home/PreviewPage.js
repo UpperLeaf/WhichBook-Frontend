@@ -7,8 +7,8 @@ class PreviewPage extends React.Component {
 
     render() {
 
-        const option = new PreviewPageDo(this.props.option);
-        const previews = option.previews;
+        const page = new PreviewPageDo(this.props.page);
+        const previews = page.previews;
         
         const Page = previews.map((
             preview
@@ -19,7 +19,7 @@ class PreviewPage extends React.Component {
         ))
 
         return (
-            <div className={`preview_page ${option.checked && 'active'}`}>
+            <div className={`preview_page ${page.checked && 'active'}`}>
                 {Page}
             </div>
         )
