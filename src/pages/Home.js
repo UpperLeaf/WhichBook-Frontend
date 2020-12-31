@@ -19,7 +19,7 @@ class Home extends React.Component {
         .setOptions(
             [
                 new PreviewPageDoBuilder()
-                    .setOptionTitle("trend")
+                    .setpageTitle("trend")
                     .setChecked(false)
                     .setPreviews([
                         new PreviewDoBuilder()
@@ -49,7 +49,7 @@ class Home extends React.Component {
                     )
                     .build(),
                 new PreviewPageDoBuilder()
-                    .setOptionTitle("최신")
+                    .setpageTitle("최신")
                     .setChecked(true)
                     .setPreviews(
                         new PreviewDoBuilder()
@@ -62,9 +62,9 @@ class Home extends React.Component {
                             .build()
                     )
                     .build(),
-                new PreviewPageDoBuilder().setOptionTitle("asd").build(),
-                new PreviewPageDoBuilder().setOptionTitle("최asd신").build(),
-                new PreviewPageDoBuilder().setOptionTitle("Hi").build()
+                new PreviewPageDoBuilder().setpageTitle("asd").build(),
+                new PreviewPageDoBuilder().setpageTitle("최asd신").build(),
+                new PreviewPageDoBuilder().setpageTitle("Hi").build()
             ]
         )
         .build();
@@ -82,10 +82,10 @@ class Home extends React.Component {
         })
     }
 
-    handleClickedOption = async (optionTitle) => {
+    handleClickedOption = async (pageTitle) => {
         const { options } = this.state;
         const CurrentOptionIndex = this.getActivedOptionIndex();
-        const ClickedOptionIndex = options.findIndex(option => option.optionTitle === optionTitle);
+        const ClickedOptionIndex = options.findIndex(option => option.pageTitle === pageTitle);
 
         if (ClickedOptionIndex === CurrentOptionIndex) return;
 
@@ -110,17 +110,17 @@ class Home extends React.Component {
         })
     }
 
-    handleRemoveOption = async (optionTitle) => {
-        if (optionTitle === "최신") return;
-        if (optionTitle === "trend") return;
+    handleRemoveOption = async (pageTitle) => {
+        if (pageTitle === "최신") return;
+        if (pageTitle === "trend") return;
 
-        if (this.isActiveOption(optionTitle)) {
+        if (this.isActiveOption(pageTitle)) {
             await this.toggleOption(this.getActivedOptionIndex() - 1);
         }
 
         const { options } = this.state;
         this.setState(
-            { options: options.filter(option => option.optionTitle !== optionTitle) }
+            { options: options.filter(option => option.pageTitle !== pageTitle) }
         )
     }
 
@@ -131,10 +131,10 @@ class Home extends React.Component {
         return currentIndex;
     }
 
-    isActiveOption(optionTitle) {
+    isActiveOption(pageTitle) {
         const { options } = this.state;
         const currentIndex = options.findIndex((option) =>
-            option.optionTitle === optionTitle);
+            option.pageTitle === pageTitle);
         const option = options[currentIndex];
         return option.checked;
     }

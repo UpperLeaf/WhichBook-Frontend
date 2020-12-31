@@ -6,8 +6,8 @@ class PreviewPageDoBuilder{
         this.option = new PreviewPageDo();
     };
 
-    setOptionTitle(optionTitle){
-        this.option.optionTitle = optionTitle;
+    setpageTitle(pageTitle){
+        this.option.pageTitle = pageTitle;
         return this;
     }
 

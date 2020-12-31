@@ -12,7 +12,7 @@ class PreviewWrapper extends React.Component {
         const Pages = options.map((
             option
         ) => (
-            <div key={option.optionTitle}>
+            <div key={option.pageTitle}>
                 <PreviewPage
                     option={option}
                 />

@@ -3,7 +3,7 @@ import PreviewDo from './PreviewDo.js'
 class PreviewPageDo{
 
     constructor(previewPage){
-        this.optionTitle="";
+        this.pageTitle="";
         this.checked=false;
         this.previews = [] || [new PreviewDo()];
 

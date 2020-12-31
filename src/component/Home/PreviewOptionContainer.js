@@ -16,7 +16,7 @@ class PreviewOptionContainer extends React.Component {
 
         const optionList = options.map(
             (option) => (
-                <PreviewOption key={option.optionTitle}
+                <PreviewOption key={option.pageTitle}
                     option={option}
                     onClick={onClick}
                     onRemove={onRemove}

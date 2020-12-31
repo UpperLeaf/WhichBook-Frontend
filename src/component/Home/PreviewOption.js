@@ -9,15 +9,15 @@ class PreviewOption extends React.Component{
         const option = new PreviewPageDo(this.props.option);
 
         return (
-            <li className={`preview_option ${option.optionTitle} ${option.checked && 'active'}`} onClick={() => onClick(option.optionTitle)}>
+            <li className={`preview_option ${option.pageTitle} ${option.checked && 'active'}`} onClick={() => onClick(option.pageTitle)}>
                 <div className ="remove_container">
                 <div className="remove" onClick={(e) => {
                     e.stopPropagation();
-                    onRemove(option.optionTitle)}}>
+                    onRemove(option.pageTitle)}}>
                     ×
                 </div>
                 </div>
-                {option.optionTitle}
+                {option.pageTitle}
             </li>
         );
     }
