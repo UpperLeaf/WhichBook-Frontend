@@ -4,20 +4,46 @@ import Main from '../component/Main'
 import Search from '../component/Home/Search'
 import PreviewPageTitleContainer from '../component/Home/PreviewPageTitleContainer';
 import PreviewWrapper from '../component/Home/PreviewWrapper';
+import PreviewPageDo from '../component/Home/Do/PreviewPageDo'
 import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import PreviewDoBuilder from '../component/Home/Do/PreviewDoBuilder';
 import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 
 class Home extends React.Component {
 
-    componentDidMount(){
-        this.handleClickedPage("최신");
+    getSnapshotBeforeUpdate
+
+    componentDidMount() {
+        this.onload();
+    }
+
+    onload = async () => {
+        let pages = [] || [new PreviewPageDo()]
+        pages = JSON.parse(localStorage.getItem("pages"));
+
+        if (pages) {
+            const newPages = pages.map(
+                (page) => {
+                    return new PreviewPageDoBuilder()
+                        .setpageTitle(page.pageTitle)
+                        .build()
+                }
+            )
+
+            await this.setSyncState({
+                pages: newPages
+            })
+            const activeIndex = pages.findIndex((page => page.checked));
+            this.handleClickedPage(pages[activeIndex].pageTitle);
+            return;
+        }
+        this.handleClickedPage("최신")
     }
 
     state = new HomeStateDoBuilder()
         .setQuery("")
         .setPages(
-            [   
+            [
                 new PreviewPageDoBuilder()
                     .setpageTitle("trend")
                     .build(),
@@ -40,7 +66,7 @@ class Home extends React.Component {
         await this.clearQuery();
 
         if (pages.find(page => page.pageTitle === query)) {
-            this.handleClickedPage(query);
+            await this.handleClickedPage(query);
             return;
         }
 
@@ -55,7 +81,7 @@ class Home extends React.Component {
                 .build()
         )
 
-        this.handleClickedPage(query);
+        await this.handleClickedPage(query);
     }
 
     handleKeyPress = (e) => {
@@ -73,17 +99,17 @@ class Home extends React.Component {
 
         await this.togglePageByIndex(CurrentPageIndex);
         await this.togglePageByIndex(ClickedPageIndex);
-
         await this.handleActivedPage(pageTitle);
+        localStorage.setItem("pages", JSON.stringify(this.state.pages));
     }
 
     handleActivedPage = async (pageTitle) => {
-        const {pages} = this.state;
+        const { pages } = this.state;
         const pageIndex = pages.findIndex((page) => page.pageTitle === pageTitle);
         const page = pages[pageIndex]
 
         if (page.previews.length === 0) {
-                page.previews = page.previews.concat(
+            page.previews = page.previews.concat(
                 new PreviewDoBuilder()
                     .setTitle(page.pageTitle)
                     .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
@@ -93,11 +119,11 @@ class Home extends React.Component {
                     .setId("1")
                     .build()
             )
-            
+
             const newPages = pages;
             newPages[pageIndex] = page;
             await this.setSyncState({
-                pages : newPages
+                pages: newPages
             })
         }
     }
@@ -111,9 +137,11 @@ class Home extends React.Component {
         }
 
         const { pages } = this.state;
-        this.setState(
+        await this.setSyncState(
             { pages: pages.filter(page => page.pageTitle !== pageTitle) }
         )
+
+        localStorage.setItem("pages", JSON.stringify(this.state.pages));
     }
 
     setSyncState(state) {
@@ -135,7 +163,7 @@ class Home extends React.Component {
     }
 
     togglePageByIndex = async (pageIndex) => {
-        if(pageIndex < 0)return;
+        if (pageIndex < 0) return;
         const { pages } = this.state;
         const page = pages[pageIndex];
         const nextPages = [...pages];
