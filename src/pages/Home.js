@@ -2,7 +2,7 @@ import React from 'react'
 import Navigation from '../component/navigation/Navigation';
 import Main from '../component/Main'
 import Search from '../component/Home/Search'
-import PreviewOptionContainer from '../component/Home/PreviewOptionContainer';
+import PreviewPageTitleContainer from '../component/Home/PreviewPageTitleContainer';
 import PreviewWrapper from '../component/Home/PreviewWrapper';
 import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import PreviewDoBuilder from '../component/Home/Do/PreviewDoBuilder';
@@ -152,7 +152,7 @@ class Home extends React.Component {
                 <Search
                     onChangeQuery={handleChangeQuery}
                 />
-                <PreviewOptionContainer
+                <PreviewPageTitleContainer
                     options={options}
                     onClick={handleClickedOption}
                     onRemove={handleRemoveOption}

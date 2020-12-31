@@ -1,9 +1,9 @@
 import React from 'react'
-import './PreviewOptionContainer.css'
+import './PreviewPageTitleContainer.css'
 import PreviewOption from './PreviewOption'
 import PreviewPageDo from './Do/PreviewPageDo'
 
-class PreviewOptionContainer extends React.Component {
+class PreviewPageTitleContainer extends React.Component {
 
     shouldComponentUpdate(nextProps, nextState) {
         return this.props.options !== nextProps.options;
@@ -33,4 +33,4 @@ class PreviewOptionContainer extends React.Component {
 }
 
 
-export default PreviewOptionContainer;
+export default PreviewPageTitleContainer;
