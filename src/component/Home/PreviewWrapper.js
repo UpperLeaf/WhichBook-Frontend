@@ -6,7 +6,7 @@ import PreviewPageDo from "./Do/PreviewPageDo"
 class PreviewWrapper extends React.Component {
 
     render() {
-        let pages = [] || [new PreviewPageDo];
+        let pages = [] || [new PreviewPageDo()];
         pages = this.props.pages;
         
         const Pages = pages.map((

@@ -7,7 +7,7 @@ class PreviewPageTitleContainer extends React.Component {
 
     render() {
         const { onClick, onRemove } = this.props;
-        let pages = [] || [new PreviewPageDo];
+        let pages = [] || [new PreviewPageDo()];
         pages = this.props.pages;
 
         const pageList = pages.map(
