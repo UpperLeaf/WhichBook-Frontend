@@ -1,7 +1,7 @@
 import React from 'react'
 import './PreviewOptionContainer.css'
 import PreviewOption from './PreviewOption'
-import PreviewOptionDo from './Do/PreviewOptionDo'
+import PreviewPageDo from './Do/PreviewPageDo'
 
 class PreviewOptionContainer extends React.Component {
 
@@ -11,7 +11,7 @@ class PreviewOptionContainer extends React.Component {
 
     render() {
         const { onClick, onRemove } = this.props;
-        let options = [] || [new PreviewOptionDo];
+        let options = [] || [new PreviewPageDo];
         options = this.props.options;
 
         const optionList = options.map(

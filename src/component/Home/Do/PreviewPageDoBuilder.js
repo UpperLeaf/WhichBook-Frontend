@@ -1,9 +1,9 @@
-import PreviewOptionDo from './PreviewOptionDo.js';
+import PreviewPageDo from './PreviewPageDo.js';
 
-class PreviewOptionDoBuilder{
+class PreviewPageDoBuilder{
 
     constructor(){
-        this.option = new PreviewOptionDo();
+        this.option = new PreviewPageDo();
     };
 
     setOptionTitle(optionTitle){
@@ -28,4 +28,4 @@ class PreviewOptionDoBuilder{
 
 }
 
-export default PreviewOptionDoBuilder;
+export default PreviewPageDoBuilder;

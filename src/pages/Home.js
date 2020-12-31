@@ -4,9 +4,8 @@ import Main from '../component/Main'
 import Search from '../component/Home/Search'
 import PreviewOptionContainer from '../component/Home/PreviewOptionContainer';
 import PreviewWrapper from '../component/Home/PreviewWrapper';
-import PreviewOptionDoBuilder from '../component/Home/Do/PreviewOptionDoBuilder';
+import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import PreviewDoBuilder from '../component/Home/Do/PreviewDoBuilder';
-import HomeStateBuilder from '../component/Home/Do/HomeStateDo'
 import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 
 class Home extends React.Component {
@@ -19,7 +18,7 @@ class Home extends React.Component {
         .setQuery("")
         .setOptions(
             [
-                new PreviewOptionDoBuilder()
+                new PreviewPageDoBuilder()
                     .setOptionTitle("trend")
                     .setChecked(false)
                     .setPreviews([
@@ -49,7 +48,7 @@ class Home extends React.Component {
                             .build()]
                     )
                     .build(),
-                new PreviewOptionDoBuilder()
+                new PreviewPageDoBuilder()
                     .setOptionTitle("최신")
                     .setChecked(true)
                     .setPreviews(
@@ -63,9 +62,9 @@ class Home extends React.Component {
                             .build()
                     )
                     .build(),
-                new PreviewOptionDoBuilder().setOptionTitle("asd").build(),
-                new PreviewOptionDoBuilder().setOptionTitle("최asd신").build(),
-                new PreviewOptionDoBuilder().setOptionTitle("Hi").build()
+                new PreviewPageDoBuilder().setOptionTitle("asd").build(),
+                new PreviewPageDoBuilder().setOptionTitle("최asd신").build(),
+                new PreviewPageDoBuilder().setOptionTitle("Hi").build()
             ]
         )
         .build();

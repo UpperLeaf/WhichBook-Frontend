@@ -1,10 +1,10 @@
-import PreviewOptionDo from './PreviewOptionDo.js'
+import PreviewPageDo from './PreviewPageDo.js'
 
 class HomeStateDo{
 
     constructor(){
         this.query = "";
-        this.options = [] || [new PreviewOptionDo];
+        this.options = [] || [new PreviewPageDo];
     }
 }
 

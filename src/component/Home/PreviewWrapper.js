@@ -1,12 +1,12 @@
 import React from 'react';
 import "./PreviewWrapper.css"
 import PreviewPage from "./PreviewPage"
-import PreviewOptionDo from "./Do/PreviewOptionDo"
+import PreviewPageDo from "./Do/PreviewPageDo"
 
 class PreviewWrapper extends React.Component {
 
     render() {
-        let options = [] || [new PreviewOptionDo];
+        let options = [] || [new PreviewPageDo];
         options = this.props.options;
         
         const Pages = options.map((
