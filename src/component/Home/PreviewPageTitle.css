@@ -1,4 +1,4 @@
-.preview_option{
+.preview_page_title{
     display:block;
     max-width:6em;
     border-bottom: 0px;
@@ -14,23 +14,23 @@
     white-space: nowrap;
 }
 
-.preview_option.active{
+.preview_page_title.active{
     color:rgb(52,58,64);
     border-bottom:1px solid black;
 }
 
-.preview_option .remove_container{
+.preview_page_title .remove_container{
     display:flex;
     justify-content: flex-end;
 }
 
-.preview_option .remove{
+.preview_page_title .remove{
     color:#e64980;
     font-weight: 600;
     opacity: 0;
 }
 
-.preview_option:hover:not(.최신):not(.trend) .remove{
+.preview_page_title:hover:not(.최신):not(.trend) .remove{
     opacity: 1;
 }
 

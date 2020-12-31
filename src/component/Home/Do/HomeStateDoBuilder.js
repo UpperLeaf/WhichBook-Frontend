@@ -12,8 +12,8 @@ class HomeStateDoBuilder{
         return this;
     }
 
-    setOptions(options){
-        this.homeState.options = this.homeState.options.concat(options);
+    setPages(pages){
+        this.homeState.pages = this.homeState.pages.concat(pages);
         return this;
     }
 

@@ -1,13 +1,13 @@
-import PreviewOptionDo from './PreviewOptionDo.js';
+import PreviewPageDo from './PreviewPageDo.js';
 
-class PreviewOptionDoBuilder{
+class PreviewPageDoBuilder{
 
     constructor(){
-        this.option = new PreviewOptionDo();
+        this.option = new PreviewPageDo();
     };
 
-    setOptionTitle(optionTitle){
-        this.option.optionTitle = optionTitle;
+    setpageTitle(pageTitle){
+        this.option.pageTitle = pageTitle;
         return this;
     }
 
@@ -28,4 +28,4 @@ class PreviewOptionDoBuilder{
 
 }
 
-export default PreviewOptionDoBuilder;
+export default PreviewPageDoBuilder;

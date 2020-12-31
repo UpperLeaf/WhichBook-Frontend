@@ -1,14 +1,14 @@
 import React from 'react';
 import "./PreviewPage.css"
 import Preview from './Preview'
-import PreviewOptionDo from './Do/PreviewOptionDo'
+import PreviewPageDo from './Do/PreviewPageDo'
 
 class PreviewPage extends React.Component {
 
     render() {
 
-        const option = new PreviewOptionDo(this.props.option);
-        const previews = option.previews;
+        const page = new PreviewPageDo(this.props.page);
+        const previews = page.previews;
         
         const Page = previews.map((
             preview
@@ -19,7 +19,7 @@ class PreviewPage extends React.Component {
         ))
 
         return (
-            <div className={`preview_page ${option.checked && 'active'}`}>
+            <div className={`preview_page ${page.checked && 'active'}`}>
                 {Page}
             </div>
         )

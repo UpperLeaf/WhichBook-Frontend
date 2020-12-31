@@ -2,25 +2,20 @@ import React from 'react'
 import Navigation from '../component/navigation/Navigation';
 import Main from '../component/Main'
 import Search from '../component/Home/Search'
-import PreviewOptionContainer from '../component/Home/PreviewOptionContainer';
+import PreviewPageTitleContainer from '../component/Home/PreviewPageTitleContainer';
 import PreviewWrapper from '../component/Home/PreviewWrapper';
-import PreviewOptionDoBuilder from '../component/Home/Do/PreviewOptionDoBuilder';
+import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import PreviewDoBuilder from '../component/Home/Do/PreviewDoBuilder';
-import HomeStateBuilder from '../component/Home/Do/HomeStateDo'
 import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 
 class Home extends React.Component {
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return this.state.options !== nextState.options;
-    }
-
     state = new HomeStateDoBuilder()
         .setQuery("")
-        .setOptions(
+        .setPages(
             [
-                new PreviewOptionDoBuilder()
-                    .setOptionTitle("trend")
+                new PreviewPageDoBuilder()
+                    .setpageTitle("trend")
                     .setChecked(false)
                     .setPreviews([
                         new PreviewDoBuilder()
@@ -49,8 +44,8 @@ class Home extends React.Component {
                             .build()]
                     )
                     .build(),
-                new PreviewOptionDoBuilder()
-                    .setOptionTitle("최신")
+                new PreviewPageDoBuilder()
+                    .setpageTitle("최신")
                     .setChecked(true)
                     .setPreviews(
                         new PreviewDoBuilder()
@@ -63,9 +58,9 @@ class Home extends React.Component {
                             .build()
                     )
                     .build(),
-                new PreviewOptionDoBuilder().setOptionTitle("asd").build(),
-                new PreviewOptionDoBuilder().setOptionTitle("최asd신").build(),
-                new PreviewOptionDoBuilder().setOptionTitle("Hi").build()
+                new PreviewPageDoBuilder().setpageTitle("asd").build(),
+                new PreviewPageDoBuilder().setpageTitle("최asd신").build(),
+                new PreviewPageDoBuilder().setpageTitle("Hi").build()
             ]
         )
         .build();
@@ -76,76 +71,77 @@ class Home extends React.Component {
         })
     }
 
-    handleCreateOption = () => {
-        const { query, options } = this.state;
+    handleCreatePage = () => {
+        const { query, pages }= this.state;
         this.setState({
-            options: options.concat()
+            pages: pages.concat()
         })
     }
 
-    handleClickedOption = async (optionTitle) => {
-        const { options } = this.state;
-        const CurrentOptionIndex = this.getActivedOptionIndex();
-        const ClickedOptionIndex = options.findIndex(option => option.optionTitle === optionTitle);
+    handleClickedPage = async (pageTitle) => {
+        const { pages } = this.state;
+        const CurrentPageIndex = this.getActivedPageIndex();
+        const ClickedPageIndex = pages.findIndex(page => page.pageTitle === pageTitle);
 
-        if (ClickedOptionIndex === CurrentOptionIndex) return;
+        if (ClickedPageIndex === CurrentPageIndex) return;
 
-        await this.toggleOption(CurrentOptionIndex);
-        await this.toggleOption(ClickedOptionIndex);
+        await this.togglePage(CurrentPageIndex);
+        await this.togglePage(ClickedPageIndex);
     }
 
-    toggleOption = (optionIndex) => {
+    togglePage = (pageIndex) => {
         return new Promise((resolve, reject) => {
-            const { options } = this.state;
-            const option = options[optionIndex];
-            const nextOptions = [...options];
-            nextOptions[optionIndex] = {
-                ...option,
-                checked: !option.checked
+            const { pages } = this.state;
+            const page = pages[pageIndex];
+            const nextPages = [...pages];
+            nextPages[pageIndex] = {
+                ...page,
+                checked: !page.checked
             }
             this.setState({
-                options: nextOptions
+                pages: nextPages
             }, () => {
                 resolve();
             });
         })
     }
 
-    handleRemoveOption = async (optionTitle) => {
-        if (optionTitle === "최신") return;
-        if (optionTitle === "trend") return;
+    handleRemovePage = async (pageTitle) => {
+        if (pageTitle === "최신") return;
+        if (pageTitle === "trend") return;
 
-        if (this.isActiveOption(optionTitle)) {
-            await this.toggleOption(this.getActivedOptionIndex() - 1);
+        if (this.isActivePage(pageTitle)) {
+            await this.togglePage(this.getActivedPageIndex() - 1);
         }
 
-        const { options } = this.state;
+        const { pages } = this.state;
         this.setState(
-            { options: options.filter(option => option.optionTitle !== optionTitle) }
+            { pages: pages.filter(page => page.pageTitle !== pageTitle) }
         )
     }
 
-    getActivedOptionIndex = () => {
-        const { options } = this.state;
-        const currentIndex = options.findIndex((option) =>
-            option.checked);
+    getActivedPageIndex = () => {
+        const { pages } = this.state;
+        const currentIndex = pages.findIndex((page) =>
+            page.checked);
         return currentIndex;
     }
 
-    isActiveOption(optionTitle) {
-        const { options } = this.state;
-        const currentIndex = options.findIndex((option) =>
-            option.optionTitle === optionTitle);
-        const option = options[currentIndex];
-        return option.checked;
+    isActivePage(pageTitle) {
+        const { pages } = this.state;
+        const currentIndex = pages.findIndex((page) =>
+            page.pageTitle === pageTitle);
+        const page = pages[currentIndex];
+        return page.checked;
     }
 
     render() {
-        const { options } = this.state;
+        const { pages } = this.state;
+        
         const {
             handleChangeQuery,
-            handleClickedOption,
-            handleRemoveOption
+            handleClickedPage,
+            handleRemovePage
         } = this;
         return (
             <Main>
@@ -153,13 +149,13 @@ class Home extends React.Component {
                 <Search
                     onChangeQuery={handleChangeQuery}
                 />
-                <PreviewOptionContainer
-                    options={options}
-                    onClick={handleClickedOption}
-                    onRemove={handleRemoveOption}
+                <PreviewPageTitleContainer
+                    pages={pages}
+                    onClick={handleClickedPage}
+                    onRemove={handleRemovePage}
                 />
                 <PreviewWrapper
-                    options={options}
+                    pages={pages}
                 />
             </Main>
         )
