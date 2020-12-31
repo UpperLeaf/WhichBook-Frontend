@@ -1,8 +1,8 @@
 import React from 'react';
-import './PreviewOption.css';
+import './PreviewPageTitle.css';
 import './Do/PreviewPageDo'
 import PreviewPageDo from './Do/PreviewPageDo';
-class PreviewOption extends React.Component{
+class PreviewPage extends React.Component{
 
     render(){
         const {onClick, onRemove} = this.props;
@@ -23,4 +23,4 @@ class PreviewOption extends React.Component{
     }
 };
 
-export default PreviewOption;
+export default PreviewPage;

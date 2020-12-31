@@ -1,6 +1,6 @@
 import React from 'react'
 import './PreviewPageTitleContainer.css'
-import PreviewOption from './PreviewOption'
+import PreviewPageTitle from './PreviewPageTitle'
 import PreviewPageDo from './Do/PreviewPageDo'
 
 class PreviewPageTitleContainer extends React.Component {
@@ -16,7 +16,7 @@ class PreviewPageTitleContainer extends React.Component {
 
         const optionList = options.map(
             (option) => (
-                <PreviewOption key={option.pageTitle}
+                <PreviewPageTitle key={option.pageTitle}
                     option={option}
                     onClick={onClick}
                     onRemove={onRemove}
