@@ -4,7 +4,7 @@ class HomeStateDo{
 
     constructor(){
         this.query = "";
-        this.pages = [] || [new PreviewPageDo];
+        this.pages = [] || [new PreviewPageDo()];
         this.pageMaxLength = 6;
     }
 

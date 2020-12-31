@@ -82,7 +82,7 @@ class Home extends React.Component {
         const pageIndex = pages.findIndex((page) => page.pageTitle === pageTitle);
         const page = pages[pageIndex]
 
-        if (page.previews.length == 0) {
+        if (page.previews.length === 0) {
                 page.previews = page.previews.concat(
                 new PreviewDoBuilder()
                     .setTitle(page.pageTitle)
