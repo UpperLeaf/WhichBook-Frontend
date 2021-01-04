@@ -2,6 +2,7 @@ import PreviewDoBuilder from '../component/Home/Do/PreviewDoBuilder'
 import HomeStateDo from '../component/Home/Do/HomeStateDo';
 import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import PreviewPageDo from '../component/Home/Do/PreviewPageDo';
+import QueryDo from '../component/Home/Do/QueryDo';
 
 class HomeUtils{
 
@@ -107,12 +108,14 @@ class HomeUtils{
         return newState;
     }
 
-    static createPage = (state, pageTitle) => {
+    static createPage = (state, query) => {
         let newState = new HomeStateDo(state);
-        let {query, pages} = newState;
+        let newQuery = new QueryDo(query);
+        let pages = newState.pages;
+        const pageTitle = newQuery.query;
 
-        if(query.trim() === "")return newState;
-        if(pages.find(page => page.pageTitle === query)){
+        if(pageTitle.trim() === "")return newState;
+        if(pages.find(page => page.pageTitle === pageTitle)){
             newState = this.clickedPage(newState, pageTitle);
             newState = this.clearQuery(newState);
             return newState;
@@ -130,7 +133,7 @@ class HomeUtils{
 
     static clearQuery = (state) => {
         let newState = new HomeStateDo(state);
-        newState.query="";
+        newState.query.query="";
         return newState;
     }
 

@@ -5,14 +5,20 @@ import Search from '../component/Home/Search'
 import HomeUtils from '../utils/HomeUtils'
 import PreviewPageTitleContainer from '../component/Home/PreviewPageTitleContainer';
 import PreviewWrapper from '../component/Home/PreviewWrapper';
-import PreviewPageDo from '../component/Home/Do/PreviewPageDo'
+import QueryDoBuilder from '../component/Home/Do/QueryDoBuilder';
+import QueryDo from '../component/Home/Do/QueryDo';
 import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 
 class Home extends React.Component {
 
     state = new HomeStateDoBuilder()
-        .setQuery("")
+        .setQuery(
+            new QueryDoBuilder()
+                .setMode(QueryDo.queryMode.REVIEW)
+                .setQuery("")
+                .build()
+        )
         .setPages(
             [
                 new PreviewPageDoBuilder()
@@ -37,7 +43,10 @@ class Home extends React.Component {
 
     handleChangeQuery = (e) => {
         this.setState({
-            query: e.target.value
+            query : new QueryDoBuilder()
+                    .setQuery(e.target.value)
+                    .setMode(this.state.query.mode)
+                    .build()
         })
     }
 

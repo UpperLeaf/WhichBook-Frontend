@@ -1,9 +1,14 @@
 import PreviewPageDo from './PreviewPageDo.js'
+import QueryDo from './QueryDo.js'
+import QueryDoBuilder from './QueryDoBuilder.js';
 
 class HomeStateDo{
 
     constructor(homeStateDo){
-        this.query = "";
+        this.query = new QueryDoBuilder()
+                     .setQuery("")
+                     .setMode(QueryDo.queryMode.REVIEW)
+                     .build();
         this.pages = [] || [new PreviewPageDo()];
         this.pageMaxLength = 6;
         
