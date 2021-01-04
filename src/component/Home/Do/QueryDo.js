@@ -6,7 +6,7 @@ class QueryDo{
     }
 
     constructor(queryDo){
-        this.query="";
+        this.value="";
         this.mode=QueryDo.queryMode.REVIEW;
 
         if(queryDo !== undefined){

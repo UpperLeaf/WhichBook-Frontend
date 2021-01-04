@@ -6,8 +6,8 @@ class QueryDoBuilder{
         this.query = new QueryDo();
     }
 
-    setQuery(query){
-        this.query.query = query;
+    setValue(value){
+        this.query.value = value;
         return this;
     }
 

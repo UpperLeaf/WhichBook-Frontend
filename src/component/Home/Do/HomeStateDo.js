@@ -6,7 +6,7 @@ class HomeStateDo{
 
     constructor(homeStateDo){
         this.query = new QueryDoBuilder()
-                     .setQuery("")
+                     .setValue("")
                      .setMode(QueryDo.queryMode.REVIEW)
                      .build();
         this.pages = [] || [new PreviewPageDo()];

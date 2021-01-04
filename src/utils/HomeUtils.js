@@ -112,7 +112,7 @@ class HomeUtils{
         let newState = new HomeStateDo(state);
         let newQuery = new QueryDo(query);
         let pages = newState.pages;
-        const pageTitle = newQuery.query;
+        const pageTitle = newQuery.value;
 
         if(pageTitle.trim() === "")return newState;
         if(pages.find(page => page.pageTitle === pageTitle)){
@@ -133,7 +133,7 @@ class HomeUtils{
 
     static clearQuery = (state) => {
         let newState = new HomeStateDo(state);
-        newState.query.query="";
+        newState.query.value="";
         return newState;
     }
 

@@ -16,7 +16,7 @@ class Home extends React.Component {
         .setQuery(
             new QueryDoBuilder()
                 .setMode(QueryDo.queryMode.REVIEW)
-                .setQuery("")
+                .setValue("")
                 .build()
         )
         .setPages(
@@ -44,7 +44,7 @@ class Home extends React.Component {
     handleChangeQuery = (e) => {
         this.setState({
             query : new QueryDoBuilder()
-                    .setQuery(e.target.value)
+                    .setValue(e.target.value)
                     .setMode(this.state.query.mode)
                     .build()
         })
