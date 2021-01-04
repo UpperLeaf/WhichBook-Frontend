@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faBook } from "@fortawesome/free-solid-svg-icons";
 import QueryDo from "./Do/QueryDo"
 import React from 'react'
 import './Search.css'
@@ -7,11 +7,16 @@ import './Search.css'
 class Search extends React.Component {
     render() {
 
-        const {onKeyPress, onChangeQuery} = this.props;
+        const {onChangeMode, onKeyPress, onChangeQuery} = this.props;
         const query = new QueryDo(this.props.query);
         return (
             <div className="search_container">
-                <FontAwesomeIcon className="search_img" icon={faSearch}/>
+                <div className="img_container">
+                    <FontAwesomeIcon className="img search" icon={faSearch} />
+                    <FontAwesomeIcon 
+                        onClick={onChangeMode}
+                    className={`img book ${query.mode === QueryDo.queryMode.BOOK && 'active'}`} icon={faBook} />
+                </div>
                 <input className="query"   
                     value={query.value}
                     type="text" 

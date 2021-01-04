@@ -161,6 +161,14 @@ class HomeUtils{
         return page.checked;
     }
 
+    static changeMode(state){
+        let newState = new HomeStateDo(state);
+        let currentMode = newState.query.mode;
+        newState.query.mode = QueryDo.queryMode.BOOK === currentMode ?  
+                              QueryDo.queryMode.REVIEW : 
+                              QueryDo.queryMode.BOOK;
+        return newState;
+    }
 }
 
 export default HomeUtils;

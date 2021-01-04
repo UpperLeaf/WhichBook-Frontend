@@ -50,6 +50,11 @@ class Home extends React.Component {
         })
     }
 
+    handleChangeMode = () => {
+        const newState = HomeUtils.changeMode(this.state);
+        this.setState(newState);
+    }
+
     handleCreatePage = () => {
         const {query} = this.state;
         let newState = HomeUtils.createPage(this.state, query);
@@ -84,7 +89,8 @@ class Home extends React.Component {
             handleKeyPress,
             handleChangeQuery,
             handleClickedPage,
-            handleRemovePage
+            handleRemovePage,
+            handleChangeMode
         } = this;
         return (
             <Main>
@@ -93,6 +99,7 @@ class Home extends React.Component {
                     query={query}
                     onChangeQuery={handleChangeQuery}
                     onKeyPress={handleKeyPress}
+                    onChangeMode={handleChangeMode}
                 />
                 <PreviewPageTitleContainer
                     pages={pages}
