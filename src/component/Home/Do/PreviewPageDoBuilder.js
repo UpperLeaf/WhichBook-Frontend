@@ -6,7 +6,7 @@ class PreviewPageDoBuilder{
         this.page = new PreviewPageDo();
     };
 
-    setpageTitle(pageTitle){
+    setPageTitle(pageTitle){
         this.page.pageTitle = pageTitle;
         return this;
     }

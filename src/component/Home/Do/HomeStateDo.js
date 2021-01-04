@@ -2,10 +2,16 @@ import PreviewPageDo from './PreviewPageDo.js'
 
 class HomeStateDo{
 
-    constructor(){
+    constructor(homeStateDo){
         this.query = "";
         this.pages = [] || [new PreviewPageDo()];
         this.pageMaxLength = 6;
+        
+        if(homeStateDo!== undefined){
+            for (const property in homeStateDo){
+                this[property] = homeStateDo[property];
+            }
+        }
     }
 
     addPages(pages){
