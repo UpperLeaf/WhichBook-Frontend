@@ -8,10 +8,16 @@ class QueryDoBuilder{
 
     setQuery(query){
         this.query.query = query;
+        return this;
     }
 
     setMode(mode){
         this.query.mode = mode;
+        return this;
+    }
+
+    build(){
+        return this.query;
     }
 
 }
