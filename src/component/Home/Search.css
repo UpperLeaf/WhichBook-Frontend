@@ -24,7 +24,22 @@
     border-radius: 0;
 }
 
-.search_img{
-    height:50%;
-    margin: 0 3%;
+.img_container{
+    display:flex;
+    width:15%;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
+
+.img_container .img{
+    height:80%;
+}
+
+.book{
+    color:rgb(134,142,150);
+}
+
+.book.active{
+    color:black;
+}
+

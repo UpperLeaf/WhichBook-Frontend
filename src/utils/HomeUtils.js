@@ -2,6 +2,7 @@ import PreviewDoBuilder from '../component/Home/Do/PreviewDoBuilder'
 import HomeStateDo from '../component/Home/Do/HomeStateDo';
 import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import PreviewPageDo from '../component/Home/Do/PreviewPageDo';
+import QueryDo from '../component/Home/Do/QueryDo';
 
 class HomeUtils{
 
@@ -107,13 +108,17 @@ class HomeUtils{
         return newState;
     }
 
-    static createPage = (state, pageTitle) => {
+    static createPage = (state, query) => {
         let newState = new HomeStateDo(state);
-        let {query, pages} = newState;
+        let newQuery = new QueryDo(query);
+        let pages = newState.pages;
+        const pageTitle = newQuery.value;
 
-        if(query.trim() === "")return newState;
-        if(pages.find(page => page.pageTitle === query)){
-            return newState = this.clickedPage(newState, pageTitle);
+        if(pageTitle.trim() === "")return newState;
+        if(pages.find(page => page.pageTitle === pageTitle)){
+            newState = this.clickedPage(newState, pageTitle);
+            newState = this.clearQuery(newState);
+            return newState;
         }
 
         newState.addPages(
@@ -128,7 +133,7 @@ class HomeUtils{
 
     static clearQuery = (state) => {
         let newState = new HomeStateDo(state);
-        newState.query="";
+        newState.query.value="";
         return newState;
     }
 
@@ -156,6 +161,14 @@ class HomeUtils{
         return page.checked;
     }
 
+    static changeMode(state){
+        let newState = new HomeStateDo(state);
+        let currentMode = newState.query.mode;
+        newState.query.mode = QueryDo.queryMode.BOOK === currentMode ?  
+                              QueryDo.queryMode.REVIEW : 
+                              QueryDo.queryMode.BOOK;
+        return newState;
+    }
 }
 
 export default HomeUtils;
