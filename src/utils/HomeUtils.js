@@ -113,7 +113,9 @@ class HomeUtils{
 
         if(query.trim() === "")return newState;
         if(pages.find(page => page.pageTitle === query)){
-            return newState = this.clickedPage(newState, pageTitle);
+            newState = this.clickedPage(newState, pageTitle);
+            newState = this.clearQuery(newState);
+            return newState;
         }
 
         newState.addPages(
