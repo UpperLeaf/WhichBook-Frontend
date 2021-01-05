@@ -1,26 +1,26 @@
 import HomeState from './HomeStateDo.js'
 
-class HomeStateDoBuilder{
+class HomeStateDoBuilder {
 
-    constructor(){
+    constructor() {
         this.homeState = new HomeState();
         return this;
     }
 
-    setQuery(query){
+    setQuery(query) {
         this.homeState.query = query;
         return this;
     }
 
-    setPages(pages){
+    setPages(pages) {
         this.homeState.addPages(pages);
         return this;
     }
 
-    build(){
+    build() {
         return this.homeState;
     }
-    
+
 }
 
 export default HomeStateDoBuilder;

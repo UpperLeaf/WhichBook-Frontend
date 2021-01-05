@@ -1,22 +1,22 @@
 import PreviewPageDo from './PreviewPageDo.js';
 
-class PreviewPageDoBuilder{
+class PreviewPageDoBuilder {
 
-    constructor(){
+    constructor() {
         this.page = new PreviewPageDo();
     };
 
-    setPageTitle(pageTitle){
+    setPageTitle(pageTitle) {
         this.page.pageTitle = pageTitle;
         return this;
     }
 
-    setChecked(checked){
+    setChecked(checked) {
         this.page.checked = checked;
         return this;
     }
 
-    setPreviews(previews){
+    setPreviews(previews) {
         this.page.previews = this.page.previews.concat(previews);
         return this;
     }
@@ -24,7 +24,6 @@ class PreviewPageDoBuilder{
     build() {
         return this.page;
     }
-
 
 }
 

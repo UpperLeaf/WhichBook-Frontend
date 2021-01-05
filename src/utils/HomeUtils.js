@@ -151,7 +151,6 @@ class HomeUtils{
         return newState;
     }
 
-    
     static isActivePage(state, pageTitle) {
         let newState = new HomeStateDo(state);
         let pages = newState.pages;

@@ -1,22 +1,22 @@
 import QueryDo from './QueryDo.js'
 
-class QueryDoBuilder{
+class QueryDoBuilder {
 
-    constructor(){
+    constructor() {
         this.query = new QueryDo();
     }
 
-    setValue(value){
+    setValue(value) {
         this.query.value = value;
         return this;
     }
 
-    setMode(mode){
+    setMode(mode) {
         this.query.mode = mode;
         return this;
     }
 
-    build(){
+    build() {
         return this.query;
     }
 

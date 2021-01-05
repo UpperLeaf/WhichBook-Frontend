@@ -43,10 +43,10 @@ class Home extends React.Component {
 
     handleChangeQuery = (e) => {
         this.setState({
-            query : new QueryDoBuilder()
-                    .setValue(e.target.value)
-                    .setMode(this.state.query.mode)
-                    .build()
+            query: new QueryDoBuilder()
+                .setValue(e.target.value)
+                .setMode(this.state.query.mode)
+                .build()
         })
     }
 
@@ -56,7 +56,7 @@ class Home extends React.Component {
     }
 
     handleCreatePage = () => {
-        const {query} = this.state;
+        const { query } = this.state;
         let newState = HomeUtils.createPage(this.state, query);
         this.setState(newState);
 

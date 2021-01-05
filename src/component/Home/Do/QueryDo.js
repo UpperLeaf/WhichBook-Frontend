@@ -1,16 +1,16 @@
-class QueryDo{
+class QueryDo {
 
     static queryMode = {
-        BOOK : "book",
-        REVIEW : "review"
+        BOOK: "book",
+        REVIEW: "review"
     }
 
-    constructor(queryDo){
-        this.value="";
-        this.mode=QueryDo.queryMode.REVIEW;
+    constructor(queryDo) {
+        this.value = "";
+        this.mode = QueryDo.queryMode.REVIEW;
 
-        if(queryDo !== undefined){
-            for(const property in queryDo){
+        if (queryDo !== undefined) {
+            for (const property in queryDo) {
                 this[property] = queryDo[property];
             }
         }

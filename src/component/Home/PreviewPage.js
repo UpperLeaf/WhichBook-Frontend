@@ -9,7 +9,7 @@ class PreviewPage extends React.Component {
 
         const page = new PreviewPageDo(this.props.page);
         const previews = page.previews;
-        
+
         const Page = previews.map((
             preview
         ) => (
