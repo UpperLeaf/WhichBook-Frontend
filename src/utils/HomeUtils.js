@@ -6,7 +6,6 @@ import QueryDo from '../component/Home/Do/QueryDo';
 import Axios from 'axios';
 import UriBuilder from './UriBuilder';
 import PageType from '../component/Home/Do/PageType'
-import BookRequestDtoBuilder from './dto/BookRequestDtoBuilder'
 
 class HomeUtils{
 
@@ -24,6 +23,7 @@ class HomeUtils{
                         .setPreviews(
                             activeTitle === page.pageTitle ? [] : page.previews
                         )
+                        .setType(page.type)
                         .build()
                 }
             )
@@ -128,8 +128,10 @@ class HomeUtils{
         newState.addPages(
             new PreviewPageDoBuilder()
             .setPageTitle(pageTitle)
+            .setType(newQuery.type)
             .build()
         )
+
         newState = this.clickedPage(newState,pageTitle);
         newState = this.clearQuery(newState);
         return newState;
