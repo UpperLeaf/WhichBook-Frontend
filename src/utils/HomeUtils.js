@@ -3,6 +3,9 @@ import HomeStateDo from '../component/Home/Do/HomeStateDo';
 import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import PreviewPageDo from '../component/Home/Do/PreviewPageDo';
 import QueryDo from '../component/Home/Do/QueryDo';
+import Axios from 'axios';
+import UriBuilder from './UriBuilder';
+import BookRequestDtoBuilder from './dto/BookRequestDtoBuilder'
 
 class HomeUtils{
 
@@ -168,6 +171,18 @@ class HomeUtils{
                               QueryDo.queryMode.BOOK;
         return newState;
     }
+
+    static getBookList = async (bookRequestDto) => {
+        const uri = new UriBuilder("http://localhost:8080/book/search", bookRequestDto)
+            .build();
+        try {
+            let response = await Axios.get(uri);
+            return response.data;
+        } catch (err) {
+            console.log("Error in getBookInfo Method : " + err);
+            return err;
+        }
+    };
 
 }
 
