@@ -22,6 +22,10 @@ class BookRequestDtoBuilder{
         this.bookRequestDto["id"]=id;
         return this;
     }
+
+    build(){
+        return this.bookRequestDto;
+    }
 }
 
 export default BookRequestDtoBuilder;
