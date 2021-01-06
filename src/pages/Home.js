@@ -32,12 +32,12 @@ class Home extends React.Component {
         .build();
 
     componentDidMount() {
-        this.onload();
+       this.onload();
     }
 
-    onload = () => {
+    onload = async () => {
         const pages = JSON.parse(localStorage.getItem("pages"));
-        const newState = HomeUtils.load(this.state, pages);
+        const newState = await HomeUtils.load(this.state, pages);
         this.setState(newState);
     }
 
@@ -55,9 +55,9 @@ class Home extends React.Component {
         this.setState(newState);
     }
 
-    handleCreatePage = () => {
+    handleCreatePage = async () => {
         const { query } = this.state;
-        let newState = HomeUtils.createPage(this.state, query);
+        let newState = await HomeUtils.createPage(this.state, query);
         this.setState(newState);
 
         localStorage.setItem("pages", JSON.stringify(newState.pages));
@@ -69,15 +69,15 @@ class Home extends React.Component {
         }
     }
 
-    handleClickedPage = (pageTitle) => {
-        const newState = HomeUtils.clickedPage(this.state, pageTitle);
+    handleClickedPage = async (pageTitle) => {
+        const newState = await HomeUtils.clickedPage(this.state, pageTitle);
         this.setState(newState);
 
         localStorage.setItem("pages", JSON.stringify(newState.pages));
     }
 
     handleRemovePage = async (pageTitle) => {
-        const newState = HomeUtils.removePage(this.state, pageTitle);
+        const newState = await HomeUtils.removePage(this.state, pageTitle);
         this.setState(newState);
 
         localStorage.setItem("pages", JSON.stringify(newState.pages));

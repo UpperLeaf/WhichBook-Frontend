@@ -1,3 +1,5 @@
 body {
     background-color: rgb(248, 249, 250);
 }
+
+body{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }

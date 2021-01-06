@@ -6,10 +6,12 @@ import QueryDo from '../component/Home/Do/QueryDo';
 import Axios from 'axios';
 import UriBuilder from './UriBuilder';
 import PageType from '../component/Home/Do/PageType'
+import BookResponseDto from './dto/BookResponseDto';
+import BookRequestDtoBuilder from './dto/BookRequestDtoBuilder';
 
 class HomeUtils{
 
-    static load = (state, pages) => {
+    static load = async (state, pages) => {
         let newState = new HomeStateDo(state);
         let newPages = [] || [new PreviewPageDo()];
         newPages = pages;
@@ -28,10 +30,10 @@ class HomeUtils{
                 }
             )
             newState.pages = newPages;
-            newState = this.clickedPage(newState, activeTitle);
+            newState = await this.clickedPage(newState, activeTitle);
         }
         else {
-            newState = HomeUtils.clickedPage(newState, "최신");
+            newState = await HomeUtils.clickedPage(newState, "최신");
         }
 
         return newState;
@@ -42,7 +44,7 @@ class HomeUtils{
         return true;
     }
 
-    static clickedPage = (state, pageTitle) => {
+    static clickedPage = async (state, pageTitle) => {
         let newState = new HomeStateDo(state);
         
         const currentPageIndex = HomeUtils.getActivePageIndex(newState);
@@ -53,7 +55,7 @@ class HomeUtils{
         }
         newState = this.togglePageByIndex(newState, currentPageIndex);
         newState = this.togglePageByIndex(newState, clickedPageIndex);
-        newState = this.requestPage(newState, pageTitle);
+        newState = await this.loadPage(newState, pageTitle);
 
         return newState;
     }
@@ -87,14 +89,45 @@ class HomeUtils{
         return newState;
     }
     
-    static requestPage = (state, pageTitle) => {
+    static loadPage = async (state, pageTitle) => {
         let newState = new HomeStateDo(state);
         let pages = newState.pages;
         const pageIndex = pages.findIndex((page) => page.pageTitle === pageTitle);
-        const page = pages[pageIndex]
-
+        let page = pages[pageIndex]
         if (page.previews.length === 0) {
-            page.previews = page.previews.concat(
+            page = await this.addNewPreviews(page);
+            pages[pageIndex] = page;
+            newState.pages = pages;
+        }
+        return newState;
+    }
+
+    static addNewPreviews = async (page) => {
+        let newPage = new PreviewPageDo(page);
+        const type = newPage.type;
+        
+        const func = {};
+        func[PageType.BOOK] = this.addNewBookPreviews;
+        func[PageType.REVIEW] = this.addNewReviewPreviews;
+
+        newPage = await func[type](page);
+        return newPage;
+    }
+
+    static addNewBookPreviews = async (page) => {
+        let newPage = new PreviewPageDo(page);
+        const bookList = await this.getBookList(
+            new BookRequestDtoBuilder()
+            .setTitle(newPage.pageTitle)
+            .build()
+        )
+        newPage.previews = newPage.previews.concat(bookList);
+        return newPage;
+    }
+
+    static addNewReviewPreviews = async (page) => {
+        let newPage = new PreviewPageDo(page);
+        newPage.previews = newPage.previews.concat(
                 new PreviewDoBuilder()
                     .setTitle(page.pageTitle)
                     .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
@@ -103,24 +136,20 @@ class HomeUtils{
                     .setAuthor("jinseongho")
                     .setId("1")
                     .build()
-            )
-            
-            pages[pageIndex] = page;
-            newState.pages = pages;
-        }
+        )
 
-        return newState;
+        return newPage;
     }
 
-    static createPage = (state, query) => {
+    static createPage = async (state, query) => {
         let newState = new HomeStateDo(state);
         let newQuery = new QueryDo(query);
         let pages = newState.pages;
-        const pageTitle = newQuery.value;
+        const pageTitle = newQuery.value + (newQuery.type === PageType.BOOK ? "(책)" : "");
 
         if(pageTitle.trim() === "")return newState;
         if(pages.find(page => page.pageTitle === pageTitle)){
-            newState = this.clickedPage(newState, pageTitle);
+            newState = await this.clickedPage(newState, pageTitle);
             newState = this.clearQuery(newState);
             return newState;
         }
@@ -132,7 +161,7 @@ class HomeUtils{
             .build()
         )
 
-        newState = this.clickedPage(newState,pageTitle);
+        newState = await this.clickedPage(newState,pageTitle);
         newState = this.clearQuery(newState);
         return newState;
     }
@@ -143,12 +172,12 @@ class HomeUtils{
         return newState;
     }
 
-    static removePage = (state, pageTitle) => {
+    static removePage = async (state, pageTitle) => {
         if (pageTitle === "최신") return state;
         if (pageTitle === "trend") return state;
         let newState = new HomeStateDo(state);
         if(this.isActivePage(newState, pageTitle)){
-            newState = this.clickedPage(
+            newState = await this.clickedPage(
                 newState,
                 newState.pages[this.getActivePageIndex(newState)-1].pageTitle);
         }
@@ -180,9 +209,8 @@ class HomeUtils{
             .build();
         try {
             let response = await Axios.get(uri);
-            return response.data;
+            return response.data.map(book => new BookResponseDto(book).toPreviewDo());
         } catch (err) {
-            console.log("Error in getBookInfo Method : " + err);
             return err;
         }
     };

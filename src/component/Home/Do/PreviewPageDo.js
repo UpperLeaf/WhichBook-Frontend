@@ -7,12 +7,16 @@ class PreviewPageDo {
         this.checked = false;
         this.previews = [] || [new PreviewDo()];
         this.type = PageType.REVIEW;
-        
+
         if (previewPage !== undefined) {
             for (const property in this) {
                 this[property] = previewPage[property];
             }
         }
+    }
+
+    isEqual(previewPage){
+        return this.pageTitle === previewPage.pageTitle && previewPage.type === this.type;
     }
 
 }
