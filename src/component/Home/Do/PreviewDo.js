@@ -12,6 +12,7 @@ class PreviewDo {
                 this[property] = previewDo[property];
             }
         }
+
     }
 }
 

@@ -5,9 +5,8 @@ import PreviewDo from './Do/PreviewDo';
 class Preview extends React.Component {
 
     render() {
-
         const preview = new PreviewDo(this.props.preview);
-
+        
         return (
             <div className="preview">
                 <div className="preview_img">

@@ -1,13 +1,10 @@
-class QueryDo {
+import PageType from "./PageType";
 
-    static queryMode = {
-        BOOK: "book",
-        REVIEW: "review"
-    }
+class QueryDo {
 
     constructor(queryDo) {
         this.value = "";
-        this.mode = QueryDo.queryMode.REVIEW;
+        this.type = PageType.REVIEW;
 
         if (queryDo !== undefined) {
             for (const property in this) {

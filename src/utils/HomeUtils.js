@@ -5,6 +5,7 @@ import PreviewPageDo from '../component/Home/Do/PreviewPageDo';
 import QueryDo from '../component/Home/Do/QueryDo';
 import Axios from 'axios';
 import UriBuilder from './UriBuilder';
+import PageType from '../component/Home/Do/PageType'
 import BookRequestDtoBuilder from './dto/BookRequestDtoBuilder'
 
 class HomeUtils{
@@ -165,10 +166,10 @@ class HomeUtils{
 
     static changeMode = (state) => {
         let newState = new HomeStateDo(state);
-        let currentMode = newState.query.mode;
-        newState.query.mode = QueryDo.queryMode.BOOK === currentMode ?  
-                              QueryDo.queryMode.REVIEW : 
-                              QueryDo.queryMode.BOOK;
+        let currentMode = newState.query.type;
+        newState.query.type = PageType.BOOK === currentMode ?  
+                              PageType.REVIEW : 
+                              PageType.BOOK;
         return newState;
     }
 

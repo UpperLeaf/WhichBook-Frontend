@@ -11,8 +11,8 @@ class QueryDoBuilder {
         return this;
     }
 
-    setMode(mode) {
-        this.query.mode = mode;
+    setType(type) {
+        this.query.type = type;
         return this;
     }
 

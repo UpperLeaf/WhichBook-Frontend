@@ -6,7 +6,7 @@ import HomeUtils from '../utils/HomeUtils'
 import PreviewPageTitleContainer from '../component/Home/PreviewPageTitleContainer';
 import PreviewWrapper from '../component/Home/PreviewWrapper';
 import QueryDoBuilder from '../component/Home/Do/QueryDoBuilder';
-import QueryDo from '../component/Home/Do/QueryDo';
+import PageType from '../component/Home/Do/PageType'
 import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 
@@ -15,7 +15,7 @@ class Home extends React.Component {
     state = new HomeStateDoBuilder()
         .setQuery(
             new QueryDoBuilder()
-                .setMode(QueryDo.queryMode.REVIEW)
+                .setType(PageType.REVIEW)
                 .setValue("")
                 .build()
         )
@@ -45,7 +45,7 @@ class Home extends React.Component {
         this.setState({
             query: new QueryDoBuilder()
                 .setValue(e.target.value)
-                .setMode(this.state.query.mode)
+                .setType(this.state.query.type)
                 .build()
         })
     }
