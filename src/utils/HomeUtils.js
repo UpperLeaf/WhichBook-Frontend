@@ -145,7 +145,7 @@ class HomeUtils{
         let newState = new HomeStateDo(state);
         let newQuery = new QueryDo(query);
         let pages = newState.pages;
-        const pageTitle = newQuery.value + (newQuery.type === PageType.BOOK ? "(책)" : "");
+        const pageTitle = newQuery.value;
 
         if(pageTitle.trim() === "")return newState;
         if(pages.find(page => page.pageTitle === pageTitle)){

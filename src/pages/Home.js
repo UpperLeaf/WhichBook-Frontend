@@ -53,6 +53,8 @@ class Home extends React.Component {
     handleChangeMode = () => {
         const newState = HomeUtils.changeMode(this.state);
         this.setState(newState);
+
+        localStorage.setItem("query", JSON.stringify(newState.query));
     }
 
     handleCreatePage = async () => {
