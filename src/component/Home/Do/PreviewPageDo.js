@@ -8,7 +8,7 @@ class PreviewPageDo {
         this.previews = [] || [new PreviewDo()];
 
         if (previewPage !== undefined) {
-            for (const property in previewPage) {
+            for (const property in this) {
                 this[property] = previewPage[property];
             }
         }

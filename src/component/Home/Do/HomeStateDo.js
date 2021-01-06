@@ -13,7 +13,7 @@ class HomeStateDo {
         this.pageMaxLength = 6;
 
         if (homeStateDo !== undefined) {
-            for (const property in homeStateDo) {
+            for (const property in this) {
                 this[property] = homeStateDo[property];
             }
         }

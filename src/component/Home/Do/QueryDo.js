@@ -10,7 +10,7 @@ class QueryDo {
         this.mode = QueryDo.queryMode.REVIEW;
 
         if (queryDo !== undefined) {
-            for (const property in queryDo) {
+            for (const property in this) {
                 this[property] = queryDo[property];
             }
         }

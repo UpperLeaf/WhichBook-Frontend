@@ -8,7 +8,7 @@ class PreviewDo {
         this.id = 0;
 
         if (previewDo !== undefined) {
-            for (const property in previewDo) {
+            for (const property in this) {
                 this[property] = previewDo[property];
             }
         }
