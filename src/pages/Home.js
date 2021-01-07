@@ -6,16 +6,17 @@ import HomeUtils from '../utils/HomeUtils'
 import PreviewPageTitleContainer from '../component/Home/PreviewPageTitleContainer';
 import PreviewWrapper from '../component/Home/PreviewWrapper';
 import QueryDoBuilder from '../component/Home/Do/QueryDoBuilder';
-import QueryDo from '../component/Home/Do/QueryDo';
+import PageType from '../component/Home/Do/PageType'
 import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
+import Scroll from '../component/Home/Scroll'
 
 class Home extends React.Component {
 
     state = new HomeStateDoBuilder()
         .setQuery(
             new QueryDoBuilder()
-                .setMode(QueryDo.queryMode.REVIEW)
+                .setType(PageType.REVIEW)
                 .setValue("")
                 .build()
         )
@@ -35,29 +36,32 @@ class Home extends React.Component {
         this.onload();
     }
 
-    onload = () => {
+    onload = async () => {
         const pages = JSON.parse(localStorage.getItem("pages"));
-        const newState = HomeUtils.load(this.state, pages);
+        const query = JSON.parse(localStorage.getItem("query"));
+        const newState = await HomeUtils.load(this.state, pages, query);
         this.setState(newState);
     }
 
     handleChangeQuery = (e) => {
         this.setState({
-            query : new QueryDoBuilder()
-                    .setValue(e.target.value)
-                    .setMode(this.state.query.mode)
-                    .build()
+            query: new QueryDoBuilder()
+                .setValue(e.target.value)
+                .setType(this.state.query.type)
+                .build()
         })
     }
 
     handleChangeMode = () => {
         const newState = HomeUtils.changeMode(this.state);
         this.setState(newState);
+
+        localStorage.setItem("query", JSON.stringify(newState.query));
     }
 
-    handleCreatePage = () => {
-        const {query} = this.state;
-        let newState = HomeUtils.createPage(this.state, query);
+    handleCreatePage = async () => {
+        const { query } = this.state;
+        let newState = await HomeUtils.createPage(this.state, query);
         this.setState(newState);
 
         localStorage.setItem("pages", JSON.stringify(newState.pages));
@@ -69,29 +73,39 @@ class Home extends React.Component {
         }
     }
 
-    handleClickedPage = (pageTitle) => {
-        const newState = HomeUtils.clickedPage(this.state, pageTitle);
+    handleClickedPage = async (pageTitle) => {
+        const newState = await HomeUtils.clickedPage(this.state, pageTitle);
         this.setState(newState);
 
         localStorage.setItem("pages", JSON.stringify(newState.pages));
     }
 
     handleRemovePage = async (pageTitle) => {
-        const newState = HomeUtils.removePage(this.state, pageTitle);
+        const newState = await HomeUtils.removePage(this.state, pageTitle);
         this.setState(newState);
 
+        localStorage.setItem("pages", JSON.stringify(newState.pages));
+    }
+
+    handleScrollEnd = async () => {
+        if(!HomeUtils.scrollisEnd())return;
+        const newState = await HomeUtils.scrollEnd(this.state);
+        this.setState(newState);
+        console.log(1);
         localStorage.setItem("pages", JSON.stringify(newState.pages));
     }
 
     render() {
         const { pages, query } = this.state;
         const {
+            handleScrollEnd,
             handleKeyPress,
             handleChangeQuery,
             handleClickedPage,
             handleRemovePage,
             handleChangeMode
         } = this;
+
         return (
             <Main>
                 <Navigation />
@@ -108,6 +122,9 @@ class Home extends React.Component {
                 />
                 <PreviewWrapper
                     pages={pages}
+                />
+                <Scroll
+                    onScroll={handleScrollEnd}
                 />
             </Main>
         )

@@ -28,5 +28,4 @@ class PreviewPageTitleContainer extends React.Component {
     }
 }
 
-
 export default PreviewPageTitleContainer;

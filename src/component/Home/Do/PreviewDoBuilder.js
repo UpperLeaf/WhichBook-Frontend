@@ -1,41 +1,41 @@
 import PreviewDo from './PreviewDo.js'
 
-class PreviewDoBuilder{
-    constructor(){
+class PreviewDoBuilder {
+    constructor() {
         this.PreviewDo = new PreviewDo();
     }
 
-    setImgURL(imgURL){
+    setImgURL(imgURL) {
         this.PreviewDo.imgURL = imgURL;
         return this;
     }
 
-    setTitle(title){
+    setTitle(title) {
         this.PreviewDo.title = title;
         return this;
     }
 
-    setDescription(description){
+    setDescription(description) {
         this.PreviewDo.description = description;
         return this;
     }
 
-    setCreatedAt(createdAt){
+    setCreatedAt(createdAt) {
         this.PreviewDo.createdAt = createdAt;
         return this;
     }
 
-    setAuthor(author){
+    setAuthor(author) {
         this.PreviewDo.author = author;
         return this;
     }
 
-    setId(id){
+    setId(id) {
         this.PreviewDo.id = id;
         return this;
     }
 
-    build(){
+    build() {
         return this.PreviewDo;
     }
 }

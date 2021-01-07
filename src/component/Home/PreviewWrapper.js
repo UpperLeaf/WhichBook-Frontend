@@ -8,7 +8,7 @@ class PreviewWrapper extends React.Component {
     render() {
         let pages = [] || [new PreviewPageDo()];
         pages = this.props.pages;
-        
+
         const Pages = pages.map((
             page
         ) => (
@@ -18,7 +18,7 @@ class PreviewWrapper extends React.Component {
                 />
             </div>
         ))
-        
+
         return (
             <div className="preview_wrapper">
                 {Pages}

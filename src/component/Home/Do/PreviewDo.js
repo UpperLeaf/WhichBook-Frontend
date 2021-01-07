@@ -1,5 +1,5 @@
-class PreviewDo{
-    constructor(previewDo){
+class PreviewDo {
+    constructor(previewDo) {
         this.imgURL = "";
         this.title = "";
         this.description = "";
@@ -7,11 +7,12 @@ class PreviewDo{
         this.author = "";
         this.id = 0;
 
-        if(previewDo !== undefined){
-            for (const property in previewDo){
+        if (previewDo !== undefined) {
+            for (const property in this) {
                 this[property] = previewDo[property];
             }
         }
+
     }
 }
 
