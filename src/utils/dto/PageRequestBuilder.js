@@ -17,7 +17,7 @@ class PageRequestBuilder{
     }
 
     build(){
-        return this;
+        return this.pageRequest;
     }
 
 }

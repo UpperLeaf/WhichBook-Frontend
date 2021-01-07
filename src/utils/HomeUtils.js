@@ -8,6 +8,8 @@ import UriBuilder from './UriBuilder';
 import PageType from '../component/Home/Do/PageType'
 import BookResponseDto from './dto/BookResponseDto';
 import BookRequestDtoBuilder from './dto/BookRequestDtoBuilder';
+import PageRequestBuilder from './dto/PageRequestBuilder';
+import PageRequest from './dto/PageRequest';
 
 class HomeUtils{
 
@@ -60,16 +62,23 @@ class HomeUtils{
 
     static clickedPage = async (state, pageTitle) => {
         let newState = new HomeStateDo(state);
-        
+
         const currentPageIndex = HomeUtils.getActivePageIndex(newState);
         const clickedPageIndex = newState.pages.findIndex(page => page.pageTitle === pageTitle);
 
-        if(currentPageIndex === clickedPageIndex){
+        if (currentPageIndex === clickedPageIndex) {
             return newState;
         }
         newState = this.togglePageByIndex(newState, currentPageIndex);
         newState = this.togglePageByIndex(newState, clickedPageIndex);
-        newState = await this.loadPage(newState, pageTitle);
+        newState = await this.loadPage(
+            newState,
+            pageTitle,
+            new PageRequestBuilder()
+                .setDisplay(10)
+                .setStart(0)
+                .build()
+        );
 
         return newState;
     }
@@ -103,20 +112,20 @@ class HomeUtils{
         return newState;
     }
     
-    static loadPage = async (state, pageTitle) => {
+    static loadPage = async (state, pageTitle, pageRequest) => {
         let newState = new HomeStateDo(state);
         let pages = newState.pages;
         const pageIndex = pages.findIndex((page) => page.pageTitle === pageTitle);
         let page = pages[pageIndex]
         if (page.previews.length === 0) {
-            page = await this.addNewPreviews(page);
+            page = await this.addNewPreviews(page, pageRequest);
             pages[pageIndex] = page;
             newState.pages = pages;
         }
         return newState;
     }
 
-    static addNewPreviews = async (page) => {
+    static addNewPreviews = async (page, pageRequest) => {
         let newPage = new PreviewPageDo(page);
         const type = newPage.type;
         
@@ -124,22 +133,27 @@ class HomeUtils{
         func[PageType.BOOK] = this.addNewBookPreviews;
         func[PageType.REVIEW] = this.addNewReviewPreviews;
 
-        newPage = await func[type](page);
+        newPage = await func[type](page, pageRequest);
         return newPage;
     }
 
-    static addNewBookPreviews = async (page) => {
+    static addNewBookPreviews = async (page, pageRequest) => {
         let newPage = new PreviewPageDo(page);
+        let newPageRequest = new PageRequest(pageRequest);
+        
         const bookList = await this.getBookList(
             new BookRequestDtoBuilder()
             .setTitle(newPage.pageTitle)
+            .setDisplay(newPageRequest.display)
+            .setStart(newPageRequest.start)
             .build()
         )
+
         newPage.previews = newPage.previews.concat(bookList);
         return newPage;
     }
 
-    static addNewReviewPreviews = async (page) => {
+    static addNewReviewPreviews = async (page, pageRequest) => {
         let newPage = new PreviewPageDo(page);
         newPage.previews = newPage.previews.concat(
                 new PreviewDoBuilder()
