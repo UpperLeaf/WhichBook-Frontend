@@ -11,7 +11,14 @@ import BookRequestDtoBuilder from './dto/BookRequestDtoBuilder';
 
 class HomeUtils{
 
-    static load = async (state, pages) => {
+    static load = async (state, pages, query) => {
+        let newState = state;
+        newState = await this.loadPages(newState,pages);
+        newState = this.loadQuery(newState,query);
+        return newState;
+    }
+
+    static loadPages = async (state, pages) => {
         let newState = new HomeStateDo(state);
         let newPages = [] || [new PreviewPageDo()];
         newPages = pages;
@@ -36,6 +43,13 @@ class HomeUtils{
             newState = await HomeUtils.clickedPage(newState, "최신");
         }
 
+        return newState;
+    }
+
+    static loadQuery = async (state, query) => {
+        let newState = new HomeStateDo(state);
+        let newQuery = new QueryDo(query);
+        newState.query.type = newQuery.type;
         return newState;
     }
 

@@ -37,7 +37,8 @@ class Home extends React.Component {
 
     onload = async () => {
         const pages = JSON.parse(localStorage.getItem("pages"));
-        const newState = await HomeUtils.load(this.state, pages);
+        const query = JSON.parse(localStorage.getItem("query"));
+        const newState = await HomeUtils.load(this.state, pages, query);
         this.setState(newState);
     }
 
