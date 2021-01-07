@@ -1,5 +1,4 @@
 import React from 'react'
-import {debounce} from 'lodash'
 class Scroll extends React.Component {
 	constructor() {
     	super();
@@ -13,9 +12,9 @@ class Scroll extends React.Component {
     	window.removeEventListener('scroll', this.handleScroll);
     }
     
-    handleScroll = (e) => {
+    handleScroll = async (e) => {
         const {onScroll} = this.props;
-        onScroll();
+        await onScroll();
     }
     
     render() {

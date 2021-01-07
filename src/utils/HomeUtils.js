@@ -75,7 +75,7 @@ class HomeUtils{
             newState,
             pageTitle,
             new PageRequestBuilder()
-                .setDisplay(10)
+                .setDisplay(20)
                 .setStart(0)
                 .build()
         );
@@ -146,6 +146,7 @@ class HomeUtils{
             .setTitle(newPage.pageTitle)
             .setDisplay(newPageRequest.display)
             .setStart(newPageRequest.start)
+            .setId(newPageRequest.id)
             .build()
         )
 
@@ -250,8 +251,21 @@ class HomeUtils{
         return currentScrollValue + widnowHeight >= scrollHeight
     }
 
-    static onScroll = (e, state) => {
-        console.log(state);
+    static scrollEnd = async (state) => {
+        const newState = new HomeStateDo(state);
+        const activePageIndex = this.getActivePageIndex(state);
+        let activePage = newState.pages[this.getActivePageIndex(state)];
+
+        activePage = await this.addNewPreviews(
+            activePage,
+            new PageRequestBuilder()
+            .setStart(0)
+            .setDisplay(7)
+            .build()
+        )
+
+        newState.pages[activePageIndex] = activePage;
+        return newState;
     }
 
 }

@@ -87,9 +87,12 @@ class Home extends React.Component {
         localStorage.setItem("pages", JSON.stringify(newState.pages));
     }
 
-    handleScrollEnd = () => {
+    handleScrollEnd = async () => {
         if(!HomeUtils.scrollisEnd())return;
+        const newState = await HomeUtils.scrollEnd(this.state);
+        this.setState(newState);
         console.log(1);
+        localStorage.setItem("pages", JSON.stringify(newState.pages));
     }
 
     render() {
@@ -102,7 +105,6 @@ class Home extends React.Component {
             handleRemovePage,
             handleChangeMode
         } = this;
-
 
         return (
             <Main>

@@ -16,6 +16,11 @@ class PageRequestBuilder{
         return this;
     }
 
+    setId(id){
+        this.pageRequest.id = id;
+        return this;
+    }
+
     build(){
         return this.pageRequest;
     }
