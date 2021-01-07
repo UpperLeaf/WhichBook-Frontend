@@ -15,9 +15,15 @@ class BookPreview extends Preview{
                     <img src={preview.imgURL} ></img>
                 </div>
                 <div className="preview_footer">
-                    <h4 className="preview_title">{preview.title}</h4>
-                    <p className="preview_description">
-                        {preview.description}
+                    <h4
+                        className="preview_title"
+                        dangerouslySetInnerHTML={{ __html: preview.title }}
+                    >
+                    </h4>
+                    <p 
+                        className="preview_description"
+                        dangerouslySetInnerHTML={{__html:preview.description}}
+                    >
                     </p>
                     <div className="footer">
                         <span className="preview_createdAt">
