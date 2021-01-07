@@ -243,6 +243,17 @@ class HomeUtils{
         }
     };
 
+    static scrollisEnd = () => {
+        const currentScrollValue = document.documentElement.scrollTop;
+        const widnowHeight = window.innerHeight;
+        const scrollHeight = document.body.scrollHeight;
+        return currentScrollValue + widnowHeight >= scrollHeight
+    }
+
+    static onScroll = (e, state) => {
+        console.log(state);
+    }
+
 }
 
 export default HomeUtils;

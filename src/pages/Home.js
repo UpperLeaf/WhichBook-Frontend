@@ -9,6 +9,7 @@ import QueryDoBuilder from '../component/Home/Do/QueryDoBuilder';
 import PageType from '../component/Home/Do/PageType'
 import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
+import Scroll from '../component/Home/Scroll'
 
 class Home extends React.Component {
 
@@ -32,7 +33,7 @@ class Home extends React.Component {
         .build();
 
     componentDidMount() {
-       this.onload();
+        this.onload();
     }
 
     onload = async () => {
@@ -86,15 +87,23 @@ class Home extends React.Component {
         localStorage.setItem("pages", JSON.stringify(newState.pages));
     }
 
+    handleScrollEnd = () => {
+        if(!HomeUtils.scrollisEnd())return;
+        console.log(1);
+    }
+
     render() {
         const { pages, query } = this.state;
         const {
+            handleScrollEnd,
             handleKeyPress,
             handleChangeQuery,
             handleClickedPage,
             handleRemovePage,
             handleChangeMode
         } = this;
+
+
         return (
             <Main>
                 <Navigation />
@@ -111,6 +120,9 @@ class Home extends React.Component {
                 />
                 <PreviewWrapper
                     pages={pages}
+                />
+                <Scroll
+                    onScroll={handleScrollEnd}
                 />
             </Main>
         )

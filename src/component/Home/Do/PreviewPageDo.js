@@ -7,7 +7,8 @@ class PreviewPageDo {
         this.checked = false;
         this.previews = [] || [new PreviewDo()];
         this.type = PageType.REVIEW;
-
+        this.pageLoading = false;
+        
         if (previewPage !== undefined) {
             for (const property in this) {
                 this[property] = previewPage[property];
