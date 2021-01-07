@@ -9,7 +9,7 @@ class PreviewPage extends React.Component {
         const page = new PreviewPageDo(this.props.page);
 
         return (
-            <li className={`preview_page_title ${page.pageTitle} ${page.checked && 'active'}`} onClick={() => onClick(page.pageTitle)}>
+            <li className={`preview_page_title ${page.checked && 'active'}`} onClick={() => onClick(page.pageTitle)}>
                 <div className="remove_container">
                     <div className="remove" onClick={(e) => {
                         e.stopPropagation();
