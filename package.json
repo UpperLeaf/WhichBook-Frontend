@@ -14,7 +14,7 @@
         "@uiw/react-md-editor": "^2.0.3",
         "axios": "^0.21.1",
         "cross-env": "^7.0.2",
-        "loadsh": "0.0.4",
+        "lodash": "^4.17.20",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
         "react-router-dom": "^5.2.0",
