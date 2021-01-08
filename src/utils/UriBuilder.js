@@ -1,22 +1,22 @@
-class UriBuilder{
+class UriBuilder {
 
-    constructor(uri, config){
+    constructor(uri, config) {
         this.uri = uri || "";
         this.config = config || {};
     }
 
-    addParam(key, value){
+    addParam(key, value) {
         this.config[key] = value;
         return this;
     }
 
-    build(){
+    build() {
         let newUri = this.uri;
         let component = [];
-        for(const property in this.config){
+        for (const property in this.config) {
             component.push(`${property}=${this.config[property]}`);
         }
-        return newUri+(component.length == 0 ? "" : "?")+component.join("&");
+        return newUri + (component.length == 0 ? "" : "?") + component.join("&");
     }
 
 }

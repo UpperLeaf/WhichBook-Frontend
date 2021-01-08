@@ -9,12 +9,11 @@ class PreviewPage extends React.Component {
     render() {
         const page = new PreviewPageDo(this.props.page);
         const previews = page.previews;
-        console.log(previews.length);
         const Page = previews.map((
             preview
         ) => (
             <Preview 
-                key={new Date().getMilliseconds()+preview.id}
+                key={preview.id}
                 preview={preview}
                 previewTemplate={
                     getPreviewTemplate(page.type, preview)

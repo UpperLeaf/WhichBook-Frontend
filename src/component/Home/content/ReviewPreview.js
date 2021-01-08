@@ -1,15 +1,13 @@
 import Preview from '../Preview';
 
-class ReviewPreview extends Preview{
+class ReviewPreview extends Preview {
 
-    constructor(){
+    constructor() {
         super();
     }
 
-    render(){
-        return <div>
-            Review
-        </div>
+    render() {
+        return <div />
     }
 
 }

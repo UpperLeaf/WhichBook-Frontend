@@ -1,13 +1,13 @@
 import Preview from '../Preview';
 import PreviewDo from '../Do/PreviewDo'
 
-class BookPreview extends Preview{
+class BookPreview extends Preview {
 
-    constructor(){
+    constructor() {
         super();
     }
 
-    render(){
+    render() {
         const preview = new PreviewDo(this.props.preview);
         return (
             <div className="preview">
@@ -20,9 +20,9 @@ class BookPreview extends Preview{
                         dangerouslySetInnerHTML={{ __html: preview.title }}
                     >
                     </h4>
-                    <p 
+                    <p
                         className="preview_description"
-                        dangerouslySetInnerHTML={{__html:preview.description}}
+                        dangerouslySetInnerHTML={{ __html: preview.description }}
                     >
                     </p>
                     <div className="footer">
@@ -37,7 +37,6 @@ class BookPreview extends Preview{
             </div>
         )
     }
-
 }
 
 export default BookPreview;

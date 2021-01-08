@@ -1,29 +1,29 @@
-class BookRequestDtoBuilder{
-    constructor(){
+class BookRequestDtoBuilder {
+    constructor() {
         this.bookRequestDto = {};
     }
 
-    setTitle(title){
-        this.bookRequestDto["title"]=title;
+    setTitle(title) {
+        this.bookRequestDto["title"] = title;
         return this;
     }
 
-    setStart(start){
-        this.bookRequestDto["start"]=start;
+    setStart(start) {
+        this.bookRequestDto["start"] = start;
         return this;
     }
 
-    setDisplay(display){
-        this.bookRequestDto["display"]=display;
+    setDisplay(display) {
+        this.bookRequestDto["display"] = display;
         return this;
     }
 
-    setId(id){
-        this.bookRequestDto["id"]=id;
+    setId(id) {
+        this.bookRequestDto["id"] = id;
         return this;
     }
 
-    build(){
+    build() {
         return this.bookRequestDto;
     }
 }

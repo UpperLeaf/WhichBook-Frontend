@@ -1,7 +1,7 @@
 import PreviewDoBuilder from "../../component/Home/Do/PreviewDoBuilder";
 
-class BookResponseDto{
-    constructor(bookResponseDto){
+class BookResponseDto {
+    constructor(bookResponseDto) {
         this.author = "";
         this.bookId = "";
         this.description = "";
@@ -9,19 +9,19 @@ class BookResponseDto{
         this.price = "";
         this.title = "";
 
-        for(const property in this){
+        for (const property in this) {
             this[property] = bookResponseDto[property];
         }
     }
 
-    toPreviewDo(){
+    toPreviewDo() {
         return new PreviewDoBuilder()
-               .setAuthor(this.author)
-               .setId(this.bookId)
-               .setDescription(this.description)
-               .setImgURL(this.image)
-               .setTitle(this.title)
-               .build();
+            .setAuthor(this.author)
+            .setId(this.bookId)
+            .setDescription(this.description)
+            .setImgURL(this.image)
+            .setTitle(this.title)
+            .build();
     }
 
 }
