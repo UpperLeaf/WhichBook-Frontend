@@ -1,27 +1,27 @@
 import PageRequest from './PageRequest'
 
-class PageRequestBuilder{
-    
-    constructor(){
+class PageRequestBuilder {
+
+    constructor() {
         this.pageRequest = new PageRequest();
     }
 
-    setStart(start){
+    setStart(start) {
         this.pageRequest.start = start;
         return this;
     }
 
-    setDisplay(display){
+    setDisplay(display) {
         this.pageRequest.display = display;
         return this;
     }
 
-    setId(id){
+    setId(id) {
         this.pageRequest.id = id;
         return this;
     }
 
-    build(){
+    build() {
         return this.pageRequest;
     }
 

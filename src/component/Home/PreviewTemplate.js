@@ -1,5 +1,5 @@
-import BookPreview from './content/BookPreview'
-import ReviewPreview from './content/ReviewPreview'
+import BookPreview from './preview/BookPreview'
+import ReviewPreview from './preview/ReviewPreview'
 import PageType from './Do/PageType'
 
 const getPreviewTemplate = (pageType, previewDo) => {

@@ -2,7 +2,7 @@ import React from 'react'
 import Navigation from '../component/navigation/Navigation';
 import Main from '../component/Main'
 import Search from '../component/Home/Search'
-import HomeUtils from '../utils/HomeUtils'
+import HomeUtils from '../utils/HomeUtils/HomeUtils'
 import PreviewPageTitleContainer from '../component/Home/PreviewPageTitleContainer';
 import PreviewWrapper from '../component/Home/PreviewWrapper';
 import QueryDoBuilder from '../component/Home/Do/QueryDoBuilder';
@@ -10,6 +10,7 @@ import PageType from '../component/Home/Do/PageType'
 import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 import Scroll from '../component/Home/Scroll'
+import PreviewPages from '../component/Home/Do/PreviewPages'
 
 class Home extends React.Component {
 
@@ -21,14 +22,15 @@ class Home extends React.Component {
                 .build()
         )
         .setPages(
-            [
-                new PreviewPageDoBuilder()
+                new PreviewPages()
+                .add(
+                [new PreviewPageDoBuilder()
                     .setPageTitle("trend")
                     .build(),
                 new PreviewPageDoBuilder()
                     .setPageTitle("최신")
-                    .build(),
-            ]
+                    .build()]
+                )
         )
         .build();
 
@@ -60,6 +62,7 @@ class Home extends React.Component {
     }
 
     handleCreatePage = async () => {
+        
         const { query } = this.state;
         let newState = await HomeUtils.createPage(this.state, query);
         this.setState(newState);
@@ -91,7 +94,6 @@ class Home extends React.Component {
         if(!HomeUtils.scrollisEnd())return;
         const newState = await HomeUtils.scrollEnd(this.state);
         this.setState(newState);
-        console.log(1);
         localStorage.setItem("pages", JSON.stringify(newState.pages));
     }
 
@@ -105,7 +107,6 @@ class Home extends React.Component {
             handleRemovePage,
             handleChangeMode
         } = this;
-
         return (
             <Main>
                 <Navigation />

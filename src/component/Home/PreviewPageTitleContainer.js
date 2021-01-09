@@ -1,16 +1,15 @@
 import React from 'react'
 import './PreviewPageTitleContainer.css'
 import PreviewPageTitle from './PreviewPageTitle'
-import PreviewPageDo from './Do/PreviewPageDo'
+import PreviewPages from './Do/PreviewPages'
 
 class PreviewPageTitleContainer extends React.Component {
 
     render() {
         const { onClick, onRemove } = this.props;
-        let pages = [] || [new PreviewPageDo()];
-        pages = this.props.pages;
-
-        const pageList = pages.map(
+        let pages = new PreviewPages(this.props.pages);
+        let rawPages = pages.getRawPages();
+        const pageList = rawPages.map(
             (page) => (
                 <PreviewPageTitle key={page.pageTitle}
                     page={page}

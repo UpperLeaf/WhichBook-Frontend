@@ -13,7 +13,7 @@ class HomeStateDoBuilder {
     }
 
     setPages(pages) {
-        this.homeState.addPages(pages);
+        this.homeState.pages = pages;
         return this;
     }
 

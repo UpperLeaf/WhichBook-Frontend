@@ -13,6 +13,14 @@ class QueryDo {
         }
     }
 
+    changeType(){
+        this.type = this.type === PageType.BOOK ? PageType.REVIEW : PageType.BOOK;
+    }
+
+    clear(){
+        this.value = "";
+    }
+
 }
 
 export default QueryDo;
