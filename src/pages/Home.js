@@ -9,6 +9,7 @@ import QueryDoBuilder from '../component/Home/Do/QueryDoBuilder';
 import PageType from '../component/Home/Do/PageType'
 import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
+import PreviewPages from '../component/Home/Do/PreviewPages'
 import Scroll from '../component/Home/Scroll'
 
 class Home extends React.Component {
@@ -60,6 +61,7 @@ class Home extends React.Component {
     }
 
     handleCreatePage = async () => {
+        
         const { query } = this.state;
         let newState = await HomeUtils.createPage(this.state, query);
         this.setState(newState);

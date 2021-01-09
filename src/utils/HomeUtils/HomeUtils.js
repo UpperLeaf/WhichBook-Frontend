@@ -11,11 +11,11 @@ import BookRequestDtoBuilder from './dto/BookRequestDtoBuilder';
 import PageRequestBuilder from './PageRequestBuilder';
 import PageRequest from './PageRequest';
 import {isNotEmpty, isEmpty} from '../Utils'
+import PreviewPages from '../../component/Home/Do/PreviewPages'
 
 class HomeUtils {
 
     static load = async (state, pages, query) => {
-        console.log(pages, query);
         let newState = state;
         newState = await this.loadPages(newState, pages);
         newState = this.loadQuery(newState, query);
@@ -28,11 +28,19 @@ class HomeUtils {
         newPages = pages;
     
         if (isEmpty(newPages)) {
-            console.log(1)
             return newState = await this.clickedPage(newState, "최신");
         }
-
         newState.pages = this.emptyPreviewOfActivePage(newPages);
+
+        let newPage = newState.pages[this.getActivePageIndex(pages)];
+        newPage = await this.addPreviews(newPage, 
+            new PageRequestBuilder()
+            .setDisplay(20)
+            .setStart(0)
+            .build()
+            )            
+        
+        newState.pages[this.getActivePageIndex(pages)] = newPage;
         return newState;
     }
 
@@ -58,7 +66,6 @@ class HomeUtils {
         let newState = new HomeStateDo(state);
 
         if (isEmpty(query)) {
-            console.log(2);
             return newState;
         }
 
@@ -70,16 +77,17 @@ class HomeUtils {
 
     static clickedPage = async (state, pageTitle) => {
         let newState = new HomeStateDo(state);
-
-        const currentPageIndex = HomeUtils.getActivePageIndex(newState.pages);
+        const currentPageIndex = HomeUtils.getActivePageIndex(newState.pages); 
         const clickedPageIndex = newState.pages.findIndex(page => page.pageTitle === pageTitle);
+
         if (currentPageIndex === clickedPageIndex) {
             return newState;
         }
 
-        newState = this.togglePageByIndex(newState, currentPageIndex);
-        newState = this.togglePageByIndex(newState, clickedPageIndex);
-
+        if(currentPageIndex !== -1)
+            new PreviewPageDo().toggleChecked.call(newState.pages[currentPageIndex]);
+        new PreviewPageDo().toggleChecked.call(newState.pages[clickedPageIndex]);
+        
         let newPage = newState.pages[clickedPageIndex];
         newPage = await this.addPreviewsIfEmptyPage(newPage);
         newState.pages[clickedPageIndex] = newPage;
@@ -87,9 +95,10 @@ class HomeUtils {
     }
 
     static getActivePageIndex = (pages) => {
-        let newPages = [] || [new PreviewPageDo()]
-        newPages = pages;
-        return newPages.findIndex((page) => page.checked);
+        let newPages = new PreviewPages(pages);
+        new HomeStateDo().pages.
+        return newPages.previewPages.findIndex((page) => page.checked);
+        // newPages.findIndex((page) => page.checked);
     }
 
     static getActiveTitle = (pages) => {
@@ -99,25 +108,11 @@ class HomeUtils {
         return newPages[activeIndex].pageTitle;
     }
 
-    static togglePageByIndex = (state, pageIndex) => {
-        if (pageIndex < 0) return state;
-        let newState = new HomeStateDo(state);
-        let pages = newState.pages;
-        const page = pages[pageIndex];
-        page.checked = !page.checked;
-        pages[pageIndex] = page;
-        newState.pages = pages;
-        return newState;
-    }
-
-    static togglePageByPageTitle = (state, pageTitle) => {
-        let newState = new HomeStateDo(state);
-        let pages = newState.pages;
-
-        const pageIndex = pages.findIndex(page => page.pageTitle === pageTitle);
-        newState = this.togglePageByIndex(pageIndex);
-
-        return newState;
+    static togglePage = (page) => {
+        let newPage = new PreviewPageDo(page);
+        console.log(newPage);
+        newPage.toggleChecked();
+        return newPage;
     }
 
     static addPreviewsIfEmptyPage = async (page) => {
@@ -143,14 +138,14 @@ class HomeUtils {
         const type = newPage.type;
 
         const func = {};
-        func[PageType.BOOK] = this.addNewBookPreviews;
-        func[PageType.REVIEW] = this.addNewReviewPreviews;
+        func[PageType.BOOK] = this.addBookPreviews;
+        func[PageType.REVIEW] = this.addReviewPreviews;
 
         newPage = await func[type](page, pageRequest);
         return newPage;
     }
 
-    static addNewBookPreviews = async (page, pageRequest) => {
+    static addBookPreviews = async (page, pageRequest) => {
         let newPage = new PreviewPageDo(page);
         let newPageRequest = new PageRequest(pageRequest);
 
@@ -167,7 +162,7 @@ class HomeUtils {
         return newPage;
     }
 
-    static addNewReviewPreviews = async (page, pageRequest) => {
+    static addReviewPreviews = async (page, pageRequest) => {
         let newPage = new PreviewPageDo(page);
         newPage.previews = newPage.previews.concat(
             new PreviewDoBuilder()
@@ -184,6 +179,7 @@ class HomeUtils {
     }
 
     static createPage = async (state, query) => {
+        console.log(2);
         let newState = new HomeStateDo(state);
         let newQuery = new QueryDo(query);
         let pages = newState.pages;

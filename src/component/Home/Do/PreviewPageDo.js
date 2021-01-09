@@ -7,7 +7,6 @@ class PreviewPageDo {
         this.checked = false;
         this.previews = [] || [new PreviewDo()];
         this.type = PageType.REVIEW;
-        this.pageLoading = false;
         
         if (previewPage !== undefined) {
             for (const property in this) {
@@ -18,6 +17,10 @@ class PreviewPageDo {
 
     isEqual(previewPage){
         return this.pageTitle === previewPage.pageTitle && previewPage.type === this.type;
+    }
+
+    toggleChecked(){
+        this.checked = !this.checked;
     }
 
 }

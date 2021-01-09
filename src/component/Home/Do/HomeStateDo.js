@@ -1,7 +1,6 @@
 import PreviewPageDo from './PreviewPageDo.js'
 import PageType from './PageType.js'
 import QueryDoBuilder from './QueryDoBuilder.js';
-
 class HomeStateDo {
 
     constructor(homeStateDo) {
