@@ -10,11 +10,12 @@ import BookResponseDto from './dto/BookResponseDto';
 import BookRequestDtoBuilder from './dto/BookRequestDtoBuilder';
 import PageRequestBuilder from './PageRequestBuilder';
 import PageRequest from './PageRequest';
-import {isEmpty} from '../Utils'
+import {isNotEmpty, isEmpty} from '../Utils'
 
 class HomeUtils {
 
     static load = async (state, pages, query) => {
+        console.log(pages, query);
         let newState = state;
         newState = await this.loadPages(newState, pages);
         newState = this.loadQuery(newState, query);
@@ -25,8 +26,9 @@ class HomeUtils {
         let newState = new HomeStateDo(state);
         let newPages = [] || [new PreviewPageDo()];
         newPages = pages;
-        
+    
         if (isEmpty(newPages)) {
+            console.log(1)
             return newState = await this.clickedPage(newState, "최신");
         }
 
@@ -56,6 +58,7 @@ class HomeUtils {
         let newState = new HomeStateDo(state);
 
         if (isEmpty(query)) {
+            console.log(2);
             return newState;
         }
 
@@ -76,11 +79,10 @@ class HomeUtils {
 
         newState = this.togglePageByIndex(newState, currentPageIndex);
         newState = this.togglePageByIndex(newState, clickedPageIndex);
-        newState = await this.loadPage(
-            newState,
-            pageTitle
-        );
 
+        let newPage = newState.pages[clickedPageIndex];
+        newPage = await this.addPreviewsIfEmptyPage(newPage);
+        newState.pages[clickedPageIndex] = newPage;
         return newState;
     }
 
@@ -118,23 +120,22 @@ class HomeUtils {
         return newState;
     }
 
-    static loadPage = async (state, pageTitle) => {
-        let newState = new HomeStateDo(state);
-        let pages = newState.pages;
-        const pageIndex = pages.findIndex((page) => page.pageTitle === pageTitle);
-        let page = pages[pageIndex];
-        console.log(state);
-        if (page.previews.length === 0) {
-            page = await this.addPreviews(page, 
-                new PageRequestBuilder()
-                .setDisplay(20)
-                .setStart(0)
-                .build()
-            );
-            pages[pageIndex] = page;
-            newState.pages = pages;
+    static addPreviewsIfEmptyPage = async (page) => {
+        let newPage = new PreviewPageDo(page);
+
+        if(isNotEmpty(newPage.previews)){
+            return newPage;
         }
-        return newState;
+
+        newPage = await this.addPreviews(
+            page,
+            new PageRequestBuilder()
+            .setDisplay(20)
+            .setStart(0)
+            .build()
+        )
+
+        return newPage;
     }
 
     static addPreviews = async (page, pageRequest) => {
@@ -208,6 +209,7 @@ class HomeUtils {
     }
 
     static clearQuery = (state) => {
+        console.log(state);
         let newState = new HomeStateDo(state);
         newState.query.value = "";
         return newState;
