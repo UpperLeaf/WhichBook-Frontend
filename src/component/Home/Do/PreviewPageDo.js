@@ -23,6 +23,10 @@ class PreviewPageDo {
         this.checked = !this.checked;
     }
 
+    removePreviews(){
+        this.previews = [];
+    }
+
 }
 
 export default PreviewPageDo;

@@ -16,7 +16,7 @@ class UriBuilder {
         for (const property in this.config) {
             component.push(`${property}=${this.config[property]}`);
         }
-        return newUri + (component.length == 0 ? "" : "?") + component.join("&");
+        return newUri + (component.length === 0 ? "" : "?") + component.join("&");
     }
 
 }

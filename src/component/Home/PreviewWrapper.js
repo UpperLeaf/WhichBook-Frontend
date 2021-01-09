@@ -1,15 +1,15 @@
 import React from 'react';
 import "./PreviewWrapper.css"
 import PreviewPage from "./PreviewPage"
-import PreviewPageDo from "./Do/PreviewPageDo"
+import PreviewPages from './Do/PreviewPages'
 
 class PreviewWrapper extends React.Component {
 
     render() {
-        let pages = [] || [new PreviewPageDo()];
-        pages = this.props.pages;
+        let pages = new PreviewPages(this.props.pages);
+        let rawPages = pages.getRawPages();
 
-        const Pages = pages.map((
+        const Pages = rawPages.map((
             page
         ) => (
             <div key={page.pageTitle}>
