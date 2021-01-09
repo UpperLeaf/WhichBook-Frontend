@@ -67,6 +67,21 @@ class PreviewPages{
         this.pages = this.pages.filter(page => page.pageTitle !== pageTitle);
     }
 
+    clickedPage(pageTitle){
+        const currentPageIndex = this.getActivePageIndex();
+        const clickedPageIndex = this.getPageIndexByPageTitle(pageTitle);
+        if(currentPageIndex === clickedPageIndex){
+            return;
+        }
+        if(currentPageIndex != -1){
+            new PreviewPageDo().toggleChecked.call(this.at(currentPageIndex));
+        }
+        new PreviewPageDo().toggleChecked.call(this.at(clickedPageIndex));
+        let newPage = new PreviewPageDo(this.at(clickedPageIndex));
+        await newPage.addPreviewsIfPreviewIsEmpty();
+        this.setPage(clickedPageIndex,newPage)
+    }
+
 }
 
 export default PreviewPages;

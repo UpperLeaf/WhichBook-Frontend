@@ -7,9 +7,7 @@ import Axios from 'axios';
 import UriBuilder from '../UriBuilder';
 import PageType from '../../component/Home/Do/PageType'
 import BookResponseDto from './dto/BookResponseDto';
-import BookRequestDtoBuilder from './dto/BookRequestDtoBuilder';
 import PageRequestBuilder from './PageRequestBuilder';
-import PageRequest from './PageRequest';
 import {isNotEmpty, isEmpty} from '../Utils'
 import PreviewPages from '../../component/Home/Do/PreviewPages'
 
@@ -23,10 +21,8 @@ class HomeUtils {
     }
 
     static loadPages = async (state, pages) => {
-        console.log(pages);
         let newState = new HomeStateDo(state);
         let newPages = new PreviewPages(pages);
-        console.log(newPages);
         if (isEmpty(newPages.getRawPages())) {
             return newState = await this.clickedPage(newState, "최신");
         }
@@ -34,14 +30,15 @@ class HomeUtils {
         newPages.emptyPreviewOfActivePage();
         newState.pages = newPages;
 
-        let newPage = newState.pages.getActivePage();
+        let newPage = new PreviewPageDo(newState.pages.getActivePage());
 
-        newPage = await this.addPreviews(newPage, 
+        await newPage.addPreviews( 
             new PageRequestBuilder()
             .setDisplay(20)
             .setStart(0)
             .build()
             )            
+            
         newState.pages.setPage(newState.pages.getActivePageIndex(), newPage);
         return newState;
     }
@@ -73,73 +70,10 @@ class HomeUtils {
             new PreviewPageDo().toggleChecked.call(newState.pages.at(currentPageIndex));
         new PreviewPageDo().toggleChecked.call(newState.pages.at(clickedPageIndex));
         
-        let newPage = newState.pages.at(clickedPageIndex);
-        newPage = await this.addPreviewsIfEmptyPage(newPage);
+        let newPage = new PreviewPageDo(newState.pages.at(clickedPageIndex));
+        await newPage.addPreviewsIfPreviewIsEmpty();
         newState.pages.setPage(clickedPageIndex, newPage);
         return newState;
-    }
-
-    static addPreviewsIfEmptyPage = async (page) => {
-        let newPage = new PreviewPageDo(page);
-
-        if(isNotEmpty(newPage.previews)){
-            return newPage;
-        }
-
-        newPage = await this.addPreviews(
-            page,
-            new PageRequestBuilder()
-            .setDisplay(20)
-            .setStart(0)
-            .build()
-        )
-
-        return newPage;
-    }
-
-    static addPreviews = async (page, pageRequest) => {
-        let newPage = new PreviewPageDo(page);
-        const type = newPage.type;
-
-        const func = {};
-        func[PageType.BOOK] = this.addBookPreviews;
-        func[PageType.REVIEW] = this.addReviewPreviews;
-
-        newPage = await func[type](page, pageRequest);
-        return newPage;
-    }
-
-    static addBookPreviews = async (page, pageRequest) => {
-        let newPage = new PreviewPageDo(page);
-        let newPageRequest = new PageRequest(pageRequest);
-
-        const bookList = await this.getBookList(
-            new BookRequestDtoBuilder()
-                .setTitle(newPage.pageTitle)
-                .setDisplay(newPageRequest.display)
-                .setStart(newPageRequest.start)
-                .setId(newPageRequest.id)
-                .build()
-        )
-
-        newPage.previews = newPage.previews.concat(bookList);
-        return newPage;
-    }
-
-    static addReviewPreviews = async (page, pageRequest) => {
-        let newPage = new PreviewPageDo(page);
-        newPage.previews = newPage.previews.concat(
-            new PreviewDoBuilder()
-                .setTitle(page.pageTitle)
-                .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
-                .setDescription("만들어진 꿈을 살 수있는")
-                .setCreatedAt("2020년 12월 13일")
-                .setAuthor("jinseongho")
-                .setId("1")
-                .build()
-        )
-
-        return newPage;
     }
 
     static createPage = async (state, query) => {
@@ -169,7 +103,7 @@ class HomeUtils {
 
     static clearQuery = (state) => {
         let newState = new HomeStateDo(state);
-        newState.query.value = "";
+        newState.query.clear();
         return newState;
     }
 
@@ -188,10 +122,7 @@ class HomeUtils {
 
     static changeMode = (state) => {
         let newState = new HomeStateDo(state);
-        let currentMode = newState.query.type;
-        newState.query.type = PageType.BOOK === currentMode ?
-            PageType.REVIEW :
-            PageType.BOOK;
+        newState.query.changeType();
         return newState;
     }
 
@@ -217,15 +148,13 @@ class HomeUtils {
         const newState = new HomeStateDo(state);
         const activePageIndex = newState.pages.getActivePageIndex();
         let activePage = newState.pages.getActivePage();
-        console.log(activePage);
-        activePage = await this.addPreviews(
-            activePage,
+        await activePage.addPreviews(
             new PageRequestBuilder()
                 .setStart(0)
                 .setDisplay(10)
                 .build()
         )
-        newState.pages.set(activePageIndex, activePage);
+        newState.pages.setPage(activePageIndex, activePage);
         return newState;
     }
 
