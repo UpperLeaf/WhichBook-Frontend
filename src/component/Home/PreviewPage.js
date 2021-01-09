@@ -1,6 +1,6 @@
 import React from 'react';
 import "./PreviewPage.css"
-import Preview from './Preview'
+import Preview from './preview/Preview'
 import PreviewPageDo from './Do/PreviewPageDo'
 import {getPreviewTemplate} from  './PreviewTemplate'
 

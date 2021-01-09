@@ -2,7 +2,7 @@ import React from 'react'
 import Navigation from '../component/navigation/Navigation';
 import Main from '../component/Main'
 import Search from '../component/Home/Search'
-import HomeUtils from '../utils/HomeUtils'
+import HomeUtils from '../utils/HomeUtils/HomeUtils'
 import PreviewPageTitleContainer from '../component/Home/PreviewPageTitleContainer';
 import PreviewWrapper from '../component/Home/PreviewWrapper';
 import QueryDoBuilder from '../component/Home/Do/QueryDoBuilder';

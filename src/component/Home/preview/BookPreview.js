@@ -1,4 +1,4 @@
-import Preview from '../Preview';
+import Preview from './Preview';
 import PreviewDo from '../Do/PreviewDo'
 
 class BookPreview extends Preview {

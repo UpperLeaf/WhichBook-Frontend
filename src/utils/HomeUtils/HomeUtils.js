@@ -1,15 +1,16 @@
-import PreviewDoBuilder from '../component/Home/Do/PreviewDoBuilder'
-import HomeStateDo from '../component/Home/Do/HomeStateDo';
-import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
-import PreviewPageDo from '../component/Home/Do/PreviewPageDo';
-import QueryDo from '../component/Home/Do/QueryDo';
+import PreviewDoBuilder from '../../component/Home/Do/PreviewDoBuilder'
+import HomeStateDo from '../../component/Home/Do/HomeStateDo';
+import PreviewPageDoBuilder from '../../component/Home/Do/PreviewPageDoBuilder';
+import PreviewPageDo from '../../component/Home/Do/PreviewPageDo';
+import QueryDo from '../../component/Home/Do/QueryDo';
 import Axios from 'axios';
-import UriBuilder from './UriBuilder';
-import PageType from '../component/Home/Do/PageType'
+import UriBuilder from '../UriBuilder';
+import PageType from '../../component/Home/Do/PageType'
 import BookResponseDto from './dto/BookResponseDto';
 import BookRequestDtoBuilder from './dto/BookRequestDtoBuilder';
-import PageRequestBuilder from './dto/PageRequestBuilder';
-import PageRequest from './dto/PageRequest';
+import PageRequestBuilder from './PageRequestBuilder';
+import PageRequest from './PageRequest';
+import {isEmpty} from '../Utils'
 
 class HomeUtils {
 
@@ -24,74 +25,76 @@ class HomeUtils {
         let newState = new HomeStateDo(state);
         let newPages = [] || [new PreviewPageDo()];
         newPages = pages;
-
-        if (this.isNotEmpty(newPages)) {
-            const activeTitle = newPages[newPages.findIndex((page) => page.checked)].pageTitle;
-            newPages = newPages.map(
-                (page) => {
-                    return new PreviewPageDoBuilder()
-                        .setPageTitle(page.pageTitle)
-                        .setPreviews(
-                            activeTitle === page.pageTitle ? [] : page.previews
-                        )
-                        .setType(page.type)
-                        .build()
-                }
-            )
-            newState.pages = newPages;
-            newState = await this.clickedPage(newState, activeTitle);
-        }
-        else {
-            newState = await HomeUtils.clickedPage(newState, "최신");
+        
+        if (isEmpty(newPages)) {
+            return newState = await this.clickedPage(newState, "최신");
         }
 
+        newState.pages = this.emptyPreviewOfActivePage(newPages);
         return newState;
     }
 
-    static loadQuery = async (state, query) => {
+    static emptyPreviewOfActivePage = (pages) => {
+        let newPages = [] || [new PreviewPageDo()];
+        newPages = pages;
+
+        const activePageIndex = this.getActivePageIndex(newPages);
+        let activePage = newPages[activePageIndex];
+
+        activePage = this.emptyPreview(activePage);
+        newPages[activePageIndex] = activePage;
+        return newPages;
+    }
+
+    static emptyPreview = (page) => {
+        let newPage = new PreviewPageDo(page);
+        newPage.previews = [];
+        return newPage;
+    }
+
+    static loadQuery = (state, query) => {
         let newState = new HomeStateDo(state);
 
-        if (this.isNotEmpty(query)) {
-            let newQuery = new QueryDo(query);
-            newState.query.type = newQuery.type;
+        if (isEmpty(query)) {
+            return newState;
         }
-        return newState;
-    }
 
-    static isNotEmpty = (item) => {
-        if (item === undefined || item === null || item.length === 0) return false;
-        return true;
+        let newQuery = new QueryDo(query);
+        newState.query.type = newQuery.type;
+        
+        return newState;
     }
 
     static clickedPage = async (state, pageTitle) => {
         let newState = new HomeStateDo(state);
 
-        const currentPageIndex = HomeUtils.getActivePageIndex(newState);
+        const currentPageIndex = HomeUtils.getActivePageIndex(newState.pages);
         const clickedPageIndex = newState.pages.findIndex(page => page.pageTitle === pageTitle);
-
         if (currentPageIndex === clickedPageIndex) {
             return newState;
         }
+
         newState = this.togglePageByIndex(newState, currentPageIndex);
         newState = this.togglePageByIndex(newState, clickedPageIndex);
         newState = await this.loadPage(
             newState,
-            pageTitle,
-            new PageRequestBuilder()
-                .setDisplay(20)
-                .setStart(0)
-                .build()
+            pageTitle
         );
 
         return newState;
     }
 
-    static getActivePageIndex = (state) => {
-        let newState = new HomeStateDo(state);
-        let pages = newState.pages;
-        const currentIndex = pages.findIndex((page) =>
-            page.checked);
-        return currentIndex;
+    static getActivePageIndex = (pages) => {
+        let newPages = [] || [new PreviewPageDo()]
+        newPages = pages;
+        return newPages.findIndex((page) => page.checked);
+    }
+
+    static getActiveTitle = (pages) => {
+        let newPages = [] || [new PreviewPageDo()]
+        newPages = pages;
+        const activeIndex = this.getActivePageIndex(pages);
+        return newPages[activeIndex].pageTitle;
     }
 
     static togglePageByIndex = (state, pageIndex) => {
@@ -115,20 +118,26 @@ class HomeUtils {
         return newState;
     }
 
-    static loadPage = async (state, pageTitle, pageRequest) => {
+    static loadPage = async (state, pageTitle) => {
         let newState = new HomeStateDo(state);
         let pages = newState.pages;
         const pageIndex = pages.findIndex((page) => page.pageTitle === pageTitle);
-        let page = pages[pageIndex]
+        let page = pages[pageIndex];
+        console.log(state);
         if (page.previews.length === 0) {
-            page = await this.addNewPreviews(page, pageRequest);
+            page = await this.addPreviews(page, 
+                new PageRequestBuilder()
+                .setDisplay(20)
+                .setStart(0)
+                .build()
+            );
             pages[pageIndex] = page;
             newState.pages = pages;
         }
         return newState;
     }
 
-    static addNewPreviews = async (page, pageRequest) => {
+    static addPreviews = async (page, pageRequest) => {
         let newPage = new PreviewPageDo(page);
         const type = newPage.type;
 
@@ -211,7 +220,7 @@ class HomeUtils {
         if (this.isActivePage(newState, pageTitle)) {
             newState = await this.clickedPage(
                 newState,
-                newState.pages[this.getActivePageIndex(newState) - 1].pageTitle);
+                newState.pages[this.getActivePageIndex(newState.pages) - 1].pageTitle);
         }
         const pages = newState.pages.filter(page => page.pageTitle !== pageTitle);
         newState.pages = pages;
@@ -256,14 +265,14 @@ class HomeUtils {
 
     static scrollEnd = async (state) => {
         const newState = new HomeStateDo(state);
-        const activePageIndex = this.getActivePageIndex(state);
-        let activePage = newState.pages[this.getActivePageIndex(state)];
+        const activePageIndex = this.getActivePageIndex(state.pages);
+        let activePage = newState.pages[this.getActivePageIndex(state.pages)];
 
-        activePage = await this.addNewPreviews(
+        activePage = await this.addPreviews(
             activePage,
             new PageRequestBuilder()
                 .setStart(0)
-                .setDisplay(7)
+                .setDisplay(10)
                 .build()
         )
 

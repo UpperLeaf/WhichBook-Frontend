@@ -1,4 +1,4 @@
-import Preview from '../Preview';
+import Preview from './Preview';
 
 class ReviewPreview extends Preview {
 
@@ -7,7 +7,9 @@ class ReviewPreview extends Preview {
     }
 
     render() {
-        return <div />
+        return <div>
+            없음
+        </div>
     }
 
 }

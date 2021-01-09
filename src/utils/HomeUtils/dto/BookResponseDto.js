@@ -1,4 +1,4 @@
-import PreviewDoBuilder from "../../component/Home/Do/PreviewDoBuilder";
+import PreviewDoBuilder from "../../../component/Home/Do/PreviewDoBuilder";
 
 class BookResponseDto {
     constructor(bookResponseDto) {
