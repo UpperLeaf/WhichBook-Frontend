@@ -1,3 +1,4 @@
+import PageRequestBuilder from '../../../utils/HomeUtils/PageRequestBuilder.js';
 import PreviewPageDo from './PreviewPageDo.js'
 import PreviewPageDoBuilder from './PreviewPageDoBuilder.js';
 
@@ -81,10 +82,10 @@ class PreviewPages{
         if(currentPageIndex === clickedPageIndex){
             return;
         }
-        if(currentPageIndex != -1){
+        if(currentPageIndex != -1)
             new PreviewPageDo().toggleChecked.call(this.at(currentPageIndex));
-        }
         new PreviewPageDo().toggleChecked.call(this.at(clickedPageIndex));
+
         let newPage = new PreviewPageDo(this.at(clickedPageIndex));
         await newPage.addPreviewsIfPreviewIsEmpty();
         this.setPage(clickedPageIndex,newPage)
@@ -118,6 +119,12 @@ class PreviewPages{
         this.removePageByPageTitle(pageTitle);
     }
 
+    async onScrollEnd(){
+        const activePageIndex = this.getActivePageIndex();
+        const activePage = this.getActivePage();
+        await activePage.addPreviewScrolling();
+        this.setPage(activePageIndex, activePage);
+    }
     
 }
 

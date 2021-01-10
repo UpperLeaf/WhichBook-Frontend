@@ -52,6 +52,15 @@ class PreviewPageDo {
             .build()
         )
     }
+    
+    async addPreviewScrolling(){
+        await this.addPreviews(
+            new PageRequestBuilder()
+            .setDisplay(10)
+            .setStart(0)
+            .build()
+        )
+    }
 
     async addBookPreviews(pageRequest){
         let newPageRequest = new PageRequest(pageRequest);

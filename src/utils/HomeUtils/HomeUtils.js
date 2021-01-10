@@ -2,7 +2,6 @@ import HomeStateDo from '../../component/Home/Do/HomeStateDo';
 import Axios from 'axios';
 import UriBuilder from '../UriBuilder';
 import BookResponseDto from './dto/BookResponseDto';
-import PageRequestBuilder from './PageRequestBuilder';
 class HomeUtils {
 
     static getBookList = async (bookRequestDto) => {
@@ -16,24 +15,10 @@ class HomeUtils {
         }
     };
 
-    static scrollisEnd = () => {
-        const currentScrollValue = document.documentElement.scrollTop;
-        const widnowHeight = window.innerHeight;
-        const scrollHeight = document.body.scrollHeight;
-        return currentScrollValue + widnowHeight >= scrollHeight
-    }
 
     static scrollEnd = async (state) => {
         const newState = new HomeStateDo(state);
-        const activePageIndex = newState.pages.getActivePageIndex();
-        let activePage = newState.pages.getActivePage();
-        await activePage.addPreviews(
-            new PageRequestBuilder()
-                .setStart(0)
-                .setDisplay(10)
-                .build()
-        )
-        newState.pages.setPage(activePageIndex, activePage);
+        await newState.pages.onScrollEnd();
         return newState;
     }
 

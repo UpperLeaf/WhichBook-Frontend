@@ -86,10 +86,9 @@ class Home extends React.Component {
     }
 
     handleScrollEnd = async () => {
-        if(!HomeUtils.scrollisEnd())return;
-        const newState = await HomeUtils.scrollEnd(this.state);
+        const newState = new HomeStateDo(this.state);
+        await newState.onScroll();
         this.setState(newState);
-        localStorage.setItem("pages", JSON.stringify(newState.pages));
     }
 
     render() {

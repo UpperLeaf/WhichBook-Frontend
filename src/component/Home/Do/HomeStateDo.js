@@ -1,7 +1,7 @@
 import PageType from './PageType.js'
 import QueryDoBuilder from './QueryDoBuilder.js';
 import PreviewPages from './PreviewPages.js'
-import { isEmpty } from '../../../utils/Utils.js';
+import { isEmpty,scrollIsEnd } from '../../../utils/Utils.js';
 import QueryDo from './QueryDo.js';
 
 class HomeStateDo {
@@ -72,6 +72,12 @@ class HomeStateDo {
 
         let newQuery = new QueryDo(query);
         this.query.type = newQuery.type;
+    }
+
+    async onScroll(){
+        if(!scrollIsEnd())return;
+        await this.pages.onScrollEnd();
+        localStorage.setItem("pages", JSON.stringify(this.pages));
     }
 }
 
