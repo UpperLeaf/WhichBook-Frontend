@@ -1,4 +1,5 @@
 import PreviewPageDo from './PreviewPageDo.js'
+import PreviewPageDoBuilder from './PreviewPageDoBuilder.js';
 
 class PreviewPages{
 
@@ -46,6 +47,13 @@ class PreviewPages{
         this.setPage(activePageIndex, activePage);
     }
 
+    async addPreviewsAtAcivePage(){
+        const activePage = new PreviewPageDo(this.getActivePage());
+        const activePageIndex = this.getActivePageIndex();
+        await activePage.addPreviewsIfPreviewIsEmpty();
+        this.setPage(activePageIndex, activePage);
+    }
+
     getRawPages(){
         return this.pages;
     }
@@ -67,7 +75,7 @@ class PreviewPages{
         this.pages = this.pages.filter(page => page.pageTitle !== pageTitle);
     }
 
-    clickedPage(pageTitle){
+    async activePage(pageTitle){
         const currentPageIndex = this.getActivePageIndex();
         const clickedPageIndex = this.getPageIndexByPageTitle(pageTitle);
         if(currentPageIndex === clickedPageIndex){
@@ -82,6 +90,35 @@ class PreviewPages{
         this.setPage(clickedPageIndex,newPage)
     }
 
+    async createPage(pageTitle, type){
+        if(pageTitle.trim() === "")return;
+        if(this.getPageByPageTitle(pageTitle)){
+            await this.activePage();
+            return
+        }
+
+        this.add(
+            new PreviewPageDoBuilder()
+            .setPageTitle(pageTitle)
+            .setType(type)
+            .build()
+        )
+
+        await this.activePage(pageTitle)
+    }
+
+    async removePage(pageTitle){
+        if(pageTitle === "최신")return;
+        if(pageTitle === "trend")return;
+        if(this.isActivePage(pageTitle)){
+            await this.activePage(
+                this.at(this.getActivePageIndex()-1).pageTitle
+            )
+        }
+        this.removePageByPageTitle(pageTitle);
+    }
+
+    
 }
 
 export default PreviewPages;

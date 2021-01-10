@@ -11,6 +11,7 @@ import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
 import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 import Scroll from '../component/Home/Scroll'
 import PreviewPages from '../component/Home/Do/PreviewPages'
+import HomeStateDo from '../component/Home/Do/HomeStateDo';
 
 class Home extends React.Component {
 
@@ -39,9 +40,9 @@ class Home extends React.Component {
     }
 
     onload = async () => {
-        const pages = JSON.parse(localStorage.getItem("pages"));
-        const query = JSON.parse(localStorage.getItem("query"));
-        const newState = await HomeUtils.load(this.state, pages, query);
+        const newState = new HomeStateDo(this.state);
+        await newState.loadPagesInLocalStorage();
+        await newState.loadQueryInLocalStorage();
         this.setState(newState);
     }
 
@@ -55,19 +56,15 @@ class Home extends React.Component {
     }
 
     handleChangeMode = () => {
-        const newState = HomeUtils.changeMode(this.state);
+        const newState = new HomeStateDo(this.state);
+        newState.changeQueryType();
         this.setState(newState);
-
-        localStorage.setItem("query", JSON.stringify(newState.query));
     }
 
     handleCreatePage = async () => {
-        
-        const { query } = this.state;
-        let newState = await HomeUtils.createPage(this.state, query);
+        const newState = new HomeStateDo(this.state);
+        await newState.createPage();
         this.setState(newState);
-
-        localStorage.setItem("pages", JSON.stringify(newState.pages));
     }
 
     handleKeyPress = (e) => {
@@ -77,17 +74,15 @@ class Home extends React.Component {
     }
 
     handleClickedPage = async (pageTitle) => {
-        const newState = await HomeUtils.clickedPage(this.state, pageTitle);
+        const newState = new HomeStateDo(this.state);
+        await newState.clickedPage(pageTitle);
         this.setState(newState);
-
-        localStorage.setItem("pages", JSON.stringify(newState.pages));
     }
 
     handleRemovePage = async (pageTitle) => {
-        const newState = await HomeUtils.removePage(this.state, pageTitle);
+        const newState = new HomeStateDo(this.state);
+        await newState.removePage(pageTitle);
         this.setState(newState);
-
-        localStorage.setItem("pages", JSON.stringify(newState.pages));
     }
 
     handleScrollEnd = async () => {
