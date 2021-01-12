@@ -2,6 +2,10 @@ import Preview from './Preview';
 import PreviewDo from '../Do/PreviewDo'
 import noImage from './no_image.png'
 class BookPreview extends Preview {
+    
+    shouldComponentUpdate(preProps){
+        return preProps.preview !== this.props.preview;
+    }
 
     constructor() {
         super();

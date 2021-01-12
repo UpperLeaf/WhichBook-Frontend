@@ -12,11 +12,9 @@ class PreviewWrapper extends React.Component {
         const Pages = rawPages.map((
             page
         ) => (
-            <div key={page.pageTitle}>
-                <PreviewPage
-                    page={page}
-                />
-            </div>
+            <PreviewPage key={page.pageTitle}
+                page={page}
+            />
         ))
 
         return (

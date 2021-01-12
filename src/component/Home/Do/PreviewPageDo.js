@@ -63,12 +63,13 @@ class PreviewPageDo {
     }
 
     async addPreviews(pageRequest){
-        if(PageType.BOOK === this.type){
             return await this.addBookPreviews(pageRequest);
-        }
-        else{
-            await this.addReviewPreviews(pageRequest);
-        }
+        // if(PageType.BOOK === this.type){
+        //     return await this.addBookPreviews(pageRequest);
+        // }
+        // else{
+        //     await this.addReviewPreviews(pageRequest);
+        // }
     }
 
     async addPreviewsIfPreviewIsEmpty(){
@@ -123,9 +124,9 @@ class PreviewPageDo {
             new PreviewDoBuilder()
                 .setTitle(this.pageTitle)
                 .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
-                .setDescription("만들어진 꿈을 살 수있는")
-                .setCreatedAt("2020년 12월 13일")
-                .setAuthor("jinseongho")
+                .setDescription("만들어진 zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz꿈을 살dasdasdsadsadsadsadsadsadsadasdasdasdasd 수있는")
+                .setCreatedAt("2020년 12월 13dasdaszzzzzzzzzzzzzzzzdzzzzzzzzzzzzzzzasdasdazzzzzzzzzzzzzzzzzzzzzzzzzzzsdasdasdasdsadsadadsadsadsadasdsadsadsa일")
+                .setAuthor("jinseonghsdadsadasdsadzzzzzzzzzzzzazzzzzzzzzzzzzzzzzzzzzdsadsadsadadasdasdasdaso")
                 .setId("1")
                 .build()
         )

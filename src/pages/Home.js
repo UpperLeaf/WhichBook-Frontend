@@ -2,7 +2,6 @@ import React from 'react'
 import Navigation from '../component/navigation/Navigation';
 import Main from '../component/Main'
 import Search from '../component/Home/Search'
-import HomeUtils from '../utils/HomeUtils/HomeUtils'
 import PreviewPageTitleContainer from '../component/Home/PreviewPageTitleContainer';
 import PreviewWrapper from '../component/Home/PreviewWrapper';
 import QueryDoBuilder from '../component/Home/Do/QueryDoBuilder';
@@ -14,6 +13,10 @@ import PreviewPages from '../component/Home/Do/PreviewPages'
 import HomeStateDo from '../component/Home/Do/HomeStateDo';
 
 class Home extends React.Component {
+
+    shouldComponentUpdate(preProps, preState){
+        return preState != this.state;
+    }
 
     state = new HomeStateDoBuilder()
         .setQuery(
