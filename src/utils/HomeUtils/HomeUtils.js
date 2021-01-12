@@ -9,7 +9,7 @@ class HomeUtils {
             .build();
         try {
             let response = await Axios.get(uri);
-            return response.data.map(book => new BookResponseDto(book).toPreviewDo());
+            return response;
         } catch (err) {
             return err;
         }

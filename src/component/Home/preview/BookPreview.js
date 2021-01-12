@@ -1,6 +1,6 @@
 import Preview from './Preview';
 import PreviewDo from '../Do/PreviewDo'
-
+import noImage from './no_image.png'
 class BookPreview extends Preview {
 
     constructor() {
@@ -12,7 +12,7 @@ class BookPreview extends Preview {
         return (
             <div className="preview">
                 <div className="preview_img">
-                    <img src={preview.imgURL} ></img>
+                    <img src={preview.imgURL || noImage} ></img>
                 </div>
                 <div className="preview_footer">
                     <h4

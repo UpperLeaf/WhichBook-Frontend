@@ -3,7 +3,7 @@ import './PreviewPageTitle.css';
 import './Do/PreviewPageDo'
 import PreviewPageDo from './Do/PreviewPageDo';
 class PreviewPage extends React.Component {
-
+    
     render() {
         const { onClick, onRemove } = this.props;
         const page = new PreviewPageDo(this.props.page);

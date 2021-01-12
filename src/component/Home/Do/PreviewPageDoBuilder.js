@@ -26,6 +26,11 @@ class PreviewPageDoBuilder {
         return this;
     }
 
+    setPage(page){
+        this.page.page = page;
+        return this;
+    }
+
     build() {
         return this.page;
     }

@@ -15,6 +15,8 @@ class PreviewPages{
         }
     }
 
+
+
     add(pages){
         this.pages = this.pages.concat(pages);
         this.pages.splice(2, Math.max(0, this.pages.length - this.pageMaxLength))
@@ -44,7 +46,7 @@ class PreviewPages{
     emptyPreviewOfActivePage(){
         let activePage = this.getActivePage();
         let activePageIndex = this.getActivePageIndex();
-        new PreviewPageDo().removePreviews.call(activePage);
+        new PreviewPageDo().reset.call(activePage);
         this.setPage(activePageIndex, activePage);
     }
 
@@ -84,7 +86,8 @@ class PreviewPages{
         }
         if(currentPageIndex != -1)
             new PreviewPageDo().toggleChecked.call(this.at(currentPageIndex));
-        new PreviewPageDo().toggleChecked.call(this.at(clickedPageIndex));
+        if(clickedPageIndex != -1)
+            new PreviewPageDo().toggleChecked.call(this.at(clickedPageIndex));
 
         let newPage = new PreviewPageDo(this.at(clickedPageIndex));
         await newPage.addPreviewsIfPreviewIsEmpty();
@@ -94,10 +97,9 @@ class PreviewPages{
     async createPage(pageTitle, type){
         if(pageTitle.trim() === "")return;
         if(this.getPageByPageTitle(pageTitle)){
-            await this.activePage();
-            return
+            await this.activePage(pageTitle);
+            return;
         }
-
         this.add(
             new PreviewPageDoBuilder()
             .setPageTitle(pageTitle)
