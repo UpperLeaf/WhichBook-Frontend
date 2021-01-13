@@ -1,7 +1,9 @@
 import PageType from './PageType.js'
 import QueryDoBuilder from './QueryDoBuilder.js';
 import PreviewPages from './PreviewPages.js'
-import PreviewPageDo from './PreviewPageDo.js';
+import { isEmpty,scrollIsEnd } from '../../../utils/Utils.js';
+import QueryDo from './QueryDo.js';
+import PreviewDo from './PreviewDo.js';
 
 class HomeStateDo {
 
@@ -19,31 +21,84 @@ class HomeStateDo {
         }
     }
 
-    // async removePage(pageTitle) {
-    //     if (pageTitle === "최신") return state;
-    //     if (pageTitle === "trend") return state;
-
-    //     if (this.pages.isActivePage(pageTitle)) {
-
-    //     }
-    // }
-
     async clickedPage(pageTitle){
-        const currentPageIndex = this.pages.getActivePageIndex();
-        const clickedPageIndex = this.pages.getPageIndexByPageTitle(pageTitle);
-        if(currentPageIndex === clickedPageIndex){
-            return;
-        }
-        if(currentPageIndex != -1){
-            new PreviewPageDo().toggleChecked.call(this.pages.at(currentPageIndex));
-        }
-        new PreviewPageDo().toggleChecked.call(this.pages.at(clickedPageIndex));
-        let newPage = new PreviewPageDo(this.pages.at(clickedPageIndex));
-        console.log(this.pages);
-        await newPage.addPreviewsIfPreviewIsEmpty();
-        console.log(this.pages);
+        await this.pages.activePage(pageTitle);
+        localStorage.setItem("pages", JSON.stringify(this.pages));
     }
 
+    async createPage(){
+        const pageTitle = this.query.value;
+        const type = this.query.type;
+        await this.pages.createPage(pageTitle, type);
+        await this.query.clear();
+        localStorage.setItem("pages", JSON.stringify(this.pages));
+    }
+
+    async removePage(pageTitle){
+        await this.pages.removePage(pageTitle);
+        localStorage.setItem("pages", JSON.stringify(this.pages));
+    }
+
+    changeQueryType(){
+        this.query.changeType();
+        localStorage.setItem("query", JSON.stringify(this.query));
+    }
+
+    setQueryType(type){
+        this.query.type = type;
+        localStorage.setItem("query", JSON.stringify(this.query));
+    }
+
+    async loadPagesInLocalStorage(){
+        const pages = JSON.parse(localStorage.getItem("pages"));
+        await this.loadPages(pages);
+    }
+
+    async loadQueryInLocalStorage(){
+        const query = JSON.parse(localStorage.getItem("query"));
+        await this.loadQuery(query);
+    }
+
+    async loadPages(pages){
+        if(isEmpty(pages)){
+            await this.pages.activePage("최신");
+            return;
+        }
+
+        let newPages = new PreviewPages(pages);
+        newPages.emptyPreviewOfActivePage();
+        this.pages = newPages;
+        await this.pages.addPreviewsAtAcivePage();
+    }
+
+    async loadQuery(query){
+        if(isEmpty(query)){
+            return;
+        }
+
+        let newQuery = new QueryDo(query);
+        this.query.type = newQuery.type;
+    }
+
+    async onScroll(){
+        if(!scrollIsEnd())return;
+        await this.pages.onScrollEnd();
+        localStorage.setItem("pages", JSON.stringify(this.pages));
+    }
+
+    async searchReview(pageTitle){
+        const currentQueryType = this.query.type;
+        this.query.value = pageTitle;
+        this.query.type = PageType.REVIEW;
+        await this.createPage();
+        this.setQueryType(currentQueryType);
+    }
+
+    async readPreview(preview){
+        const newPreview = new PreviewDo(preview);
+        const title = newPreview.getTitle();
+        await this.searchReview(title);
+    }
 }
 
 export default HomeStateDo;

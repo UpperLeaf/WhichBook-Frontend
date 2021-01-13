@@ -6,17 +6,18 @@ import PreviewPages from './Do/PreviewPages'
 class PreviewWrapper extends React.Component {
 
     render() {
+        const {handleClickPreview, handleWriteReview} = this.props;
         let pages = new PreviewPages(this.props.pages);
         let rawPages = pages.getRawPages();
 
         const Pages = rawPages.map((
             page
         ) => (
-            <div key={page.pageTitle}>
-                <PreviewPage
-                    page={page}
-                />
-            </div>
+            <PreviewPage key={page.pageTitle}
+                page={page}
+                handleClickPreview={handleClickPreview}
+                handleWriteReview={handleWriteReview}
+            />
         ))
 
         return (

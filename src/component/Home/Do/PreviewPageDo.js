@@ -6,6 +6,7 @@ import BookRequestDtoBuilder from '../../../utils/HomeUtils/dto/BookRequestDtoBu
 import PreviewDoBuilder from './PreviewDoBuilder.js';
 import { isNotEmpty } from '../../../utils/Utils.js';
 import PageRequestBuilder from '../../../utils/HomeUtils/PageRequestBuilder.js';
+import BookResponseDto from '../../../utils/HomeUtils/dto/BookResponseDto.js';
 
 class PreviewPageDo {
 
@@ -14,6 +15,9 @@ class PreviewPageDo {
         this.checked = false;
         this.previews = [] || [new PreviewDo()];
         this.type = PageType.REVIEW;
+        this.loading = false;
+        this.page = 0;
+
         if (previewPage !== undefined) {
             for (const property in this) {
                 this[property] = previewPage[property];
@@ -27,43 +31,94 @@ class PreviewPageDo {
 
     toggleChecked(){
         this.checked = !this.checked;
-    }
+   }
 
     removePreviews(){
         this.previews = [];
     }
 
+    isLoading(){
+        return this.loading;
+    }
+
+    preventLoading(){
+        this.loading = true;
+    }
+
+    permitLoading(){
+        this.loading = false;
+    }
+
+    pageUp(){
+        this.page = this.page+20;
+    }
+
+    resetPage(){
+        this.page = 0;
+    }
+
+    reset(){
+        new PreviewPageDo().removePreviews.call(this);
+        new PreviewPageDo().resetPage.call(this);
+    }
+
     async addPreviews(pageRequest){
-        if(PageType.BOOK === this.type){
-            await this.addBookPreviews(pageRequest);
-        }
-        else{
-            await this.addReviewPreviews(pageRequest);
-        }
+            return await this.addBookPreviews(pageRequest);
+        // if(PageType.BOOK === this.type){
+        //     return await this.addBookPreviews(pageRequest);
+        // }
+        // else{
+        //     await this.addReviewPreviews(pageRequest);
+        // }
     }
 
     async addPreviewsIfPreviewIsEmpty(){
         if(isNotEmpty(this.previews))return;
 
-        await this.addPreviews(
+        const status = await this.addPreviews(
             new PageRequestBuilder()
             .setDisplay(20)
             .setStart(0)
             .build()
+        );
+
+        if(status){
+            this.pageUp();
+        }
+    }
+    
+    async addPreviewScrolling(){
+        if(this.isLoading())return;
+        this.preventLoading();
+        const status = await this.addPreviews(
+            new PageRequestBuilder()
+            .setDisplay(20)
+            .setStart(this.page)
+            .build()
         )
+        if(status){
+            this.pageUp();
+        }
+        this.permitLoading();
+        
     }
 
     async addBookPreviews(pageRequest){
         let newPageRequest = new PageRequest(pageRequest);
-        const bookList = await HomeUtils.getBookList(
+        const response = (await HomeUtils.getBookList(
             new BookRequestDtoBuilder()
             .setTitle(this.pageTitle)
             .setId(newPageRequest.id)
             .setDisplay(newPageRequest.display)
             .setStart(newPageRequest.start)
             .build()
-        )
-        this.previews = this.previews.concat(bookList);
+        ));
+        if (response.status === 200 && response.data.length !== 0) {
+            const bookList = response.data.map(book => new BookResponseDto(book).toPreviewDo());
+            this.previews = this.previews.concat(bookList);
+            return true;
+        }
+        return false;
     }
 
     async addReviewPreviews(pageRequest){
@@ -72,9 +127,9 @@ class PreviewPageDo {
             new PreviewDoBuilder()
                 .setTitle(this.pageTitle)
                 .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
-                .setDescription("만들어진 꿈을 살 수있는")
-                .setCreatedAt("2020년 12월 13일")
-                .setAuthor("jinseongho")
+                .setDescription("만들어진 zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz꿈을 살dasdasdsadsadsadsadsadsadsadasdasdasdasd 수있는")
+                .setCreatedAt("2020년 12월 13dasdaszzzzzzzzzzzzzzzzdzzzzzzzzzzzzzzzasdasdazzzzzzzzzzzzzzzzzzzzzzzzzzzsdasdasdasdsadsadadsadsadsadasdsadsadsa일")
+                .setAuthor("jinseonghsdadsadasdsadzzzzzzzzzzzzazzzzzzzzzzzzzzzzzzzzzdsadsadsadadasdasdasdaso")
                 .setId("1")
                 .build()
         )

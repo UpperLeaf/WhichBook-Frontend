@@ -23,7 +23,7 @@ const BookSelector = (props) => {
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState("");
 
-    const { book, setBook, isSelected, setIsSelected } = props;
+    const { book, setBook, isSelected, setIsSelected,bookTitle } = props;
 
     const classes = useStyles();
 
@@ -35,11 +35,21 @@ const BookSelector = (props) => {
 
     const handleSearch = async (e) => {
         if (e.which === 13) {
-            setTitle(e.target.value);
-            let response = await getBookList(e.target.value);
-            setBooks(response.data);
+            await search(e.target.value);
         }
     };
+
+    const search = async (bookTitle) => {
+        setTitle(bookTitle);
+        const response = await getBookList(bookTitle);
+        setBooks(response.data);
+    }
+
+    useEffect(async () => {
+        if(bookTitle !== ""){
+            await search(bookTitle);
+        }
+    }, [bookTitle])
 
     useEffect(() => {
         if (title !== "") {
@@ -47,6 +57,7 @@ const BookSelector = (props) => {
             setOpen(true);
         }
     }, [books]);
+
 
     const handleClose = (value) => {
         setOpen(false);

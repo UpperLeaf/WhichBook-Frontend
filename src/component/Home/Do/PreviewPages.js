@@ -1,4 +1,6 @@
+import PageRequestBuilder from '../../../utils/HomeUtils/PageRequestBuilder.js';
 import PreviewPageDo from './PreviewPageDo.js'
+import PreviewPageDoBuilder from './PreviewPageDoBuilder.js';
 
 class PreviewPages{
 
@@ -12,6 +14,8 @@ class PreviewPages{
             }
         }
     }
+
+
 
     add(pages){
         this.pages = this.pages.concat(pages);
@@ -42,7 +46,14 @@ class PreviewPages{
     emptyPreviewOfActivePage(){
         let activePage = this.getActivePage();
         let activePageIndex = this.getActivePageIndex();
-        new PreviewPageDo().removePreviews.call(activePage);
+        new PreviewPageDo().reset.call(activePage);
+        this.setPage(activePageIndex, activePage);
+    }
+
+    async addPreviewsAtAcivePage(){
+        const activePage = new PreviewPageDo(this.getActivePage());
+        const activePageIndex = this.getActivePageIndex();
+        await activePage.addPreviewsIfPreviewIsEmpty();
         this.setPage(activePageIndex, activePage);
     }
 
@@ -67,21 +78,56 @@ class PreviewPages{
         this.pages = this.pages.filter(page => page.pageTitle !== pageTitle);
     }
 
-    clickedPage(pageTitle){
+    async activePage(pageTitle){
         const currentPageIndex = this.getActivePageIndex();
         const clickedPageIndex = this.getPageIndexByPageTitle(pageTitle);
         if(currentPageIndex === clickedPageIndex){
             return;
         }
-        if(currentPageIndex != -1){
+        if(currentPageIndex != -1)
             new PreviewPageDo().toggleChecked.call(this.at(currentPageIndex));
-        }
-        new PreviewPageDo().toggleChecked.call(this.at(clickedPageIndex));
+        if(clickedPageIndex != -1)
+            new PreviewPageDo().toggleChecked.call(this.at(clickedPageIndex));
+
         let newPage = new PreviewPageDo(this.at(clickedPageIndex));
         await newPage.addPreviewsIfPreviewIsEmpty();
         this.setPage(clickedPageIndex,newPage)
     }
 
+    async createPage(pageTitle, type){
+        if(pageTitle.trim() === "")return;
+        if(this.getPageByPageTitle(pageTitle)){
+            await this.activePage(pageTitle);
+            return;
+        }
+        this.add(
+            new PreviewPageDoBuilder()
+            .setPageTitle(pageTitle)
+            .setType(type)
+            .build()
+        )
+
+        await this.activePage(pageTitle)
+    }
+
+    async removePage(pageTitle){
+        if(pageTitle === "최신")return;
+        if(pageTitle === "trend")return;
+        if(this.isActivePage(pageTitle)){
+            await this.activePage(
+                this.at(this.getActivePageIndex()-1).pageTitle
+            )
+        }
+        this.removePageByPageTitle(pageTitle);
+    }
+
+    async onScrollEnd(){
+        const activePageIndex = this.getActivePageIndex();
+        const activePage = this.getActivePage();
+        await activePage.addPreviewScrolling();
+        this.setPage(activePageIndex, activePage);
+    }
+    
 }
 
 export default PreviewPages;

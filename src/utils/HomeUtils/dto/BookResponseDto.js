@@ -8,7 +8,7 @@ class BookResponseDto {
         this.image = "";
         this.price = "";
         this.title = "";
-
+        this.isbn = "";
         for (const property in this) {
             this[property] = bookResponseDto[property];
         }
@@ -21,6 +21,7 @@ class BookResponseDto {
             .setDescription(this.description)
             .setImgURL(this.image)
             .setTitle(this.title)
+            .setIsbn(this.isbn)
             .build();
     }
 

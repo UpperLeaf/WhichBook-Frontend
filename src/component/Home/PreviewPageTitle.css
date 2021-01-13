@@ -1,6 +1,6 @@
 .preview_page_title{
     display:block;
-    max-width:6em;
+    max-width:10em;
     border-bottom: 0px;
     padding:0px;
     margin:10px;
@@ -11,6 +11,7 @@
     text-decoration: none;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size:1rem;
     white-space: nowrap;
 }
 
