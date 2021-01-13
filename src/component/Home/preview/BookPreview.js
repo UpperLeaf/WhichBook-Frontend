@@ -53,11 +53,13 @@ class BookPreview extends Preview {
                         handleReadReview(preview)}}>
                         리뷰 보기
                     </div>
-                    <div className="item" onClick={(e) => handleWriteReview(preview)}>
-                    <Link to='/compose' preview={preview}>
+                    <Link className="item"to={`/compose/${preview.getTitle()}`}>
+                    <div  onClick={(e) => {
+                        handleWriteReview(preview)
+                        }}>
                         리뷰 작성하기
-                    </Link>
                     </div>
+                    </Link>
                 </div>
             </div>
         )

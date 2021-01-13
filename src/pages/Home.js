@@ -11,7 +11,6 @@ import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 import Scroll from '../component/Home/Scroll'
 import PreviewPages from '../component/Home/Do/PreviewPages'
 import HomeStateDo from '../component/Home/Do/HomeStateDo';
-import ReviewForm from '../component/review/ReviewForm';
 
 class Home extends React.Component {
 

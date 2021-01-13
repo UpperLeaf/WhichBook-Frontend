@@ -94,11 +94,7 @@
     background-color:rgb(248, 249, 250)
 }
 
-.item > a{
-    text-decoration: none;
-}
-
-.item > a:visited{
+.item{
     text-decoration: none;
     color:black;
 }
