@@ -19,18 +19,8 @@ class PreviewPage extends React.Component {
         previews : this.props.page.previews
     }
 
-    handlePreviewClick = (preview) => {
-        console.log(preview);
-        const newPreview = new PreviewDo(preview);
-        newPreview.shortCutFlag = !newPreview.shortCutFlag;
-        const activeIndex =  this.state.previews.findIndex((preview) => preview.id === newPreview.id);
-        let newPreviews = this.state.previews;
-        newPreviews[activeIndex] = newPreview;
-        this.setState({previews : newPreviews});
-    }
-
     render() {
-        const {onClick} = this.props;
+        const {handleWriteReview,handleClickPreview} = this.props;
         const page = new PreviewPageDo(this.props.page);
         const previews = page.previews;
         let itemId = 0;
@@ -41,7 +31,7 @@ class PreviewPage extends React.Component {
                 key={itemId++}
                 preview={preview}
                 previewTemplate={
-                    getPreviewTemplate(page.type, preview, onClick, this.handlePreviewClick)
+                    getPreviewTemplate(page.type, preview, handleClickPreview, handleWriteReview)
                 }
             />
         ))

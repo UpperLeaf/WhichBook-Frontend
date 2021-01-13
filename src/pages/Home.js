@@ -11,6 +11,7 @@ import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 import Scroll from '../component/Home/Scroll'
 import PreviewPages from '../component/Home/Do/PreviewPages'
 import HomeStateDo from '../component/Home/Do/HomeStateDo';
+import ReviewForm from '../component/review/ReviewForm';
 
 class Home extends React.Component {
 
@@ -96,8 +97,11 @@ class Home extends React.Component {
 
     handleClickPreview = async (preview) => {
         const newState = new HomeStateDo(this.state);
-        await newState.clickPreview(preview);
+        await newState.readPreview(preview);
         this.setState(newState);
+    }
+
+    handleWriteReview = async(preview) => {
     }
 
     render() {
@@ -109,7 +113,8 @@ class Home extends React.Component {
             handleClickedPage,
             handleRemovePage,
             handleChangeMode,
-            handleClickPreview
+            handleClickPreview,
+            handleWriteReview
         } = this;
         return (
             <Main>
@@ -127,7 +132,8 @@ class Home extends React.Component {
                 />
                 <PreviewWrapper
                     pages={pages}
-                    onClick={handleClickPreview}
+                    handleClickPreview={handleClickPreview}
+                    handleWriteReview={handleWriteReview}
                 />
                 <Scroll
                     onScroll={handleScrollEnd}

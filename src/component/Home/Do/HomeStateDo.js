@@ -94,7 +94,7 @@ class HomeStateDo {
         this.setQueryType(currentQueryType);
     }
 
-    async clickPreview(preview){
+    async readPreview(preview){
         const newPreview = new PreviewDo(preview);
         const title = newPreview.getTitle();
         await this.searchReview(title);
