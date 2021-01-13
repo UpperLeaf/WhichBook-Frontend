@@ -113,9 +113,12 @@ class PreviewPageDo {
             .setStart(newPageRequest.start)
             .build()
         ));
-        const bookList = response.data.map(book => new BookResponseDto(book).toPreviewDo());
-        this.previews = this.previews.concat(bookList);
-        return response.status === 200 && response.data.length !== 0;
+        if (response.status === 200 && response.data.length !== 0) {
+            const bookList = response.data.map(book => new BookResponseDto(book).toPreviewDo());
+            this.previews = this.previews.concat(bookList);
+            return true;
+        }
+        return false;
     }
 
     async addReviewPreviews(pageRequest){

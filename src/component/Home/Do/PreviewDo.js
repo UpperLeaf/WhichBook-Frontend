@@ -6,7 +6,7 @@ class PreviewDo {
         this.createdAt = "";
         this.author = "";
         this.id = 0;
-
+        this.isbn = "";
         if (previewDo !== undefined) {
             for (const property in this) {
                 this[property] = previewDo[property];
