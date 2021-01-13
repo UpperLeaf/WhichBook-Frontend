@@ -3,6 +3,7 @@ import QueryDoBuilder from './QueryDoBuilder.js';
 import PreviewPages from './PreviewPages.js'
 import { isEmpty,scrollIsEnd } from '../../../utils/Utils.js';
 import QueryDo from './QueryDo.js';
+import PreviewDo from './PreviewDo.js';
 
 class HomeStateDo {
 
@@ -43,6 +44,11 @@ class HomeStateDo {
         localStorage.setItem("query", JSON.stringify(this.query));
     }
 
+    setQueryType(type){
+        this.query.type = type;
+        localStorage.setItem("query", JSON.stringify(this.query));
+    }
+
     async loadPagesInLocalStorage(){
         const pages = JSON.parse(localStorage.getItem("pages"));
         await this.loadPages(pages);
@@ -78,6 +84,20 @@ class HomeStateDo {
         if(!scrollIsEnd())return;
         await this.pages.onScrollEnd();
         localStorage.setItem("pages", JSON.stringify(this.pages));
+    }
+
+    async searchReview(pageTitle){
+        const currentQueryType = this.query.type;
+        this.query.value = pageTitle;
+        this.query.type = PageType.REVIEW;
+        await this.createPage();
+        this.setQueryType(currentQueryType);
+    }
+
+    async clickPreview(preview){
+        const newPreview = new PreviewDo(preview);
+        const title = newPreview.getTitle();
+        await this.searchReview(title);
     }
 }
 

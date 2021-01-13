@@ -12,9 +12,12 @@ class BookPreview extends Preview {
     }
 
     render() {
+        const {onClick} = this.props;
         const preview = new PreviewDo(this.props.preview);
         return (
-            <div className="preview">
+            <div className="preview" onClick={() => (
+                onClick(preview)
+                )}>
                 <div className="preview_img">
                     <img src={preview.imgURL || noImage} ></img>
                 </div>

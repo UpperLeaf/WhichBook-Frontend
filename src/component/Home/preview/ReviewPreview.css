@@ -2,7 +2,7 @@
     margin:40px 10px 5px 10px;
     display: flex;
     flex-direction: row;
-    height:auto;
+    height:350px;
     width:100%;
 }
 
@@ -28,7 +28,7 @@
     display:flex;
     flex-direction: column;
     margin:10px 0px 10px 40px;
-    width:50%;
+    width:100%;
 }
 
 .review_preview_title{

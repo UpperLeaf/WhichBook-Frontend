@@ -94,6 +94,12 @@ class Home extends React.Component {
         this.setState(newState);
     }
 
+    handleClickPreview = async (preview) => {
+        const newState = new HomeStateDo(this.state);
+        await newState.clickPreview(preview);
+        this.setState(newState);
+    }
+
     render() {
         const { pages, query } = this.state;
         const {
@@ -102,7 +108,8 @@ class Home extends React.Component {
             handleChangeQuery,
             handleClickedPage,
             handleRemovePage,
-            handleChangeMode
+            handleChangeMode,
+            handleClickPreview
         } = this;
         return (
             <Main>
@@ -120,6 +127,7 @@ class Home extends React.Component {
                 />
                 <PreviewWrapper
                     pages={pages}
+                    onClick={handleClickPreview}
                 />
                 <Scroll
                     onScroll={handleScrollEnd}

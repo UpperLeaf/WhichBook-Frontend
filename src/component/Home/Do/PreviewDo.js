@@ -1,3 +1,5 @@
+import { ThreeSixtyOutlined } from "@material-ui/icons";
+
 class PreviewDo {
     constructor(previewDo) {
         this.imgURL = "";
@@ -13,6 +15,11 @@ class PreviewDo {
             }
         }
 
+    }
+
+    getTitle(){
+        return this.title.replace("<b>","")
+        .replace("</b>", "");
     }
 }
 

@@ -7,6 +7,7 @@ import {getPreviewTemplate} from  './PreviewTemplate'
 class PreviewPage extends React.Component {
 
     render() {
+        const {onClick} = this.props;
         const page = new PreviewPageDo(this.props.page);
         const previews = page.previews;
         let itemId = 0;
@@ -17,7 +18,7 @@ class PreviewPage extends React.Component {
                 key={itemId++}
                 preview={preview}
                 previewTemplate={
-                    getPreviewTemplate(page.type, preview)
+                    getPreviewTemplate(page.type, preview, onClick)
                 }
             />
         ))
