@@ -1,5 +1,4 @@
 .preview{
-    position:relative;
     display: flex;
     width:230px;
     height:460px;
@@ -73,18 +72,18 @@
 }
 
 .preview_short_cuts{
-    display: flex;
+    display: none;
     background-color: white;
     flex-direction: column;
     position:absolute;
-    box-shadow: rgba(0,0,0,0.5) 0px 4px 10px 0px;
+    box-shadow: rgba(0,0,0,0.4) 0px 4px 10px 0px;
     width:10em;
     height:auto;
     z-index: 10;
 }
 
-.preview_short_cuts.active{
-    display:none;
+.preview.active > .preview_short_cuts{
+    display:flex;
 }
 
 .preview_short_cuts > .item{

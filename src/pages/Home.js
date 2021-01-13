@@ -95,9 +95,9 @@ class Home extends React.Component {
     }
 
     handleClickPreview = async (preview) => {
-        // const newState = new HomeStateDo(this.state);
-        // await newState.clickPreview(preview);
-        // this.setState(newState);
+        const newState = new HomeStateDo(this.state);
+        await newState.clickPreview(preview);
+        this.setState(newState);
     }
 
     render() {

@@ -7,7 +7,7 @@ class PreviewDo {
         this.author = "";
         this.id = 0;
         this.isbn = "";
-        
+        this.shortCutFlag = false;
         if (previewDo !== undefined) {
             for (const property in this) {
                 this[property] = previewDo[property];
