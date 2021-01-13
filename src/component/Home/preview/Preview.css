@@ -1,10 +1,9 @@
 .preview{
+    position:relative;
     display: flex;
     width:230px;
     height:460px;
     margin:5px 10px 5px 10px;
-    background : rgb(248, 249, 250);
-    /* background : white; */
     flex-direction: column;
 }
 
@@ -71,4 +70,27 @@
     font-size:0.6em;
     margin:0px;
     color:rgb(134, 142, 150);
+}
+
+.preview_short_cuts{
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+    position:absolute;
+    box-shadow: rgba(0,0,0,0.5) 0px 4px 10px 0px;
+    width:10em;
+    height:auto;
+    z-index: 10;
+}
+
+.preview_short_cuts.active{
+    display:none;
+}
+
+.preview_short_cuts > .item{
+    padding:10px;
+}
+
+.preview_short_cuts > .item:hover{
+    background-color:rgb(248, 249, 250)
 }

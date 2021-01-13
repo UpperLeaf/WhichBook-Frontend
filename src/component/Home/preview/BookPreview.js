@@ -41,6 +41,14 @@ class BookPreview extends Preview {
                         </span>
                     </div>
                 </div>
+                <div className="preview_short_cuts">
+                    <div className="item">
+                        리뷰 보기
+                    </div>
+                    <div className="item">
+                        리뷰 작성하기
+                    </div>
+                </div>
             </div>
         )
     }

@@ -16,7 +16,7 @@ class PreviewDo {
     }
 
     getTitle(){
-        let title = this.title.split("<b>").join('').split("</b>").join('');
+        let title = this.title.split("<b>").join('').split("</b>").join('').split("%").join('');
         return title;
     }
 }
