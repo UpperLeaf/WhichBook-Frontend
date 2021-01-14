@@ -1,7 +1,6 @@
 import React from 'react';
 import './PreviewPageTitle.css';
-import './Do/PreviewPageDo'
-import PreviewPageDo from './Do/PreviewPageDo';
+import PreviewPageDo from './Do/previewPageDo/PreviewPageDo';
 class PreviewPage extends React.Component {
 
     render() {

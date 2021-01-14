@@ -1,12 +1,12 @@
-import PreviewDo from './PreviewDo.js'
-import PageType from './PageType.js'
-import HomeUtils from '../../../utils/HomeUtils/HomeUtils.js'
-import PageRequest from '../../../utils/HomeUtils/PageRequest.js'
-import BookRequestDtoBuilder from '../../../utils/HomeUtils/dto/BookRequestDtoBuilder.js';
-import PreviewDoBuilder from './PreviewDoBuilder.js';
-import { isNotEmpty } from '../../../utils/Utils.js';
-import PageRequestBuilder from '../../../utils/HomeUtils/PageRequestBuilder.js';
-import BookResponseDto from '../../../utils/HomeUtils/dto/BookResponseDto.js';
+import PreviewDo from '../PreviewDo.js'
+import PageType from '../PageType.js'
+import HomeUtils from '../../../../utils/HomeUtils/HomeUtils.js'
+import PageRequest from '../../../../utils/HomeUtils/PageRequest.js'
+import BookRequestDtoBuilder from '../../../../utils/HomeUtils/dto/BookRequestDtoBuilder.js';
+import PreviewDoBuilder from '../PreviewDoBuilder.js';
+import { isNotEmpty } from '../../../../utils/Utils.js';
+import PageRequestBuilder from '../../../../utils/HomeUtils/PageRequestBuilder.js';
+import BookResponseDto from '../../../../utils/HomeUtils/dto/BookResponseDto.js';
 
 class PreviewPageDo {
 

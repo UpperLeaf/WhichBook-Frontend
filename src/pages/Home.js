@@ -6,7 +6,7 @@ import PreviewPageTitleContainer from '../component/Home/PreviewPageTitleContain
 import PreviewWrapper from '../component/Home/PreviewWrapper';
 import QueryDoBuilder from '../component/Home/Do/QueryDoBuilder';
 import PageType from '../component/Home/Do/PageType'
-import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
+import PreviewPageDoBuilder from '../component/Home/Do/previewPageDo/PreviewPageDoBuilder';
 import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 import Scroll from '../component/Home/Scroll'
 import PreviewPages from '../component/Home/Do/PreviewPages'
@@ -123,7 +123,7 @@ class Home extends React.Component {
                 />
                 <PreviewWrapper
                     bookPreviewTemplate={
-                        <BookPreview handleClickPreview={handleClickPreview} />
+                        <BookPreview handleReadReview={handleClickPreview} />
                     }
                     reviewPreviewTemplate={
                         <ReviewPreview />

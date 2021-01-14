@@ -1,5 +1,5 @@
-import PreviewPageDo from './PreviewPageDo.js'
-import PreviewPageDoBuilder from './PreviewPageDoBuilder.js';
+import PreviewPageDo from './previewPageDo/PreviewPageDo.js'
+import PreviewPageDoBuilder from './previewPageDo/PreviewPageDoBuilder.js';
 
 class PreviewPages {
 
