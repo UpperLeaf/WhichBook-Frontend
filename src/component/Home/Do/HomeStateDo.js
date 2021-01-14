@@ -9,8 +9,8 @@ class HomeStateDo {
 
     constructor(homeStateDo) {
         this.query = new QueryDoBuilder()
-            .setValue("")
-            .setType(PageType.REVIEW)
+            .value("")
+            .type(PageType.REVIEW)
             .build();
         this.pages = new PreviewPages();
 

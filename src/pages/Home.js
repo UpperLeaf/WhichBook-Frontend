@@ -21,17 +21,17 @@ class Home extends React.Component {
     }
 
     state = new HomeStateDoBuilder()
-        .setQuery(
+        .query(
             new QueryDoBuilder()
-                .setType(PageType.REVIEW)
-                .setValue("")
+                .type(PageType.REVIEW)
+                .value("")
                 .build()
         )
-        .setPages(
+        .pages(
             new PreviewPages()
                 .add(
                     new PreviewPageDoBuilder()
-                        .setPageTitle("최신")
+                        .pageTitle("최신")
                         .build()
                 )
         )

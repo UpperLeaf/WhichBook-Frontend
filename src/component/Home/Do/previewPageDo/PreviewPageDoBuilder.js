@@ -6,27 +6,27 @@ class PreviewPageDoBuilder {
         this.page = new PreviewPageDo();
     };
 
-    setPageTitle(pageTitle) {
+    pageTitle(pageTitle) {
         this.page.pageTitle = pageTitle;
         return this;
     }
 
-    setChecked(checked) {
+    checked(checked) {
         this.page.checked = checked;
         return this;
     }
 
-    setPreviews(previews) {
+    previews(previews) {
         this.page.previews = this.page.previews.concat(previews);
         return this;
     }
 
-    setType(type) {
+    type(type) {
         this.page.type = type;
         return this;
     }
 
-    setPage(page) {
+    page(page) {
         this.page.page = page;
         return this;
     }

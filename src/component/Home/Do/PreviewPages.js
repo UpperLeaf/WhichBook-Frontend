@@ -1,6 +1,5 @@
-import PreviewPageDo from './previewPageDo/PreviewPageDo.js'
+import PreviewPageDo from './previewPageDo/PreviewPageDo.js';
 import PreviewPageDoBuilder from './previewPageDo/PreviewPageDoBuilder.js';
-
 class PreviewPages {
 
     constructor(pages) {
@@ -99,8 +98,8 @@ class PreviewPages {
         }
         this.add(
             new PreviewPageDoBuilder()
-                .setPageTitle(pageTitle)
-                .setType(type)
+                .pageTitle(pageTitle)
+                .type(type)
                 .build()
         )
         await this.activePage(pageTitle)

@@ -15,11 +15,14 @@ class PreviewDo {
         }
     }
 
-    getTitle() {
-        let title =
-            this.title.split("<b>").join('')
-                .split("</b>").join('')
-                .split("%").join('');
+    getTitle(){
+        let title = 
+        this.title.split("<b>").join('')
+        .split("</b>").join('')
+        .split("%").join('')
+        .split("&").join('')
+        .split("[").join('')
+        .split("]").join('');
         return title;
     }
 }

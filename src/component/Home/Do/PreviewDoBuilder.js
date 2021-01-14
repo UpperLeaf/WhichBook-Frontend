@@ -5,37 +5,37 @@ class PreviewDoBuilder {
         this.PreviewDo = new PreviewDo();
     }
 
-    setImgURL(imgURL) {
+    imgURL(imgURL) {
         this.PreviewDo.imgURL = imgURL;
         return this;
     }
 
-    setTitle(title) {
+    title(title) {
         this.PreviewDo.title = title;
         return this;
     }
 
-    setDescription(description) {
+    description(description) {
         this.PreviewDo.description = description;
         return this;
     }
 
-    setCreatedAt(createdAt) {
+    createdAt(createdAt) {
         this.PreviewDo.createdAt = createdAt;
         return this;
     }
 
-    setAuthor(author) {
+    author(author) {
         this.PreviewDo.author = author;
         return this;
     }
 
-    setId(id) {
+    id(id) {
         this.PreviewDo.id = id;
         return this;
     }
 
-    setIsbn(isbn) {
+    isbn(isbn) {
         this.PreviewDo.isbn = isbn;
         return this;
     }

@@ -16,12 +16,12 @@ class BookResponseDto {
 
     toPreviewDo() {
         return new PreviewDoBuilder()
-            .setAuthor(this.author)
-            .setId(this.bookId)
-            .setDescription(this.description)
-            .setImgURL(this.image)
-            .setTitle(this.title)
-            .setIsbn(this.isbn)
+            .author(this.author)
+            .id(this.bookId)
+            .description(this.description)
+            .imgURL(this.image)
+            .title(this.title)
+            .isbn(this.isbn)
             .build();
     }
 

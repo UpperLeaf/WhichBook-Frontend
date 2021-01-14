@@ -7,12 +7,12 @@ class HomeStateDoBuilder {
         return this;
     }
 
-    setQuery(query) {
+    query(query) {
         this.homeState.query = query;
         return this;
     }
 
-    setPages(pages) {
+    pages(pages) {
         this.homeState.pages = pages;
         return this;
     }
@@ -20,7 +20,7 @@ class HomeStateDoBuilder {
     build() {
         return this.homeState;
     }
-
+    
 }
 
 export default HomeStateDoBuilder;

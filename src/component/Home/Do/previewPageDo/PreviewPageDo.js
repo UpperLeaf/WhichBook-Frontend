@@ -25,6 +25,43 @@ class PreviewPageDo {
         }
     }
 
+    static Builder = class {
+        constructor(){
+            this.previewPageDo = new PreviewPageDo();
+        }
+
+        pageTitle(pageTitle){
+            this.previewPageDo.pageTitle = pageTitle;
+            return this;
+        }
+
+        checked(checked){
+            this.previewPageDo.checked = checked;
+            return this;
+        }
+
+        previews(previews){
+            this.previewPageDo.previews = previews;
+            return this;
+        }
+
+        type(type){
+            this.previewPageDo.type = type;
+            return this;
+        }
+
+        loading(loading){
+            this.previewPageDo.loading = loading;
+            return this;
+        }
+
+        page(page){
+            this.previewPageDo.page = page;
+            return this;
+        }
+
+    }
+
     isEqual(previewPage) {
         return this.pageTitle === previewPage.pageTitle && previewPage.type === this.type;
     }
@@ -64,8 +101,9 @@ class PreviewPageDo {
 
     async addPreviews(pageRequest) {
         return await this.addBookPreviews(pageRequest);
-        // if(PageType.BOOK === this.type){
-        //     return await this.addBookPreviews(pageRequest);
+        // return await bookPreviewPageDo.addPreviews();
+        // if (PageType.BOOK === this.type) {
+        //     // return await this.addBookPreviews(pageRequest);
         // }
         // else{
         //     await this.addReviewPreviews(pageRequest);
@@ -76,8 +114,8 @@ class PreviewPageDo {
         if (isNotEmpty(this.previews)) return;
         const status = await this.addPreviews(
             new PageRequestBuilder()
-                .setDisplay(20)
-                .setStart(0)
+                .display(20)
+                .start(0)
                 .build()
         );
         if (status) {
@@ -90,8 +128,8 @@ class PreviewPageDo {
         this.preventAddPreviews();
         const status = await this.addPreviews(
             new PageRequestBuilder()
-                .setDisplay(20)
-                .setStart(this.page)
+                .display(20)
+                .start(this.page)
                 .build()
         )
         if (status) {
@@ -105,10 +143,10 @@ class PreviewPageDo {
         let newPageRequest = new PageRequest(pageRequest);
         const response = (await HomeUtils.getBookList(
             new BookRequestDtoBuilder()
-                .setTitle(this.pageTitle)
-                .setId(newPageRequest.id)
-                .setDisplay(newPageRequest.display)
-                .setStart(newPageRequest.start)
+                .title(this.pageTitle)
+                .id(newPageRequest.id)
+                .display(newPageRequest.display)
+                .start(newPageRequest.start)
                 .build()
         ));
         if (response.status === 200 && response.data.length !== 0) {
@@ -123,12 +161,12 @@ class PreviewPageDo {
         new PreviewDoBuilder
         this.previews = this.previews.concat(
             new PreviewDoBuilder()
-                .setTitle(this.pageTitle)
-                .setImgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
-                .setDescription("만들어진 zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz꿈을 살dasdasdsadsadsadsadsadsadsadasdasdasdasd 수있는")
-                .setCreatedAt("2020년 12월 13dasdaszzzzzzzzzzzzzzzzdzzzzzzzzzzzzzzzasdasdazzzzzzzzzzzzzzzzzzzzzzzzzzzsdasdasdasdsadsadadsadsadsadasdsadsadsa일")
-                .setAuthor("jinseonghsdadsadasdsadzzzzzzzzzzzzazzzzzzzzzzzzzzzzzzzzzdsadsadsadadasdasdasdaso")
-                .setId("1")
+                .title(this.pageTitle)
+                .imgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
+                .description("만들어진 zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz꿈을 살dasdasdsadsadsadsadsadsadsadasdasdasdasd 수있는")
+                .createdAt("2020년 12월 13dasdaszzzzzzzzzzzzzzzzdzzzzzzzzzzzzzzzasdasdazzzzzzzzzzzzzzzzzzzzzzzzzzzsdasdasdasdsadsadadsadsadsadasdsadsadsa일")
+                .author("jinseonghsdadsadasdsadzzzzzzzzzzzzazzzzzzzzzzzzzzzzzzzzzdsadsadsadadasdasdasdaso")
+                .id("1")
                 .build()
         )
     }

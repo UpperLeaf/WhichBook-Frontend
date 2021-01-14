@@ -6,12 +6,12 @@ class QueryDoBuilder {
         this.query = new QueryDo();
     }
 
-    setValue(value) {
+    value(value) {
         this.query.value = value;
         return this;
     }
 
-    setType(type) {
+    type(type) {
         this.query.type = type;
         return this;
     }

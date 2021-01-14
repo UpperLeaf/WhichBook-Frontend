@@ -3,22 +3,22 @@ class BookRequestDtoBuilder {
         this.bookRequestDto = {};
     }
 
-    setTitle(title) {
+    title(title) {
         this.bookRequestDto["title"] = title;
         return this;
     }
 
-    setStart(start) {
+    start(start) {
         this.bookRequestDto["start"] = start;
         return this;
     }
 
-    setDisplay(display) {
+    display(display) {
         this.bookRequestDto["display"] = display;
         return this;
     }
 
-    setId(id) {
+    id(id) {
         this.bookRequestDto["id"] = id;
         return this;
     }
