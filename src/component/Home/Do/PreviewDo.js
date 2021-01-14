@@ -17,46 +17,46 @@ class PreviewDo {
 
     static Builder = class {
         constructor() {
-            this.PreviewDo = new PreviewDo();
+            this.previewDo = new PreviewDo();
         }
 
         imgURL(imgURL) {
-            this.PreviewDo.imgURL = imgURL;
+            this.previewDo.imgURL = imgURL;
             return this;
         }
 
         title(title) {
-            this.PreviewDo.title = title;
+            this.previewDo.title = title;
             return this;
         }
 
         description(description) {
-            this.PreviewDo.description = description;
+            this.previewDo.description = description;
             return this;
         }
 
         createdAt(createdAt) {
-            this.PreviewDo.createdAt = createdAt;
+            this.previewDo.createdAt = createdAt;
             return this;
         }
 
         author(author) {
-            this.PreviewDo.author = author;
+            this.previewDo.author = author;
             return this;
         }
 
         id(id) {
-            this.PreviewDo.id = id;
+            this.previewDo.id = id;
             return this;
         }
 
         isbn(isbn) {
-            this.PreviewDo.isbn = isbn;
+            this.previewDo.isbn = isbn;
             return this;
         }
 
         build() {
-            return this.PreviewDo;
+            return this.previewDo;
         }
     }
 
