@@ -1,7 +1,7 @@
 import PreviewPageDo from "./PreviewPageDo.js";
 import HomeUtils from '../../../../utils/HomeUtils/HomeUtils.js'
 import PageRequest from '../../../../utils/HomeUtils/PageRequest.js'
-import BookRequestDtoBuilder from '../../../../utils/HomeUtils/dto/BookRequestDtoBuilder.js';
+import BookRequestDto from '../../../../utils/HomeUtils/dto/BookRequestDto.js';
 import BookResponseDto from '../../../../utils/HomeUtils/dto/BookResponseDto.js';
 
 class BookPreivewPageDo{
@@ -12,7 +12,7 @@ class BookPreivewPageDo{
     async addPreviews(pageRequest){
         let newPageRequest = new PageRequest(pageRequest);
         const response = (await HomeUtils.getBookList(
-            new BookRequestDtoBuilder()
+            new BookRequestDto.Builder()
                 .title(this.pageTitle)
                 .id(newPageRequest.id)
                 .display(newPageRequest.display)

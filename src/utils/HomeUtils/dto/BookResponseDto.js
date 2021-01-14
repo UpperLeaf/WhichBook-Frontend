@@ -1,4 +1,4 @@
-import PreviewDoBuilder from "../../../component/Home/Do/PreviewDoBuilder";
+import PreviewDo from '../../../component/Home/Do/PreviewDo.js'
 
 class BookResponseDto {
     constructor(bookResponseDto) {
@@ -15,7 +15,7 @@ class BookResponseDto {
     }
 
     toPreviewDo() {
-        return new PreviewDoBuilder()
+        return new PreviewDo.Builder()
             .author(this.author)
             .id(this.bookId)
             .description(this.description)

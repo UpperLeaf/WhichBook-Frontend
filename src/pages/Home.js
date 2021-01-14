@@ -4,15 +4,14 @@ import Main from '../component/Main'
 import Search from '../component/Home/Search'
 import PreviewPageTitleContainer from '../component/Home/PreviewPageTitleContainer';
 import PreviewWrapper from '../component/Home/PreviewWrapper';
-import QueryDoBuilder from '../component/Home/Do/QueryDoBuilder';
+import QueryDo from '../component/Home/Do/QueryDo';
 import PageType from '../component/Home/Do/PageType'
-import PreviewPageDoBuilder from '../component/Home/Do/previewPageDo/PreviewPageDoBuilder';
-import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 import Scroll from '../component/Home/Scroll'
 import PreviewPages from '../component/Home/Do/PreviewPages'
 import HomeStateDo from '../component/Home/Do/HomeStateDo';
 import ReviewPreview from '../component/Home/preview/ReviewPreview';
 import BookPreview from '../component/Home/preview/BookPreview'
+import PreviewPageDo from '../component/Home/Do/previewPageDo/PreviewPageDo';
 
 class Home extends React.Component {
 
@@ -20,9 +19,9 @@ class Home extends React.Component {
         return preState != this.state;
     }
 
-    state = new HomeStateDoBuilder()
+    state = new HomeStateDo.Builder()
         .query(
-            new QueryDoBuilder()
+            new QueryDo.Builder()
                 .type(PageType.REVIEW)
                 .value("")
                 .build()
@@ -30,9 +29,9 @@ class Home extends React.Component {
         .pages(
             new PreviewPages()
                 .add(
-                    new PreviewPageDoBuilder()
-                        .pageTitle("최신")
-                        .build()
+                    new PreviewPageDo.Builder()
+                    .pageTitle("최신")
+                    .build()
                 )
         )
         .build();

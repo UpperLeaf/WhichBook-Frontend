@@ -2,8 +2,7 @@ import PreviewDo from '../PreviewDo.js'
 import PageType from '../PageType.js'
 import HomeUtils from '../../../../utils/HomeUtils/HomeUtils.js'
 import PageRequest from '../../../../utils/HomeUtils/PageRequest.js'
-import BookRequestDtoBuilder from '../../../../utils/HomeUtils/dto/BookRequestDtoBuilder.js';
-import PreviewDoBuilder from '../PreviewDoBuilder.js';
+import BookRequestDto from '../../../../utils/HomeUtils/dto/BookRequestDto.js';
 import { isNotEmpty } from '../../../../utils/Utils.js';
 import PageRequestBuilder from '../../../../utils/HomeUtils/PageRequestBuilder.js';
 import BookResponseDto from '../../../../utils/HomeUtils/dto/BookResponseDto.js';
@@ -58,6 +57,10 @@ class PreviewPageDo {
         page(page){
             this.previewPageDo.page = page;
             return this;
+        }
+
+        build(){
+            return this.previewPageDo;
         }
 
     }
@@ -142,7 +145,7 @@ class PreviewPageDo {
     async addBookPreviews(pageRequest) {
         let newPageRequest = new PageRequest(pageRequest);
         const response = (await HomeUtils.getBookList(
-            new BookRequestDtoBuilder()
+            new BookRequestDto.Builder()
                 .title(this.pageTitle)
                 .id(newPageRequest.id)
                 .display(newPageRequest.display)
@@ -158,9 +161,8 @@ class PreviewPageDo {
     }
 
     async addReviewPreviews(pageRequest) {
-        new PreviewDoBuilder
         this.previews = this.previews.concat(
-            new PreviewDoBuilder()
+            new PreviewDo.Builder()
                 .title(this.pageTitle)
                 .imgURL("https://bookthumb-phinf.pstatic.net/cover/164/054/16405427.jpg?udate=20201222")
                 .description("만들어진 zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz꿈을 살dasdasdsadsadsadsadsadsadsadasdasdasdasd 수있는")

@@ -1,5 +1,4 @@
 import PageType from './PageType.js'
-import QueryDoBuilder from './QueryDoBuilder.js';
 import PreviewPages from './PreviewPages.js'
 import { isEmpty, getCurrentScrollHeight, isScrollNotEnd } from '../../../utils/Utils.js';
 import QueryDo from './QueryDo.js';
@@ -8,7 +7,7 @@ import PreviewDo from './PreviewDo.js';
 class HomeStateDo {
 
     constructor(homeStateDo) {
-        this.query = new QueryDoBuilder()
+        this.query = new QueryDo.Builder()
             .value("")
             .type(PageType.REVIEW)
             .build();
@@ -19,6 +18,29 @@ class HomeStateDo {
                 this[property] = homeStateDo[property];
             }
         }
+    }
+
+    static Builder = class {
+
+        constructor() {
+            this.homeState = new HomeStateDo();
+            return this;
+        }
+
+        query(query) {
+            this.homeState.query = query;
+            return this;
+        }
+
+        pages(pages) {
+            this.homeState.pages = pages;
+            return this;
+        }
+
+        build() {
+            return this.homeState;
+        }
+
     }
 
     async clickedPage(pageTitle) {

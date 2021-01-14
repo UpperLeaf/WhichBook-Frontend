@@ -13,6 +13,28 @@ class QueryDo {
         }
     }
 
+    static Builder = class {
+
+        constructor() {
+            this.query = new QueryDo();
+        }
+
+        value(value) {
+            this.query.value = value;
+            return this;
+        }
+
+        type(type) {
+            this.query.type = type;
+            return this;
+        }
+
+        build() {
+            return this.query;
+        }
+
+    }
+
     changeType() {
         this.type = this.type === PageType.BOOK ? PageType.REVIEW : PageType.BOOK;
     }
