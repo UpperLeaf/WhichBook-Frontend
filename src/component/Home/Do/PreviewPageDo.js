@@ -41,11 +41,11 @@ class PreviewPageDo {
         return this.loading;
     }
 
-    preventLoading(){
+    preventAddPreviews(){
         this.loading = true;
     }
 
-    permitLoading(){
+    permitAddPreviews(){
         this.loading = false;
     }
 
@@ -74,22 +74,20 @@ class PreviewPageDo {
 
     async addPreviewsIfPreviewIsEmpty(){
         if(isNotEmpty(this.previews))return;
-
         const status = await this.addPreviews(
             new PageRequestBuilder()
             .setDisplay(20)
             .setStart(0)
             .build()
         );
-
         if(status){
             this.pageUp();
         }
     }
     
-    async addPreviewScrolling(){
+    async addPreviewIfScrolling(){
         if(this.isLoading())return;
-        this.preventLoading();
+        this.preventAddPreviews();
         const status = await this.addPreviews(
             new PageRequestBuilder()
             .setDisplay(20)
@@ -99,7 +97,7 @@ class PreviewPageDo {
         if(status){
             this.pageUp();
         }
-        this.permitLoading();
+        this.permitAddPreviews();
         
     }
 

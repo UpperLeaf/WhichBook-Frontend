@@ -1,4 +1,3 @@
-import PageRequestBuilder from '../../../utils/HomeUtils/PageRequestBuilder.js';
 import PreviewPageDo from './PreviewPageDo.js'
 import PreviewPageDoBuilder from './PreviewPageDoBuilder.js';
 
@@ -15,11 +14,9 @@ class PreviewPages{
         }
     }
 
-
-
     add(pages){
         this.pages = this.pages.concat(pages);
-        this.pages.splice(2, Math.max(0, this.pages.length - this.pageMaxLength))
+        this.pages.splice(1, Math.max(0, this.pages.length - this.pageMaxLength))
         return this;
     }
 
@@ -106,7 +103,6 @@ class PreviewPages{
             .setType(type)
             .build()
         )
-
         await this.activePage(pageTitle)
     }
 
@@ -124,7 +120,7 @@ class PreviewPages{
     async onScrollEnd(){
         const activePageIndex = this.getActivePageIndex();
         const activePage = this.getActivePage();
-        await activePage.addPreviewScrolling();
+        await activePage.addPreviewIfScrolling();
         this.setPage(activePageIndex, activePage);
     }
     

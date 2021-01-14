@@ -13,7 +13,7 @@ class BookPreview extends Preview {
     }
     
     render() {
-        const {handleReadReview, handleWriteReview} = this.props;
+        const {handleReadReview} = this.props;
         const preview = new PreviewDo(this.props.preview);
         return (
             <div className={`preview`} onClick={(e) => {
@@ -54,9 +54,7 @@ class BookPreview extends Preview {
                         리뷰 보기
                     </div>
                     <Link className="item"to={`/compose/${preview.getTitle()}`}>
-                    <div  onClick={(e) => {
-                        handleWriteReview(preview)
-                        }}>
+                    <div>
                         리뷰 작성하기
                     </div>
                     </Link>

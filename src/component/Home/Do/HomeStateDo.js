@@ -49,6 +49,10 @@ class HomeStateDo {
         localStorage.setItem("query", JSON.stringify(this.query));
     }
 
+    setValue(value){
+        this.query.value = value;
+    }
+
     async loadPagesInLocalStorage() {
         const pages = JSON.parse(localStorage.getItem("pages"));
         await this.loadPages(pages);

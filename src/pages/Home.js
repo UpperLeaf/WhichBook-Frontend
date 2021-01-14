@@ -11,6 +11,8 @@ import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 import Scroll from '../component/Home/Scroll'
 import PreviewPages from '../component/Home/Do/PreviewPages'
 import HomeStateDo from '../component/Home/Do/HomeStateDo';
+import ReviewPreview from '../component/Home/preview/ReviewPreview';
+import BookPreview from '../component/Home/preview/BookPreview'
 
 class Home extends React.Component {
 
@@ -28,12 +30,9 @@ class Home extends React.Component {
         .setPages(
                 new PreviewPages()
                 .add(
-                [new PreviewPageDoBuilder()
-                    .setPageTitle("trend")
-                    .build(),
                 new PreviewPageDoBuilder()
                     .setPageTitle("최신")
-                    .build()]
+                    .build()
                 )
         )
         .build();
@@ -50,12 +49,9 @@ class Home extends React.Component {
     }
 
     handleChangeQuery = (e) => {
-        this.setState({
-            query: new QueryDoBuilder()
-                .setValue(e.target.value)
-                .setType(this.state.query.type)
-                .build()
-        })
+        const newState = new HomeStateDo(this.state);
+        newState.setValue(e.target.value);
+        this.setState(newState);
     }
 
     handleChangeMode = () => {
@@ -100,9 +96,6 @@ class Home extends React.Component {
         this.setState(newState);
     }
 
-    handleWriteReview = async(preview) => {
-    }
-
     render() {
         const { pages, query } = this.state;
         const {
@@ -113,7 +106,6 @@ class Home extends React.Component {
             handleRemovePage,
             handleChangeMode,
             handleClickPreview,
-            handleWriteReview
         } = this;
         return (
             <Main>
@@ -130,9 +122,13 @@ class Home extends React.Component {
                     onRemove={handleRemovePage}
                 />
                 <PreviewWrapper
+                    bookPreviewTemplate={
+                        <BookPreview handleClickPreview={handleClickPreview}/>
+                    }
+                    reviewPreviewTemplate={
+                        <ReviewPreview/>
+                    }
                     pages={pages}
-                    handleClickPreview={handleClickPreview}
-                    handleWriteReview={handleWriteReview}
                 />
                 <Scroll
                     onScroll={handleScrollEnd}
