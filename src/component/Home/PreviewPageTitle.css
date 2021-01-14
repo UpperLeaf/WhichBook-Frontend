@@ -34,3 +34,8 @@
 .preview_page_title:hover:not(.최신) .remove{
     opacity: 1;
 }
+
+.icon{
+    display: inline;
+    margin-right : 0.5em;
+}
