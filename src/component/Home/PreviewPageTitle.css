@@ -22,13 +22,13 @@
 
 .preview_page_title .remove_container{
     display:flex;
-    justify-content: flex-end;
+    justify-content:flex-end;
 }
 
 .preview_page_title .remove{
     color:#e64980;
-    font-weight: 600;
-    opacity: 0;
+    font-weight:600;
+    opacity:0;
 }
 
 .preview_page_title:hover:not(.최신):not(.trend) .remove{
