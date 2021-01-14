@@ -1,4 +1,4 @@
-class PageType{
+class PageType {
     static BOOK = "BOOK";
     static REVIEW = "REVIEW";
 }

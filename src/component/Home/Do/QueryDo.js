@@ -13,11 +13,11 @@ class QueryDo {
         }
     }
 
-    changeType(){
+    changeType() {
         this.type = this.type === PageType.BOOK ? PageType.REVIEW : PageType.BOOK;
     }
 
-    clear(){
+    clear() {
         this.value = "";
     }
 

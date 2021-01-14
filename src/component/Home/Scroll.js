@@ -1,25 +1,25 @@
 import React from 'react'
 class Scroll extends React.Component {
-	constructor() {
-    	super();
+    constructor() {
+        super();
     }
-    
+
     componentDidMount = () => {
-    	window.addEventListener('scroll', this.handleScroll);
+        window.addEventListener('scroll', this.handleScroll);
     }
-    
+
     componentWillUnMount = () => {
-    	window.removeEventListener('scroll', this.handleScroll);
+        window.removeEventListener('scroll', this.handleScroll);
     }
-    
+
     handleScroll = async (e) => {
-        const {onScroll} = this.props;
+        const { onScroll } = this.props;
         await onScroll();
     }
-    
+
     render() {
-    	return(
-        	<div className="Scroll">
+        return (
+            <div className="Scroll">
             </div>
         )
     }

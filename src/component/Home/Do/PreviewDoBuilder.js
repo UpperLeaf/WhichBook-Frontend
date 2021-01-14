@@ -35,7 +35,7 @@ class PreviewDoBuilder {
         return this;
     }
 
-    setIsbn(isbn){
+    setIsbn(isbn) {
         this.PreviewDo.isbn = isbn;
         return this;
     }

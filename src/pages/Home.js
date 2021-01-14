@@ -16,7 +16,7 @@ import BookPreview from '../component/Home/preview/BookPreview'
 
 class Home extends React.Component {
 
-    shouldComponentUpdate(preProps, preState){
+    shouldComponentUpdate(preProps, preState) {
         return preState != this.state;
     }
 
@@ -28,11 +28,11 @@ class Home extends React.Component {
                 .build()
         )
         .setPages(
-                new PreviewPages()
+            new PreviewPages()
                 .add(
-                new PreviewPageDoBuilder()
-                    .setPageTitle("최신")
-                    .build()
+                    new PreviewPageDoBuilder()
+                        .setPageTitle("최신")
+                        .build()
                 )
         )
         .build();
@@ -123,10 +123,10 @@ class Home extends React.Component {
                 />
                 <PreviewWrapper
                     bookPreviewTemplate={
-                        <BookPreview handleClickPreview={handleClickPreview}/>
+                        <BookPreview handleClickPreview={handleClickPreview} />
                     }
                     reviewPreviewTemplate={
-                        <ReviewPreview/>
+                        <ReviewPreview />
                     }
                     pages={pages}
                 />

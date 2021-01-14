@@ -1,7 +1,7 @@
 import PageType from './PageType.js'
 import QueryDoBuilder from './QueryDoBuilder.js';
 import PreviewPages from './PreviewPages.js'
-import { isEmpty, getCurrentScrollHeight, isScrollNotEnd} from '../../../utils/Utils.js';
+import { isEmpty, getCurrentScrollHeight, isScrollNotEnd } from '../../../utils/Utils.js';
 import QueryDo from './QueryDo.js';
 import PreviewDo from './PreviewDo.js';
 
@@ -49,7 +49,7 @@ class HomeStateDo {
         localStorage.setItem("query", JSON.stringify(this.query));
     }
 
-    setValue(value){
+    setValue(value) {
         this.query.value = value;
     }
 

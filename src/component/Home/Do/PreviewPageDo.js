@@ -25,45 +25,45 @@ class PreviewPageDo {
         }
     }
 
-    isEqual(previewPage){
+    isEqual(previewPage) {
         return this.pageTitle === previewPage.pageTitle && previewPage.type === this.type;
     }
 
-    toggleChecked(){
+    toggleChecked() {
         this.checked = !this.checked;
-   }
+    }
 
-    removePreviews(){
+    removePreviews() {
         this.previews = [];
     }
 
-    isLoading(){
+    isLoading() {
         return this.loading;
     }
 
-    preventAddPreviews(){
+    preventAddPreviews() {
         this.loading = true;
     }
 
-    permitAddPreviews(){
+    permitAddPreviews() {
         this.loading = false;
     }
 
-    pageUp(){
-        this.page = this.page+20;
+    pageUp() {
+        this.page = this.page + 20;
     }
 
-    resetPage(){
+    resetPage() {
         this.page = 0;
     }
 
-    reset(){
+    reset() {
         new PreviewPageDo().removePreviews.call(this);
         new PreviewPageDo().resetPage.call(this);
     }
 
-    async addPreviews(pageRequest){
-            return await this.addBookPreviews(pageRequest);
+    async addPreviews(pageRequest) {
+        return await this.addBookPreviews(pageRequest);
         // if(PageType.BOOK === this.type){
         //     return await this.addBookPreviews(pageRequest);
         // }
@@ -72,44 +72,44 @@ class PreviewPageDo {
         // }
     }
 
-    async addPreviewsIfPreviewIsEmpty(){
-        if(isNotEmpty(this.previews))return;
+    async addPreviewsIfPreviewIsEmpty() {
+        if (isNotEmpty(this.previews)) return;
         const status = await this.addPreviews(
             new PageRequestBuilder()
-            .setDisplay(20)
-            .setStart(0)
-            .build()
+                .setDisplay(20)
+                .setStart(0)
+                .build()
         );
-        if(status){
+        if (status) {
             this.pageUp();
         }
     }
-    
-    async addPreviewIfScrolling(){
-        if(this.isLoading())return;
+
+    async addPreviewIfScrolling() {
+        if (this.isLoading()) return;
         this.preventAddPreviews();
         const status = await this.addPreviews(
             new PageRequestBuilder()
-            .setDisplay(20)
-            .setStart(this.page)
-            .build()
+                .setDisplay(20)
+                .setStart(this.page)
+                .build()
         )
-        if(status){
+        if (status) {
             this.pageUp();
         }
         this.permitAddPreviews();
-        
+
     }
 
-    async addBookPreviews(pageRequest){
+    async addBookPreviews(pageRequest) {
         let newPageRequest = new PageRequest(pageRequest);
         const response = (await HomeUtils.getBookList(
             new BookRequestDtoBuilder()
-            .setTitle(this.pageTitle)
-            .setId(newPageRequest.id)
-            .setDisplay(newPageRequest.display)
-            .setStart(newPageRequest.start)
-            .build()
+                .setTitle(this.pageTitle)
+                .setId(newPageRequest.id)
+                .setDisplay(newPageRequest.display)
+                .setStart(newPageRequest.start)
+                .build()
         ));
         if (response.status === 200 && response.data.length !== 0) {
             const bookList = response.data.map(book => new BookResponseDto(book).toPreviewDo());
@@ -119,8 +119,8 @@ class PreviewPageDo {
         return false;
     }
 
-    async addReviewPreviews(pageRequest){
-            new PreviewDoBuilder
+    async addReviewPreviews(pageRequest) {
+        new PreviewDoBuilder
         this.previews = this.previews.concat(
             new PreviewDoBuilder()
                 .setTitle(this.pageTitle)
