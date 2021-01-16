@@ -10,9 +10,16 @@ export const isEmpty = (item) => {
     return !isNotEmpty(item);
 }
 
-export const scrollIsEnd = () => {
+export const getCurrentScrollHeight = () => {
     const currentScrollValue = document.documentElement.scrollTop;
     const widnowHeight = window.innerHeight;
-    const scrollHeight = document.body.scrollHeight;
-    return currentScrollValue + widnowHeight >= scrollHeight
+    return currentScrollValue + widnowHeight;
+}
+
+export const isScrollEnd = (currentScrollHeight) => {
+    return currentScrollHeight > document.body.scrollHeight;
+}
+
+export const isScrollNotEnd = (currentScrollHeight) => {
+    return currentScrollHeight <= document.body.scrollHeight;
 }

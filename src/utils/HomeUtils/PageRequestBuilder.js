@@ -6,17 +6,17 @@ class PageRequestBuilder {
         this.pageRequest = new PageRequest();
     }
 
-    setStart(start) {
+    start(start) {
         this.pageRequest.start = start;
         return this;
     }
 
-    setDisplay(display) {
+    display(display) {
         this.pageRequest.display = display;
         return this;
     }
 
-    setId(id) {
+    id(id) {
         this.pageRequest.id = id;
         return this;
     }

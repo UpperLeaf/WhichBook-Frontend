@@ -1,9 +1,12 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencilAlt, faBookOpen } from "@fortawesome/free-solid-svg-icons";
 import React from 'react';
 import './PreviewPageTitle.css';
-import './Do/PreviewPageDo'
-import PreviewPageDo from './Do/PreviewPageDo';
+import PreviewPageDo from './Do/previewPageDo/PreviewPageDo';
+import PageType from "./Do/PageType";
+
 class PreviewPage extends React.Component {
-    
+
     render() {
         const { onClick, onRemove } = this.props;
         const page = new PreviewPageDo(this.props.page);
@@ -16,7 +19,10 @@ class PreviewPage extends React.Component {
                         onRemove(page.pageTitle)
                     }}>
                         ×
+                    </div>
                 </div>
+                <div className="icon">
+                    <FontAwesomeIcon icon={page.type === PageType.BOOK ? faBookOpen : faPencilAlt} />
                 </div>
                 {page.pageTitle}
             </li>

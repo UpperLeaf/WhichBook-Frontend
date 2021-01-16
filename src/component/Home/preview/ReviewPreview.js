@@ -16,22 +16,22 @@ class ReviewPreview extends Preview {
                     <img src={preview.imgURL || noImage} ></img>
                 </div>
                 <div className="review_preview_details">
-                     <h4
-                         className="review_preview_title"
-                         dangerouslySetInnerHTML={{ __html: preview.title }}
-                     >
-                     </h4>
-                     <p
-                         className="review_preview_description"
-                         dangerouslySetInnerHTML={{ __html: preview.description }}
-                     >
-                     </p>
-                         <span className="review_preview_createdAt">
-                             {preview.createdAt}
-                         </span>
-                         <span className="review_preview_author">
-                             {preview.author}
-                         </span>
+                    <h4
+                        className="review_preview_title"
+                        dangerouslySetInnerHTML={{ __html: preview.title }}
+                    >
+                    </h4>
+                    <p
+                        className="review_preview_description"
+                        dangerouslySetInnerHTML={{ __html: preview.description }}
+                    >
+                    </p>
+                    <span className="review_preview_createdAt">
+                        {preview.createdAt}
+                    </span>
+                    <span className="review_preview_author">
+                        {preview.author}
+                    </span>
                 </div>
             </div>
         )

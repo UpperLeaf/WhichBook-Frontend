@@ -4,36 +4,34 @@ import Main from '../component/Main'
 import Search from '../component/Home/Search'
 import PreviewPageTitleContainer from '../component/Home/PreviewPageTitleContainer';
 import PreviewWrapper from '../component/Home/PreviewWrapper';
-import QueryDoBuilder from '../component/Home/Do/QueryDoBuilder';
+import QueryDo from '../component/Home/Do/QueryDo';
 import PageType from '../component/Home/Do/PageType'
-import PreviewPageDoBuilder from '../component/Home/Do/PreviewPageDoBuilder';
-import HomeStateDoBuilder from '../component/Home/Do/HomeStateDoBuilder';
 import Scroll from '../component/Home/Scroll'
 import PreviewPages from '../component/Home/Do/PreviewPages'
 import HomeStateDo from '../component/Home/Do/HomeStateDo';
+import ReviewPreview from '../component/Home/preview/ReviewPreview';
+import BookPreview from '../component/Home/preview/BookPreview'
+import PreviewPageDo from '../component/Home/Do/previewPageDo/PreviewPageDo';
 
 class Home extends React.Component {
 
-    shouldComponentUpdate(preProps, preState){
+    shouldComponentUpdate(preProps, preState) {
         return preState != this.state;
     }
 
-    state = new HomeStateDoBuilder()
-        .setQuery(
-            new QueryDoBuilder()
-                .setType(PageType.REVIEW)
-                .setValue("")
+    state = new HomeStateDo.Builder()
+        .query(
+            new QueryDo.Builder()
+                .type(PageType.REVIEW)
+                .value("")
                 .build()
         )
-        .setPages(
-                new PreviewPages()
+        .pages(
+            new PreviewPages()
                 .add(
-                [new PreviewPageDoBuilder()
-                    .setPageTitle("trend")
-                    .build(),
-                new PreviewPageDoBuilder()
-                    .setPageTitle("최신")
-                    .build()]
+                    new PreviewPageDo.Builder()
+                    .pageTitle("최신")
+                    .build()
                 )
         )
         .build();
@@ -50,12 +48,9 @@ class Home extends React.Component {
     }
 
     handleChangeQuery = (e) => {
-        this.setState({
-            query: new QueryDoBuilder()
-                .setValue(e.target.value)
-                .setType(this.state.query.type)
-                .build()
-        })
+        const newState = new HomeStateDo(this.state);
+        newState.setValue(e.target.value);
+        this.setState(newState);
     }
 
     handleChangeMode = () => {
@@ -100,9 +95,6 @@ class Home extends React.Component {
         this.setState(newState);
     }
 
-    handleWriteReview = async(preview) => {
-    }
-
     render() {
         const { pages, query } = this.state;
         const {
@@ -113,7 +105,6 @@ class Home extends React.Component {
             handleRemovePage,
             handleChangeMode,
             handleClickPreview,
-            handleWriteReview
         } = this;
         return (
             <Main>
@@ -130,9 +121,13 @@ class Home extends React.Component {
                     onRemove={handleRemovePage}
                 />
                 <PreviewWrapper
+                    bookPreviewTemplate={
+                        <BookPreview handleReadReview={handleClickPreview} />
+                    }
+                    reviewPreviewTemplate={
+                        <ReviewPreview />
+                    }
                     pages={pages}
-                    handleClickPreview={handleClickPreview}
-                    handleWriteReview={handleWriteReview}
                 />
                 <Scroll
                     onScroll={handleScrollEnd}

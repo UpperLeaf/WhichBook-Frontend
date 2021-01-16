@@ -1,16 +1,15 @@
 import PageType from './PageType.js'
-import QueryDoBuilder from './QueryDoBuilder.js';
 import PreviewPages from './PreviewPages.js'
-import { isEmpty,scrollIsEnd } from '../../../utils/Utils.js';
+import { isEmpty, getCurrentScrollHeight, isScrollNotEnd } from '../../../utils/Utils.js';
 import QueryDo from './QueryDo.js';
 import PreviewDo from './PreviewDo.js';
 
 class HomeStateDo {
 
     constructor(homeStateDo) {
-        this.query = new QueryDoBuilder()
-            .setValue("")
-            .setType(PageType.REVIEW)
+        this.query = new QueryDo.Builder()
+            .value("")
+            .type(PageType.REVIEW)
             .build();
         this.pages = new PreviewPages();
 
@@ -21,12 +20,35 @@ class HomeStateDo {
         }
     }
 
-    async clickedPage(pageTitle){
+    static Builder = class {
+
+        constructor() {
+            this.homeState = new HomeStateDo();
+            return this;
+        }
+
+        query(query) {
+            this.homeState.query = query;
+            return this;
+        }
+
+        pages(pages) {
+            this.homeState.pages = pages;
+            return this;
+        }
+
+        build() {
+            return this.homeState;
+        }
+
+    }
+
+    async clickedPage(pageTitle) {
         await this.pages.activePage(pageTitle);
         localStorage.setItem("pages", JSON.stringify(this.pages));
     }
 
-    async createPage(){
+    async createPage() {
         const pageTitle = this.query.value;
         const type = this.query.type;
         await this.pages.createPage(pageTitle, type);
@@ -34,33 +56,37 @@ class HomeStateDo {
         localStorage.setItem("pages", JSON.stringify(this.pages));
     }
 
-    async removePage(pageTitle){
+    async removePage(pageTitle) {
         await this.pages.removePage(pageTitle);
         localStorage.setItem("pages", JSON.stringify(this.pages));
     }
 
-    changeQueryType(){
+    changeQueryType() {
         this.query.changeType();
         localStorage.setItem("query", JSON.stringify(this.query));
     }
 
-    setQueryType(type){
+    setQueryType(type) {
         this.query.type = type;
         localStorage.setItem("query", JSON.stringify(this.query));
     }
 
-    async loadPagesInLocalStorage(){
+    setValue(value) {
+        this.query.value = value;
+    }
+
+    async loadPagesInLocalStorage() {
         const pages = JSON.parse(localStorage.getItem("pages"));
         await this.loadPages(pages);
     }
 
-    async loadQueryInLocalStorage(){
+    async loadQueryInLocalStorage() {
         const query = JSON.parse(localStorage.getItem("query"));
         await this.loadQuery(query);
     }
 
-    async loadPages(pages){
-        if(isEmpty(pages)){
+    async loadPages(pages) {
+        if (isEmpty(pages)) {
             await this.pages.activePage("최신");
             return;
         }
@@ -71,8 +97,8 @@ class HomeStateDo {
         await this.pages.addPreviewsAtAcivePage();
     }
 
-    async loadQuery(query){
-        if(isEmpty(query)){
+    async loadQuery(query) {
+        if (isEmpty(query)) {
             return;
         }
 
@@ -80,13 +106,13 @@ class HomeStateDo {
         this.query.type = newQuery.type;
     }
 
-    async onScroll(){
-        if(!scrollIsEnd())return;
+    async onScroll() {
+        if (isScrollNotEnd(getCurrentScrollHeight())) return;
         await this.pages.onScrollEnd();
         localStorage.setItem("pages", JSON.stringify(this.pages));
     }
 
-    async searchReview(pageTitle){
+    async searchReview(pageTitle) {
         const currentQueryType = this.query.type;
         this.query.value = pageTitle;
         this.query.type = PageType.REVIEW;
@@ -94,7 +120,7 @@ class HomeStateDo {
         this.setQueryType(currentQueryType);
     }
 
-    async readPreview(preview){
+    async readPreview(preview) {
         const newPreview = new PreviewDo(preview);
         const title = newPreview.getTitle();
         await this.searchReview(title);

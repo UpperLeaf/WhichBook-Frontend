@@ -1,4 +1,5 @@
 class PageRequest {
+    
     constructor(pageRequest) {
         this.start = 0;
         this.display = 10;
