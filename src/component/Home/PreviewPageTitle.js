@@ -19,7 +19,7 @@ class PreviewPage extends React.Component {
                         onRemove(page.pageTitle)
                     }}>
                         ×
-                </div>
+                    </div>
                 </div>
                 <div className="icon">
                     <FontAwesomeIcon icon={page.type === PageType.BOOK ? faBookOpen : faPencilAlt} />

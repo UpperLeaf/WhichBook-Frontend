@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
 import Preview from './Preview';
 import PreviewDo from '../Do/PreviewDo'
 import noImage from './no_image.png'
@@ -18,23 +20,47 @@ class BookPreview extends Preview {
         const preview = new PreviewDo(this.props.preview);
         return (
             <div className={`preview`} onClick={(e) => {
-                const main_x = document.querySelector('.main').getBoundingClientRect().x;
-                const x = (e.nativeEvent.pageX.toString() - main_x) + "px";
-                const y = e.nativeEvent.pageY.toString() + "px";
-                const target = e.currentTarget.querySelector(".preview_short_cuts");
-                target.style.left = x;
-                target.style.top = y
-                e.currentTarget.classList.toggle("active")
+                // const main_x = document.querySelector('.main').getBoundingClientRect().x;
+                // const x = (e.nativeEvent.pageX.toString() - main_x) + "px";
+                // const y = e.nativeEvent.pageY.toString() + "px";
+                // const target = e.currentTarget.querySelector(".preview_short_cuts");
+                // target.style.left = x;
+                // target.style.top = y
+                // e.currentTarget.classList.toggle("active")
             }}>
                 <div className="preview_img">
                     <img src={preview.imgURL || noImage} ></img>
                 </div>
-                <div className="preview_footer">
+                <div className="header">
                     <h4
                         className="preview_title"
                         dangerouslySetInnerHTML={{ __html: preview.title }}
                     >
                     </h4>
+                    <div className="content"
+                        onClick={(e) => {
+                            e.currentTarget.classList.toggle("active")
+                        }}
+                    >
+                        <FontAwesomeIcon
+                            className="icon"
+                            icon={faEllipsisV}
+                        />
+                        <div className="preview_short_cuts">
+                            <div className="item" onClick={(e) => {
+                                handleReadReview(preview)
+                            }}>
+                                리뷰 보기
+                            </div>
+                            <Link className="item" to={`/compose/${preview.getTitle()}`}>
+                                <div>
+                                    리뷰 작성하기
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+                <div className="preview_footer">
                     <p
                         className="preview_description"
                         dangerouslySetInnerHTML={{ __html: preview.description }}
@@ -48,18 +74,6 @@ class BookPreview extends Preview {
                             {preview.author}
                         </span>
                     </div>
-                </div>
-                <div className="preview_short_cuts">
-                    <div className="item" onClick={(e) => {
-                        handleReadReview(preview)
-                    }}>
-                        리뷰 보기
-                    </div>
-                    <Link className="item" to={`/compose/${preview.getTitle()}`}>
-                        <div>
-                            리뷰 작성하기
-                    </div>
-                    </Link>
                 </div>
             </div>
         )
